@@ -1,0 +1,29 @@
+CREATE DATABASE `scheduler` DEFAULT CHARACTER SET latin1;
+
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text,
+  `location` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) NOT NULL,
+  `calendar` varchar(45) NOT NULL,
+  `from` int(11) NOT NULL,
+  `to` int(11) DEFAULT NULL,
+  `recurrenceRule` varchar(45) DEFAULT NULL,
+  `recurrenceException` varchar(255) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `resource` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user` (
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `display_name` varchar(50) DEFAULT NULL,
+  `password` varchar(128) NOT NULL,
+  `state` smallint(5) unsigned DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
