@@ -1,8 +1,9 @@
 <?
 $this->inlineScript()
-    ->appendFile($this->basePath('js/project/layout.js'))
-    ->appendFile($this->basePath('js/project/scheduler.js'))
-    ->appendFile($this->basePath('js/project/schedulerEvents.js'))
+    //The files live inside the public folder
+    ->appendFile($this->basePath('js/project/scheduler/layout.js'))
+    ->appendFile($this->basePath('js/project/scheduler/scheduler.js'))
+    ->appendFile($this->basePath('js/project/scheduler/schedulerEvents.js'))
 
     ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
     ->appendFile($this->basePath('js/scripts/demos.js'))
@@ -29,7 +30,6 @@ $this->inlineScript()
     ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxnumberinput.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxradiobutton.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
     ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
     ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
