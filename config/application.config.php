@@ -7,7 +7,8 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'Role',
-        'Task'
+        'Task',
+        'Message'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
