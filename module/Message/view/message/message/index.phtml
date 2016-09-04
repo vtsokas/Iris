@@ -1,9 +1,72 @@
-MAILBOX
+<?
+$this->inlineScript()
+    //The files live inside the public folder
+    ->appendFile($this->basePath('js/project/mail/layout.js'))
 
-<?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 3/9/2016
- * Time: 8:57 μμ
- */
+    ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
+    ->appendFile($this->basePath('js/scripts/demos.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxribbon.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdate.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxscheduler.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxscheduler.api.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdatetimeinput.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxmenu.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcalendar.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxtooltip.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxwindow.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcheckbox.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxtree.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxnumberinput.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxnumberinput.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxradiobutton.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
+    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
+    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
+
+?>
+<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
+<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
+
+
+<style>
+    body, html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 3px;
+        box-sizing: border-box;
+        margin: 0;
+    }
+</style>
+
+<div id="jqxLayout">
+    <!--The panel content divs can have a flat structure-->
+    <!--left menu-->
+    <div data-container="Document1Panel">
+        <div id='jqxMenu' style="visibility: hidden;">
+            <ul>
+                <li><a href="#">Εισερχόμενα</a></li>
+                <li><a href="#">Απεσταλμένα</a></li>
+                <li><a href="#">Πρόχειρα</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--toolbar-->
+    <div data-container="Toolbar">
+        Document 2 content</div>
+    <!--mailarea-->
+    <div data-container="MailPanel">
+        Output</div>
+</div>
+
+
+
