@@ -1,9 +1,17 @@
 /**
  * Created by gep on 04-Sep-16.
  */
-$('#jqxMenu').on('itemclick', function (event)
-{
-    // get the clicked LI element.
+$(document).ready(function () {
+    $('#LeftMenu').on('itemclick', function (event) {
+        // get the clicked LI element.
 
-    var element = event.args;
+        $("#MailGrid").text("papakia");
+
+    });
+
+    $('#LeftMenu').on('initialized', function () {
+        $("#second").click();
+        //$("#MailGrid").text("papakia");
+    });
+
 });

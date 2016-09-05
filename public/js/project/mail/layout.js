@@ -2,12 +2,12 @@ $(document).ready(function () {
     var theme = 'darkblue';
     $("#Search").jqxInput({ placeHolder: "Search", height: '40px', theme: theme});
 
-    $("#LeftMenu").jqxMenu({width: 'auto', height:'99%', mode: 'vertical', theme: theme});
+    $("#LeftMenu").jqxMenu({width: '100%', height:'99%', mode: 'vertical', theme: theme});
     $("#LeftMenu").css('visibility', 'visible');
 
     $("#MailGrid").jqxGrid(
         {
-            width: '100%',
+            width: '80%',
             pageable: false,
             autoheight: true,
             sortable: false,
@@ -24,4 +24,6 @@ $(document).ready(function () {
 
     $("#jqxDockPanel").jqxDockPanel({ width: '100%', height: '1002325', theme: theme});
     $('#jqxDockPanel').jqxDockPanel('render');
+
+
 });

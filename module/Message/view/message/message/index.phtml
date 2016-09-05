@@ -1,8 +1,10 @@
 <?
 $this->inlineScript()
     //The files live inside the public folder
+    ->appendFile($this->basePath('js/project/mail/mailEvents.js'))
     ->appendFile($this->basePath('js/project/mail/layout.js'))
     ->appendFile($this->basePath('js/project/mail/topMenuLayout.js'))
+
 
     ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
@@ -45,12 +47,12 @@ $this->inlineScript()
     <div id="jqxDockPanel" style="overflow:hidden">
         <!--left menu-->
         <div dock='left'>
-            <input type="text" id="Search"/>
+            <input type="text" id="Search" text="sadjklf"/>
             <div id='LeftMenu' style="visibility: hidden;">
                 <ul>
-                    <li><a href="#">Εισερχόμενα</a></li>
-                    <li><a href="#">Απεσταλμένα</a></li>
-                    <li><a href="#">Πρόχειρα</a></li>
+                    <li id="first"><a href="#">Εισερχόμενα</a></li>
+                    <li id="second"><a href="#">Απεσταλμένα</a></li>
+                    <li id="third"><a href="#">Πρόχειρα</a></li>
                 </ul>
             </div>
         </div>
