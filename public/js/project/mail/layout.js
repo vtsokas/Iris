@@ -1,54 +1,30 @@
 $(document).ready(function () {
     var theme = 'darkblue';
-    // the 'layout' JSON array defines the internal structure of the layout
-    var layout = [{
-        type: 'layoutGroup',
-        orientation: 'vertical',
-        items: [{
-            type: 'documentGroup',
-            orientation: 'horizontal',
-            width: '100px',
-            items: [{
-                type: 'documentPanel',
-                title: 'Προβολή',
-                contentContainer: 'Document1Panel'
-            }]
-        }, {
-            type: 'documentGroup',
-            orientation: 'horizontal',
-            width: '80%',
-            items: [{
-                type: 'documentGroup',
-                height: '80%',
-                minHeight: '25%',
-                items: [{
-                    type: 'documentPanel',
-                    title: 'Προβολή',
-                    contentContainer: 'Document1Panel',
-                    initContent: function(){
-                        $('#jqxTree').jqxTree({ height: '99%', hasThreeStates: false, checkboxes: true, width: '99%'});
-                        $('#jqxTree').css('visibility', 'visible');
-                        $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
-                        $("#jqxTree").bind('change', function (event) {
-                            console.log($('#jqxTree').jqxTree('getItems'));
-                        });
-                    }
-                }]
-            }, {
-                type: 'layoutPanel',
-                title: 'Διαδραστικό Ημερολόγιο',
-                contentContainer: 'SolutionExplorerPanel',
-                initContent: function(){
-                    $('#jqxTree').jqxTree({ height: '99%', hasThreeStates: false, checkboxes: true, width: '99%'});
-                    $('#jqxTree').css('visibility', 'visible');
-                    $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
-                    $("#jqxTree").bind('change', function (event) {
-                        console.log($('#jqxTree').jqxTree('getItems'));
-                    });
-                }
-            }]
-        }]
-    }];
-    $('#jqxLayout').jqxLayout({ width: '100%', height: '100%',
-        theme:theme,layout: layout });
+    $("#Search").jqxInput({ placeHolder: "Search", height: '40px', theme: theme});
+
+    $("#LeftMenu").jqxMenu({width: 'auto', height:'99%', mode: 'vertical', theme: theme});
+    $("#LeftMenu").css('visibility', 'visible');
+
+    $("#TopMenu").jqxMenu({width: 'auto', mode: 'horizontal', theme: theme});
+    $("#TopMenu").css('visibility', 'visible');
+
+    $("#MailGrid").jqxGrid(
+        {
+            width: '100%',
+            pageable: false,
+            autoheight: true,
+            sortable: false,
+            altrows: false,
+            enabletooltips: false,
+            editable: false,
+            selectionmode: 'multiplecellsadvanced',
+            columns: [
+                { text: 'Sender', datafield: 'Sender', width: '20%' },
+                { text: 'Subject', datafield: 'Subject', width: '60%' },
+                { text: 'Date', datafield: 'Date', width: '20%' }
+            ]
+        });
+
+    $("#jqxDockPanel").jqxDockPanel({ width: '100%', height: '1002325', theme: theme});
+    $('#jqxDockPanel').jqxDockPanel('render');
 });
