@@ -2,9 +2,6 @@ $(document).ready(function () {
     var theme = 'darkblue';
     $("#Search").jqxInput({ placeHolder: "Search", height: '40px', theme: theme});
 
-    $("#LeftMenu").jqxMenu({width: '100%', height:'99%', mode: 'vertical', theme: theme});
-    $("#LeftMenu").css('visibility', 'visible');
-
     $("#MailGrid").jqxGrid(
         {
             width: '80%',

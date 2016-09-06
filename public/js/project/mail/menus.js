@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var theme = 'darkblue';
+
     /*
      Dynamically add elements to TopMenu
      */
@@ -18,4 +19,9 @@ $(document).ready(function () {
     $("#TopMenu").jqxMenu({width: 'auto', mode: 'horizontal', theme: theme});
     $("#TopMenu").css('visibility', 'visible');
 
+    /*
+    Left menu
+     */
+    $("#LeftMenu").jqxMenu({width: '100%', height:'99%', mode: 'vertical', theme: theme});
+    $("#LeftMenu").css('visibility', 'visible');
 });
