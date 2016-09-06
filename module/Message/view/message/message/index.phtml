@@ -1,53 +1,60 @@
-<?
-$this->inlineScript()
-    //The files live inside the public folder
-    ->appendFile($this->basePath('js/project/mail/mailEvents.js'))
-    ->appendFile($this->basePath('js/project/mail/layout.js'))
-    ->appendFile($this->basePath('js/project/mail/menus.js'))
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <?
+    $this->inlineScript()
+        //The files live inside the public folder
+        ->appendFile($this->basePath('js/project/mail/sampleData.js'))
+        ->appendFile($this->basePath('js/project/mail/dataTable.js'))
+        ->appendFile($this->basePath('js/project/mail/mailEvents.js'))
+        ->appendFile($this->basePath('js/project/mail/menus.js'))
+        ->appendFile($this->basePath('js/project/mail/layout.js'))
 
 
-    ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxdockpanel.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxmenu.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
+        ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxdockpanel.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxmenu.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
 
-    ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxcheckbox.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.sort.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.pager.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.selection.js'))
-    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.edit.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxdatatable.js'))
+        /*->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.sort.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.pager.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.selection.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.edit.js'))*/
 
-    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
-    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
+        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
+        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
 
-?>
-<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
-<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
+    ?>
+    <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
+    <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
 
 
-<style>
-    body, html {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        padding: 3px;
-        box-sizing: border-box;
-        margin: 0;
-    }
-</style>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            padding: 3px;
+            box-sizing: border-box;
+            margin: 0;
+        }
+    </style>
+</head>
+
 <body>
-    <div id="jqxDockPanel" style="overflow:hidden">
+    <div id="jqxDockPanel" style="width: auto; height: 100%;">
         <!--left menu-->
-        <div dock='left'>
-            <input type="text" id="Search" text="sadjklf"/>
+        <div dock='left' style="padding-right:4px">
+            <input type="text" id="Search" style=" margin-bottom:4px"/>
             <div id='LeftMenu' style="visibility: hidden;">
                 <ul>
                     <li id="first"><a href="#">Εισερχόμενα</a></li>
@@ -57,7 +64,7 @@ $this->inlineScript()
             </div>
         </div>
         <!--top menu-->
-        <div id='TopMenu' dock='top' style="visibility: hidden;">
+        <div id='TopMenu' dock='top' style="visibility:">
             <ul name="myList">
                 <!--
                 <li><a href="#">Δημιουργία</a></li>
@@ -67,7 +74,7 @@ $this->inlineScript()
             </ul>
         </div>
         <!--mailarea-->
-        <div dock='right' id='MailGrid'>
-            mails</div>
+        <div id='MailTable'>
+            </div>
     </div>
 </body>

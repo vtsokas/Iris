@@ -8,14 +8,33 @@ $(document).ready(function () {
         var element = event.args;
         var args = new Array();
         switch(element.id) {
-            case "first":
-                args=[1,5,10];
+            case "inbox":
+                args=["create", "reply", "view", "delete"];
+                data = data.filter(function (x) {
+                    return x.state == "inbox";
+                });
+
+                /*datatablesampledata =
+                {
+                    localData: data,
+                    dataType: "array",
+                    dataFields:
+                        [
+                            { name: 'office', type: 'string' },
+                            { name: 'sender', type: 'string' },
+                            { name: 'subject', type: 'string' },
+                            { name: 'date', type: 'string' },
+                        ]
+                };*/
+                SampleData.dataBind();
+
+                $("#MailTable").jqxDataTable('updateBoundData');
                 break;
-            case "second":
-                args=[2,8,11];
+            case "outbox":
+                args=["create", "view", "delete"];
                 break;
-            case "third":
-                args=[3,4,9];
+            case "drafts":
+                args=["create", "edit", "view", "delete"];
                 break;
             default:
             //default code block
@@ -25,12 +44,12 @@ $(document).ready(function () {
     });
 
     $('#LeftMenu').on('initialized', function () {
-        //$("#second").click();
+        //$("#inbox").click();
     });
 
     function HideMenuItems(){
-        for($i=1; $i<=TopMenuValues.length; $i++) {
-            $("#"+$i).hide();
+        for($i=0; $i<TopMenuItems.length; $i++) {
+            $("#"+TopMenuItems[$i].id).hide();
         }
     }
 
