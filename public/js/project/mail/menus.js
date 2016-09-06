@@ -1,16 +1,16 @@
 var TopMenuValues = [
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Mail</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Calendar</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Contacts</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Inbox</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Admin</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Corporate</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Finance</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Other</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Deleted Items</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Notes</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Settings</span>" },
-    { html: "<img src='../../../img/sendmail.png'/><span style='position: relative; left: 3px; top: -2px;'>Favorites</span>" }
+    { id: 1, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Mail</span>" },
+    { id: 2, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Calendar</span>" },
+    { id: 3, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Contacts</span>" },
+    { id: 4, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span>" },
+    { id: 5, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Admin</span>" },
+    { id: 6, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Corporate</span>" },
+    { id: 7, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Finance</span>" },
+    { id: 8, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Other</span>" },
+    { id: 9, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Deleted Items</span>" },
+    { id: 10, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Notes</span>" },
+    { id: 11, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Settings</span>" },
+    { id: 12, html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Favorites</span>" }
 ];
 
 $(document).ready(function () {
@@ -31,7 +31,7 @@ $(document).ready(function () {
         $('[name="myList"]').append($myDiv);
     }*/
 
-    $("#TopMenu").jqxMenu({source: test, width: 'auto', mode: 'horizontal', theme: theme});
+    $("#TopMenu").jqxMenu({source: TopMenuValues, width: 'auto', mode: 'horizontal', theme: theme});
     $("#TopMenu").css('visibility', 'visible');
 
     /*

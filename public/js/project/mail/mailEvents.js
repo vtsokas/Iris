@@ -1,18 +1,43 @@
 /**
  * Created by gep on 04-Sep-16.
  */
-var test;
+
 $(document).ready(function () {
     $('#LeftMenu').on('itemclick', function (event) {
-        // get the clicked LI element.
+        // get the clicked LI elements
+        var element = event.args;
+        var args = new Array();
+        switch(element.id) {
+            case "first":
+                args=[1,5,10];
+                break;
+            case "second":
+                args=[2,8,11];
+                break;
+            case "third":
+                args=[3,4,9];
+                break;
+            default:
+            //default code block
+        }
 
-        //$("#MailGrid").text("papakia");
-        test = [ TopMenuValues[0], TopMenuValues[1], TopMenuValues[2] ];
+        ShowMenuItems(args);
     });
 
     $('#LeftMenu').on('initialized', function () {
-        $("#second").click();
-        //$("#MailGrid").text("papakia");
+        //$("#second").click();
     });
 
+    function HideMenuItems(){
+        for($i=1; $i<=TopMenuValues.length; $i++) {
+            $("#"+$i).hide();
+        }
+    }
+
+    function ShowMenuItems(args){
+        HideMenuItems();
+        for($i=0; $i<args.length; $i++) {
+            $("#"+args[$i]).show();
+        }
+    }
 });
