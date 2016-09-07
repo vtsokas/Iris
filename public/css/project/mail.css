@@ -2,20 +2,29 @@
     box-sizing: border-box;
 }
 
-.header {
+.topmenu {
     margin-left:10%;
     width:50%;
     height:30px;
     margin-bottom: 5px;
 }
-.menu {
+.leftmenu {
     width: 10%;
     height:570px;
     padding-right: 5px;
     float: left;
 }
-.main {
+.content {
     width: 50%;
     height:570px;
     float: left;
+}
+
+.inputparams {
+    margin-bottom:5px;
+    display:block;
+}
+
+.editor {
+    height:508px;
 }

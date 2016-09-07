@@ -1,6 +1,7 @@
 /**
  * Created by gep on 06-Sep-16.
  */
+    var theme = 'darkblue';
 var SampleData;
 $(document).ready(function () {
     SampleData = new $.jqx.dataAdapter(datatablesampledata);

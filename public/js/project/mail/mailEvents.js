@@ -11,7 +11,7 @@ $(document).ready(function () {
         var args = new Array();
         switch(element.id) {
             case "inbox":
-                args=["create", "reply", "view", "delete"];
+                args=["create"];
                 break;
             case "outbox":
                 args=["create", "view", "delete"];
@@ -57,16 +57,7 @@ $(document).ready(function () {
         var args = new Array();
         switch (element.id){
             case "create":
-                $('#MailTable').css('display','none');
-
-                $('#inputReceiver').jqxInput({placeHolder: ' Παραλήπτης', theme: theme, height: 25, width: 250, minLength: 1});
-                $('#inputSubject').jqxInput({placeHolder: ' Θέμα', theme: theme,height: 25, width: 250, minLength: 1});
-                $('#creation').css('display','initial');
-                $('#text').jqxEditor({
-                    theme: theme,
-                    height: '100%',
-                    width: '100%'
-                });
+                ShowNewEmailUI();
                 args=["send","save","cancel"];
                 break;
             case "reply":
@@ -82,6 +73,14 @@ $(document).ready(function () {
             case "save":
                 break;
             case "cancel":
+                $('#creation').css('display','none');
+                //$('#text').jqxEditor('destroy');
+                $('#text').val('');
+                $('#inputReceiver').val(null);
+                $('#inputSubject').val(null);
+
+                $('#MailTable').css('display','block');
+                //$("#MailTable").jqxGrid('refresh');
                 args = previousState;
                 break;
             default:
@@ -90,4 +89,9 @@ $(document).ready(function () {
 
     });
 
+    $("#MailTable").on('rowclick', function (event)
+    {
+        var args=["create", "reply", "view", "delete"];
+        ShowMenuItems(args);;
+    });
 });
