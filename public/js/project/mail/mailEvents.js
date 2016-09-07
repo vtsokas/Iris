@@ -57,12 +57,12 @@ $(document).ready(function () {
         var args = new Array();
         switch (element.id){
             case "create":
-                //$('#MailTable').html("");
-                //$('#MailTable').css('z-index',-1);
-                $('#InputReceiver').jqxInput({placeHolder: ' Παραλήπτης',height: 25, width: 250, minLength: 1});
-                $('#InputSubject').jqxInput({placeHolder: ' Θέμα',height: 25, width: 250, minLength: 1});
-                $('#Inputs').css('display','initial');
-                $('#MailTable').jqxEditor({
+                $('#MailTable').css('display','none');
+
+                $('#inputReceiver').jqxInput({placeHolder: ' Παραλήπτης', theme: theme, height: 25, width: 250, minLength: 1});
+                $('#inputSubject').jqxInput({placeHolder: ' Θέμα', theme: theme,height: 25, width: 250, minLength: 1});
+                $('#creation').css('display','initial');
+                $('#text').jqxEditor({
                     theme: theme,
                     height: '100%',
                     width: '100%'
