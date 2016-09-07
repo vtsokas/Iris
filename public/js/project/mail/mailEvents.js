@@ -1,11 +1,9 @@
-/**
- * Created by gep on 04-Sep-16.
- */
 
+var previousState; // keeping user's last selection on left menu
 $(document).ready(function () {
 
     /*
-    Alternating content of mailTable according to left menu selection(inbox, outbox, drafts etc.)
+    Changing content according to left menu selection(inbox, outbox, drafts etc.)
      */
     $('#LeftMenu').on('itemclick', function (event) {
         // get the clicked LI elements
@@ -14,25 +12,6 @@ $(document).ready(function () {
         switch(element.id) {
             case "inbox":
                 args=["create", "reply", "view", "delete"];
-                data = data.filter(function (x) {
-                    return x.state == "inbox";
-                });
-
-                /*datatablesampledata =
-                {
-                    localData: data,
-                    dataType: "array",
-                    dataFields:
-                        [
-                            { name: 'office', type: 'string' },
-                            { name: 'sender', type: 'string' },
-                            { name: 'subject', type: 'string' },
-                            { name: 'date', type: 'string' },
-                        ]
-                };*/
-                SampleData.dataBind();
-
-                $("#MailTable").jqxDataTable('updateBoundData');
                 break;
             case "outbox":
                 args=["create", "view", "delete"];
@@ -43,12 +22,12 @@ $(document).ready(function () {
             default:
             //default code block
         }
-
+        previousState = args;
         ShowMenuItems(args);
     });
 
     $('#LeftMenu').on('initialized', function () {
-        //$("#inbox").click();
+        $("#inbox").click();
     });
 
     /*
@@ -70,17 +49,21 @@ $(document).ready(function () {
         }
     }
 
-
-
+    /*
+     Changing content according to top menu selection(create, reply, cancel etc.)
+     */
     $('#TopMenu').on('itemclick', function(event){
         var element = event.args;
-
+        var args = new Array();
         switch (element.id){
             case "create":
                 $('#MailTable').html("");
                 $('#MailTable').jqxEditor({
-                    theme: theme
+                    theme: theme,
+                    height: 100,
+                    width: 100
                 });
+                args=["send","save","cancel"];
                 break;
             case "reply":
                 break;
@@ -95,11 +78,11 @@ $(document).ready(function () {
             case "save":
                 break;
             case "cancel":
+                args = previousState;
                 break;
             default:
-
-
         }
+        ShowMenuItems(args);
 
     });
 
