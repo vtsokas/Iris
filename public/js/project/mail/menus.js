@@ -18,20 +18,8 @@ var LeftMenuItems = [
 $(document).ready(function () {
 
     /*
-     Dynamically add elements to TopMenu
+     Top menu
      */
-    var $numOfButtons = 3;
-    var $buttons = [
-        {name:'Create', id:'crt'},
-        {name:'Delete', id:'dlt'},
-        {name:'Hide', id:'hd'}
-    ];
-
-    /*for($i=0; $i<$numOfButtons; $i++) {
-        var $myDiv = ('<li id="'+($buttons[$i]).id+'">'+($buttons[$i]).name+'<li>');
-        $('[name="myList"]').append($myDiv);
-    }*/
-
     $("#TopMenu").jqxMenu({source: TopMenuItems, width: '100%', mode: 'horizontal', theme: theme});
     $("#TopMenu").css('visibility', 'visible');
 
