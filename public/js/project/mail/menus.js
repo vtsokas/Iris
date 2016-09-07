@@ -20,12 +20,12 @@ $(document).ready(function () {
     /*
      Top menu
      */
-    $("#TopMenu").jqxMenu({source: TopMenuItems, width: '100%', mode: 'horizontal', theme: theme});
+    $("#TopMenu").jqxMenu({source: TopMenuItems, height:30,  mode: 'horizontal', theme: theme});
     $("#TopMenu").css('visibility', 'visible');
 
     /*
     Left menu
      */
-    $("#LeftMenu").jqxMenu({source: LeftMenuItems, width: 'auto', height:'100%', mode: 'vertical', theme: theme});
+    $("#LeftMenu").jqxMenu({source: LeftMenuItems, height:'100%',  mode: 'vertical', theme: theme});
     $("#LeftMenu").css('visibility', 'visible');
 });
