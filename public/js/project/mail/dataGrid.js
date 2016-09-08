@@ -15,7 +15,10 @@ $(document).ready(function () {
             theme: theme,
             //pagerButtonsCount: 10,
             source: SampleData,
-            //columnsResize: true,
+            enabletooltips: true,
+            selectionmode: 'checkbox',
+            enablebrowserselection:false,
+            //:false,
             columns: [
                 { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' },
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' },

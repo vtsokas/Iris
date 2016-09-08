@@ -12,12 +12,20 @@ $(document).ready(function () {
         switch(element.id) {
             case "inbox":
                 args=["create"];
+                var filtereddata = data.filter(function (e) {                //test filter
+                    return e.state=="inbox";
+                });
+                datatablesampledata.localdata=filtereddata;
+                //SampleData.dataBind();                                    //not necessary
+                $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
+                $('#MailTable').jqxGrid('clearselection');                  //clear selected items
+
                 break;
             case "outbox":
-                args=["create", "view", "delete"];
+                args=["create"];
                 break;
             case "drafts":
-                args=["create", "edit", "view", "delete"];
+                args=["create"];
                 break;
             default:
             //default code block
@@ -27,7 +35,7 @@ $(document).ready(function () {
     });
 
     $('#LeftMenu').on('initialized', function () {
-        $("#inbox").click();
+        //$("#inbox").click();
     });
 
     /*
@@ -89,9 +97,29 @@ $(document).ready(function () {
 
     });
 
-    $("#MailTable").on('rowclick', function (event)
+    $("#MailTable").on('rowselect', function (event)
     {
-        var args=["create", "reply", "view", "delete"];
-        ShowMenuItems(args);;
+        GetTopButtonsOnGridSelectionChange();
     });
+
+    $('#MailTable').on('rowunselect', function (event)
+    {
+        GetTopButtonsOnGridSelectionChange();
+    });
+
+    GetTopButtonsOnGridSelectionChange = function(){
+        var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');
+        if (selectedrowindexes.length==1){
+            var args=["create", "reply", "view", "delete"];
+            ShowMenuItems(args);;
+        }
+        else if (selectedrowindexes.length==0){
+            var args=["create"];
+            ShowMenuItems(args);
+        }
+        else{
+            var args=["create", "delete"];
+            ShowMenuItems(args);
+        }
+    }
 });

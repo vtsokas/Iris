@@ -12,7 +12,7 @@ $(document).ready(function () {
         ];
     var sender =
         [
-            "Παπαδόπουλος", "Παντακίδης Ο Μέγας", "Γιαγκούλας", "Τσόκας"
+            "Παπαδόπουλος", "Παντακίδης Ο Μέγας", "Γιαγκούλας", "Τσόκας", "KLCI-85"
         ];
     var subject =
         [
@@ -26,15 +26,18 @@ $(document).ready(function () {
         [
             "inbox", "outbox", "draft"
         ];
-    for (var i = 0; i < 200; i++) {
-        var row = {};
-        row["office"] = office[Math.floor(Math.random() * office.length)];
-        row["sender"] = sender[Math.floor(Math.random() * sender.length)];
-        row["subject"] = subject[Math.floor(Math.random() * subject.length)];
-        row["state"] = state[Math.floor(Math.random() * state.length)];
-        row["date"] = date[Math.floor(Math.random() * date.length)];
-        data[i] = row;
+    generatedata = function(){
+        for (var i = 0; i < 200; i++) {
+            var row = {};
+            row["office"] = office[Math.floor(Math.random() * office.length)];
+            row["sender"] = sender[Math.floor(Math.random() * sender.length)];
+            row["subject"] = subject[Math.floor(Math.random() * subject.length)];
+            row["state"] = state[Math.floor(Math.random() * state.length)]; //test purpose
+            row["date"] = date[Math.floor(Math.random() * date.length)];
+            data[i] = row;
+        }
     }
+    generatedata();
 
     datatablesampledata =
     {

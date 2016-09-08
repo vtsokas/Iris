@@ -28,3 +28,8 @@
 .editor {
     height:508px;
 }
+
+.jqx-fill-state-hover-darkblue{
+    background: #FFFFFF; !important;
+    color:#004a73; !important;
+}
