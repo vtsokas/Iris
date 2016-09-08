@@ -15,23 +15,29 @@ $(document).ready(function () {
                 var filtereddata = data.filter(function (e) {                //test filter
                     return e.state=="inbox";
                 });
-                datatablesampledata.localdata=filtereddata;
-                //SampleData.dataBind();                                    //not necessary
-                $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
-                $('#MailTable').jqxGrid('clearselection');                  //clear selected items
-
                 break;
             case "outbox":
                 args=["create"];
+                var filtereddata = data.filter(function (e) {                //test filter
+                    return e.state=="outbox";
+                });
                 break;
             case "drafts":
                 args=["create"];
+                var filtereddata = data.filter(function (e) {                //test filter
+                    return e.state=="draft";
+                });
                 break;
             default:
             //default code block
         }
         previousState = args;
         ShowMenuItems(args);
+
+        datatablesampledata.localdata=filtereddata;
+        //SampleData.dataBind();                                    //not necessary
+        $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
+        $('#MailTable').jqxGrid('clearselection');                  //clear selected items
     });
 
     $('#LeftMenu').on('initialized', function () {
