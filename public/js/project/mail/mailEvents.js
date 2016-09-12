@@ -1,5 +1,6 @@
 
 var previousState; // keeping user's last selection on left menu
+
 $(document).ready(function () {
 
     /*
@@ -36,12 +37,25 @@ $(document).ready(function () {
 
         datatablesampledata.localdata=filtereddata;
         //SampleData.dataBind();                                    //not necessary
+
+        /*
+        If left menu selection is made while in new email
+        hide email interface and show mail table
+         */
+        if($('#MailTable').css('display')=='none'){
+            $('#readEmail').css('display','none');
+            $('#newEmail').css('display','none');
+            $('#MailTable').css('display','block');
+        }
         $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
         $('#MailTable').jqxGrid('clearselection');                  //clear selected items
     });
 
+    /*
+    Default selection on initialization is the inbox
+     */
     $('#LeftMenu').on('initialized', function () {
-        //$("#inbox").click();
+        $("#inbox").click();
     });
 
     /*
@@ -79,20 +93,27 @@ $(document).ready(function () {
             case "edit":
                 break;
             case "view":
+                ShowReadEmailUI();
+                args=["reply","delete","cancel"];
                 break;
             case "delete":
                 break;
             case "send":
+                //mock message
+                alert("Μήνυμα εστάλη");
+                $('#newEmail').css('display','none');
+                HideNewEmailInterface();
+                args = previousState;
+                $('#MailTable').css('display','block');
                 break;
             case "save":
                 break;
             case "cancel":
-                $('#creation').css('display','none');
-                //$('#text').jqxEditor('destroy');
-                $('#text').val('');
-                $('#inputReceiver').val(null);
-                $('#inputSubject').val(null);
-
+                // hide view email
+                $('#readEmail').css('display','none');
+                // hide new email
+                HideNewEmailInterface();
+                // show mails
                 $('#MailTable').css('display','block');
                 //$("#MailTable").jqxGrid('refresh');
                 args = previousState;
@@ -100,7 +121,6 @@ $(document).ready(function () {
             default:
         }
         ShowMenuItems(args);
-
     });
 
     $("#MailTable").on('rowselect', function (event)
@@ -112,6 +132,18 @@ $(document).ready(function () {
     {
         GetTopButtonsOnGridSelectionChange();
     });
+
+    /*
+    Method to hide and clear all fields of new email interface
+     */
+    HideNewEmailInterface = function(){
+        $('#text').val('');
+        $('#inputReceiver1').val(null);
+        $('#inputReceiver2').val(null);
+        $('#inputSubject').val(null);
+        $('#newEmail').css('display','none');
+        // need to reset tools' selection!!!!
+    }
 
     GetTopButtonsOnGridSelectionChange = function(){
         var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');

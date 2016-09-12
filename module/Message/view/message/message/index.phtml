@@ -66,15 +66,35 @@
         </div>
     </div>
     <div class="content">
+        <!--
+        area for mail interface
+        -->
         <div id='MailTable' style="visibility:hidden;"></div>
 
-        <div id="creation" style="display: none">
+        <!--
+        area for new email interface
+        -->
+        <div id="newEmail" style="display: none">
             <div id="inputs">
-                <input class="inputparams" id="inputReceiver"/>
+                <input class="inputparams" id="inputReceiver1"/>
+                <input class="inputparams" id="inputReceiver2"/>
                 <input class="inputparams" id="inputSubject"/>
             </div>
             <div class="editor">
                 <div id="text"></div>
+            </div>
+        </div>
+
+        <!--
+        area for received emails
+        -->
+        <div id="readEmail" style="display: none">
+            <div id="info">
+                <div id="viewSender">Αποστολέας: </div>
+                <div id="viewSubject">Θέμα: </div>
+            </div>
+            <div class="editor">
+                <div id="viewer"></div>
             </div>
         </div>
 

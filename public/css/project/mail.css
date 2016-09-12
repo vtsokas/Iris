@@ -22,7 +22,28 @@
 
 .inputparams {
     margin-bottom:5px;
+    margin-right:5px;
     display:block;
+}
+
+#inputReceiver1{
+    float: left;
+    display: inherit;
+}
+
+#viewSender{
+    border: 5px solid;
+    border-radius: 2px;
+    border-color: #0a73a7;
+    margin-bottom: 2px;
+    theme: theme;
+}
+#viewSubject{
+    border: 5px solid;
+    border-radius: 2px;
+    border-color: #0a73a7;
+    margin-bottom: 2px;
+    theme: theme;
 }
 
 .editor {
