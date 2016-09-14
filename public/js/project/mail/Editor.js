@@ -1,16 +1,17 @@
+
 /**
- * Created by gep on 07-Sep-16.
+ * Function to generate and show the new email interface
  */
 ShowNewEmailUI = function(){
-    $('#MailTable').jqxGrid('clearselection');
-    $('#MailTable').css('display','none');
 
-    var offices = new Array("1ο ΕΓ","2o ΕΓ","3ο ΕΓ","4ο ΕΓ","ΔΟΙ","ΔΜΧ","ΔΔΒ","ΔΠΒ","ΓΕΠ",
-                            "ΔΚΤΗΣ","ΥΔΚΤΗΣ","ΕΠΧΗΣ","Β.ΕΠΧΗ","ΙΕΡΕΑΣ","ΥΠΑΣΠΙΣΤΗΡΙΟ");     //all offices to choose from
+    ClearNewEmailInterface();   //TODO find a way to clear tools selection
+
+    var offices = ["1ο ΕΓ","2o ΕΓ","3ο ΕΓ","4ο ΕΓ","ΔΟΙ","ΔΜΧ","ΔΔΒ","ΔΠΒ","ΓΕΠ",
+                    "ΔΚΤΗΣ","ΥΔΚΤΗΣ","ΕΠΧΗΣ","Β.ΕΠΧΗ","ΙΕΡΕΑΣ","ΥΠΑΣΠΙΣΤΗΡΙΟ"];     //all offices to choose from
     /*
     Auto-completed list and multiple choices for Receivers' input
      */
-    $('#inputReceiver1').jqxInput({placeHolder: ' Γραφείο/Δκση/Δνση', theme: theme, height: 25, width: 250, minLength: 1,
+    $('#inputReceiver1').jqxInput({placeHolder: 'Γραφείο/Δκση/Δνση', theme: theme, height: 25, width: 250, minLength: 1,
         source: function (query, response) {
             var item = query.split(/,\s*/).pop();
             // update the search query.
@@ -30,8 +31,8 @@ ShowNewEmailUI = function(){
         }
     });
 
-    $('#inputReceiver2').jqxInput({placeHolder: ' Επιτελής', theme: theme, height: 25, width: 250, minLength: 1});
-    $('#inputSubject').jqxInput({placeHolder: ' Θέμα', theme: theme,height: 25, width: 250, minLength: 1});
+    $('#inputReceiver2').jqxInput({placeHolder: 'Επιτελής', theme: theme, height: 25, width: 250, minLength: 1});
+    $('#inputSubject').jqxInput({placeHolder: 'Θέμα', theme: theme,height: 25, width: 250, minLength: 1});
     $('#newEmail').css('display','block');
     $('#text').jqxEditor({
         theme: theme,
@@ -41,9 +42,21 @@ ShowNewEmailUI = function(){
     });
 }
 
+/**
+ * Function to clear all fields on new email interface
+ */
+ClearNewEmailInterface = function(){
+    $('#text').val('');
+    $('#inputReceiver1').val(null);
+    $('#inputReceiver2').val(null);
+    $('#inputSubject').val(null);
+}
+
+/**
+ * Function to generate and show the read email interface
+ */
 ShowReadEmailUI = function(){
     $('#MailTable').jqxGrid('clearselection');
-    $('#MailTable').css('display','none');
     $('#readEmail').css('display','block');
     $('#viewer').jqxEditor({
         theme: theme,

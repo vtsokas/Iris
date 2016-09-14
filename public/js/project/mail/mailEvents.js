@@ -3,8 +3,8 @@ var previousState; // keeping user's last selection on left menu
 
 $(document).ready(function () {
 
-    /*
-    Changing content according to left menu selection(inbox, outbox, drafts etc.)
+    /**
+     * Changing content according to left menu selection(inbox, outbox, drafts etc.)
      */
     $('#LeftMenu').on('itemclick', function (event) {
         // get the clicked LI elements
@@ -33,58 +33,50 @@ $(document).ready(function () {
             //default code block
         }
         previousState = args;
-        ShowMenuItems(args);
+        ShowTopMenuItems(args);
 
         datatablesampledata.localdata=filtereddata;
-        //SampleData.dataBind();                                    //not necessary
 
-        /*
-        If left menu selection is made while in new email
-        hide email interface and show mail table
-         */
-        if($('#MailTable').css('display')=='none'){
-            $('#readEmail').css('display','none');
-            $('#newEmail').css('display','none');
-            $('#MailTable').css('display','block');
-        }
-        $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
-        $('#MailTable').jqxGrid('clearselection');                  //clear selected items
+        HideAllInterfaces();
+        ShowMailTableInterface();
+
     });
 
-    /*
-    Default selection on initialization is the inbox
+    /**
+     * Default selection on initialization is the inbox
      */
     $('#LeftMenu').on('initialized', function () {
         $("#inbox").click();
     });
 
-    /*
-    Function to hide all of top menu's elements
+    /**
+     * Function to hide all of top menu's elements
      */
-    function HideMenuItems(){
+    function HideTopMenuItems(){
         for($i=0; $i<TopMenuItems.length; $i++) {
             $("#"+TopMenuItems[$i].id).hide();
         }
     }
 
-    /*
-    Function to show selected elements(args) on top menu
+    /**
+     * Function to show selected elements(args) on top menu
      */
-    function ShowMenuItems(args){
-        HideMenuItems();
+    function ShowTopMenuItems(args){
+        HideTopMenuItems();
         for($i=0; $i<args.length; $i++) {
             $("#"+args[$i]).show();
         }
     }
 
-    /*
-     Changing content according to top menu selection(create, reply, cancel etc.)
+    /**
+     * Changing content according to top menu selection(create, reply, cancel etc.)
      */
     $('#TopMenu').on('itemclick', function(event){
         var element = event.args;
         var args = new Array();
         switch (element.id){
             case "create":
+                HideAllInterfaces();
                 ShowNewEmailUI();
                 args=["send","save","cancel"];
                 break;
@@ -93,6 +85,7 @@ $(document).ready(function () {
             case "edit":
                 break;
             case "view":
+                HideAllInterfaces();
                 ShowReadEmailUI();
                 args=["reply","delete","cancel"];
                 break;
@@ -101,63 +94,71 @@ $(document).ready(function () {
             case "send":
                 //mock message
                 alert("Μήνυμα εστάλη");
-                $('#newEmail').css('display','none');
-                HideNewEmailInterface();
+                HideAllInterfaces();
+                ShowMailTableInterface();
                 args = previousState;
-                $('#MailTable').css('display','block');
                 break;
             case "save":
                 break;
             case "cancel":
-                // hide view email
-                $('#readEmail').css('display','none');
-                // hide new email
-                HideNewEmailInterface();
-                // show mails
-                $('#MailTable').css('display','block');
-                //$("#MailTable").jqxGrid('refresh');
+                HideAllInterfaces();
+                ShowMailTableInterface();
                 args = previousState;
                 break;
             default:
         }
-        ShowMenuItems(args);
+        ShowTopMenuItems(args);
     });
 
-    $("#MailTable").on('rowselect', function (event)
-    {
-        GetTopButtonsOnGridSelectionChange();
-    });
-
-    $('#MailTable').on('rowunselect', function (event)
-    {
-        GetTopButtonsOnGridSelectionChange();
-    });
-
-    /*
-    Method to hide and clear all fields of new email interface
+    /**
+     * Changes on interface on row selected
      */
-    HideNewEmailInterface = function(){
-        $('#text').val('');
-        $('#inputReceiver1').val(null);
-        $('#inputReceiver2').val(null);
-        $('#inputSubject').val(null);
-        $('#newEmail').css('display','none');
-        // need to reset tools' selection!!!!
-    }
+    $("#MailTable").on('rowselect', function (event){
+        GetTopButtonsOnGridSelectionChange();
+    });
 
+    /**
+     * Changes on interface on row unselected
+     */
+    $('#MailTable').on('rowunselect', function (event){
+        GetTopButtonsOnGridSelectionChange();
+    });
+
+    /**
+     * Function determines which buttons should appear on top menu, according to email selection
+     */
     GetTopButtonsOnGridSelectionChange = function(){
         var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');
         if (selectedrowindexes.length==1){
             var args=["create", "reply", "view", "delete"];
-            ShowMenuItems(args);;
+            ShowTopMenuItems(args);;
         }
         else if (selectedrowindexes.length==0){
             var args=["create"];
-            ShowMenuItems(args);
+            ShowTopMenuItems(args);
         }
         else{
             var args=["create", "delete"];
-            ShowMenuItems(args);
+            ShowTopMenuItems(args);
         }
     }
+
+    /**
+     * Hides all interfaces
+     */
+    HideAllInterfaces = function(){
+        $('#newEmail').css('display','none');
+        $('#readEmail').css('display','none');
+        $('#MailTable').css('display','none');
+    }
+
+    /**
+     * Show mailtable interface
+     */
+    ShowMailTableInterface = function () {
+        $('#MailTable').jqxGrid('clearselection');                  //clear selected items
+        $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
+        $('#MailTable').css('display','block');                     //show interface
+    }
+
 });

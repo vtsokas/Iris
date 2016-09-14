@@ -23,6 +23,7 @@
 .inputparams {
     margin-bottom:5px;
     margin-right:5px;
+    text-indent: 5px;
     display:block;
 }
 
@@ -48,6 +49,7 @@
 
 .editor {
     height:508px;
+    text-indent: 3px;
 }
 
 .jqx-fill-state-hover-darkblue{
