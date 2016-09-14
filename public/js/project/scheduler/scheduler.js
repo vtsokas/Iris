@@ -1,25 +1,39 @@
 scheduler = function(){
-    var source =
+    var dataSource =
     {
         dataType: 'array',
         dataFields: [
             { name: 'id', type: 'string' },
             { name: 'status', type: 'string' },
+            { name: 'background', type: 'string' },
             { name: 'description', type: 'string' },
             { name: 'location', type: 'string' },
             { name: 'subject', type: 'string' },
             { name: 'style', type: 'string' },
-            { name: 'resource', type: 'string' },
+            { name: 'calendar', type: 'string' },
             { name: 'start', type: 'date', format: "yyyy-MM-dd HH:mm" },
             { name: 'end', type: 'date', format: "yyyy-MM-dd HH:mm" }
         ],
         id: 'id'
     };
-    var adapter = new $.jqx.dataAdapter(source);
+
+    var resources = [{calendar:"ΓΕΠ"},{calendar:"ΓΕΠ1"},{calendar:"ΓΕΠ3"}];
+
+    var resourceSource =
+    {
+        dataType: 'array',
+        dataFields: [
+            { name: 'calendar', type: 'string' }
+        ],
+        id: 'calendar',
+        localdata: resources
+    };
+    var dataAdapter = new $.jqx.dataAdapter(dataSource);
+    var resourceAdapter = new $.jqx.dataAdapter(resourceSource);
     $("#scheduler").jqxScheduler({
         width: '99.8%',
         height: '99%',
-        source: adapter,
+        source: dataAdapter,
         showLegend: true,
         ready: function () { registerEvents() },
         appointmentDataFields:
@@ -27,11 +41,20 @@ scheduler = function(){
             from: "start",
             to: "end",
             id: "id",
+            background: "background",
+            resourceId: "calendar",
             description: "description",
             location: "location",
             subject: "subject",
             style: "style",
             status: "status"
+        },
+        resources:
+        {
+            colorScheme: "scheme05",
+            dataField: "calendar",
+            //orientation:"horizontal",
+            source:  resourceAdapter
         },
         view: 'weekView',
         views:
@@ -42,6 +65,20 @@ scheduler = function(){
                 'agendaView'
             ],
         theme:theme,
+        editDialogCreate: function (dialog, fields, editAppointment) {
+            /**
+             * Hide timezone and color options
+             */
+            fields.timeZoneContainer.hide();
+            fields.colorContainer.hide();
+        },
+        localization: {
+            editDialogStatuses: {
+                free: "Ολοκληρωμένο",
+                tentative: "Κοινό",
+                busy: "Επείγον"
+            }
+        },
         /**
          * called when the context menu is created.
          * @param {Object} menu - jqxMenu's jQuery object.
@@ -54,10 +91,9 @@ scheduler = function(){
             source.push({
                 id: "status", label: "Set Status", items:
                     [
-                        { label: "Free", id: "free" },
-                        { label: "Out of Office", id: "outOfOffice" },
-                        { label: "Tentative", id: "tentative" },
-                        { label: "Busy", id: "busy" }
+                        { label: "Ολοκληρωμένο", id: "free" },
+                        { label: "Κοινό", id: "tentative" },
+                        { label: "Επείγον", id: "busy" }
                     ]
             });
         },
@@ -87,6 +123,9 @@ scheduler = function(){
                     $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'busy');
                     return true;
             }
+            /**
+             * @todo SAVE
+             */
         },
         /**
          * called when the menu is opened.
@@ -113,21 +152,28 @@ scheduler = function(){
         contextMenuClose: function (menu, appointment, event) {
         }
     });
-
+    /**
+     * Method to get all apointments from
+     * server and add them in scheduler
+     */
     getAppointments = function() {
         $.ajax({url: "/task-json"}).done(function (data) {
             var appointments = new Array();
             for (var i in data) {
-                data[i].start = new Date(parseInt(data[i].from) * 1000);
-                data[i].end = new Date(parseInt(data[i].to) * 1000);
-                appointments.push(data[i]);
+                var appointment = formatAppointment(data[i]);
+                appointments.push(appointment);
             }
-            source.localdata = appointments;
-            adapter.dataBind();
+            dataSource.localdata = appointments;
+            resourceSource.localdata = resources;
+
+            dataAdapter.dataBind();
+            resourceAdapter.dataBind();
             $("#scheduler").jqxScheduler('addAppointment');
         });
     };
-
+    /**
+     * Our first job is to call the REST method
+     * to populate our scheduler
+     */
     getAppointments();
-
 };
