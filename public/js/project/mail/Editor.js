@@ -54,16 +54,26 @@ ClearNewEmailInterface = function(){
 
 /**
  * Function to generate and show the read email interface
+ * @param: data of the selected email
  */
-ShowReadEmailUI = function(){
+ShowReadEmailUI = function(data){
     $('#MailTable').jqxGrid('clearselection');
     $('#readEmail').css('display','block');
+
+    var sender = data.office + " - " + data.sender;
+    var subject = data.subject;
+
+    $('#sender').text(sender);
+    $('#subject').text(subject);
+
+    //TODO show email main body
+
     $('#viewer').jqxEditor({
         theme: theme,
         height: '100%',
         width: '100%',
         tools: '',
-        disabled: true
+        editable: false
     });
 
 }

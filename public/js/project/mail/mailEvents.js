@@ -81,12 +81,12 @@ $(document).ready(function () {
                 args=["send","save","cancel"];
                 break;
             case "reply":
+
                 break;
             case "edit":
                 break;
             case "view":
-                HideAllInterfaces();
-                ShowReadEmailUI();
+                ViewEmail();
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
@@ -161,4 +161,14 @@ $(document).ready(function () {
         $('#MailTable').css('display','block');                     //show interface
     }
 
+    /**
+     * Function to display a selected email
+     */
+    ViewEmail = function(){
+        var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+        var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+
+        HideAllInterfaces();
+        ShowReadEmailUI(data);
+    }
 });

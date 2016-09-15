@@ -33,23 +33,23 @@
 }
 
 #viewSender{
-    border: 5px solid;
+    border: 3px solid;
     border-radius: 2px;
     border-color: #0a73a7;
-    margin-bottom: 2px;
-    theme: theme;
+    margin-bottom: 6.6px;
+    text-indent: 2px;
 }
 #viewSubject{
-    border: 5px solid;
+    border: 3px solid;
     border-radius: 2px;
     border-color: #0a73a7;
-    margin-bottom: 2px;
-    theme: theme;
+    margin-bottom: 6.6px;
+    text-indent: 2px;
 }
 
 .editor {
     height:508px;
-    text-indent: 3px;
+    /*text-indent: 3px;*/
 }
 
 .jqx-fill-state-hover-darkblue{
