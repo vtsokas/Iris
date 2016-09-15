@@ -18,14 +18,18 @@ registerEvents = function() {
                 "data"   : task
             }).success(function(response){
                 /**
-                 * Set id
+                 * @todo Set id and color
                  */
             });
         }
     });
 
     $("#scheduler").on("appointmentChange", function (event) {
+        console.log(event, $('#scheduler').jqxScheduler('selectAppointment', event.id));
         var task = exchangeTaskObject(event);
+        /**
+         * Leave if task is false
+         */
         if (task !== false){
             /**
              * Send a PUT AJAX request
@@ -37,42 +41,16 @@ registerEvents = function() {
                 "type" : "PUT",
                 "data"   : task
             });
+            /**
+             * Set the correct color according to the
+             * status that might has been changed
+             */
+            $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
+                "background", formatAppointment(task).background);
         }
     });
 
     $("#scheduler").on("appointmentDelete", function (event) {
         console.log(event);
     });
-};
-
-
-/**
-* Transform the event object to an object ready to be
-* submitted to our PHP controller. Returns false if
-* no subject has been set.
-*/
-exchangeTaskObject = function(event){console.log(event.args.appointment);
-    var isJQX = typeof event.args.appointment.jqxAppointment != "undefined";
-    var appointment = (isJQX) ? event.args.appointment.jqxAppointment.boundAppointment : event.args.appointment;
-    var isRec = (isJQX) ? appointment.jqxAppointment.isRecurrentAppointment(): false;
-    if (appointment.subject !== "")
-    {
-        var object = {
-            description         : appointment.originalData.description,
-            location            : appointment.originalData.location,
-            subject             : appointment.originalData.subject,
-            from                : appointment.originalData.start.getTime() / 1000,
-            to                  : appointment.originalData.end.getTime() / 1000,
-            /**
-             * If it is recurrent set the pattern and exceptions as string
-             * else set value as null.
-             */
-            recurrenceRule      : (isRec) ? appointment.jqxAppointment.recurrencePattern.toString() : null,
-            recurrenceException : (isRec) ? appointment.jqxAppointment.recurrenceException.join() : null,
-            status              : appointment.originalData.status,
-            calendar            : "ΓΕΠ"
-        };
-        return object;
-    }
-    return false;
 };
