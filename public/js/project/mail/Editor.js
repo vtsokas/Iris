@@ -54,7 +54,7 @@ ClearNewEmailInterface = function(){
 
 /**
  * Function to generate and show the read email interface
- * @param: data of the selected email
+ * @param: data of the selected email (selected row from MailTable)
  */
 ShowReadEmailUI = function(data){
     $('#MailTable').jqxGrid('clearselection');

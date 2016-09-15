@@ -81,7 +81,8 @@ $(document).ready(function () {
                 args=["send","save","cancel"];
                 break;
             case "reply":
-
+                ReplyToEmail();
+                args=["send","save","cancel"];
                 break;
             case "edit":
                 break;
@@ -170,5 +171,19 @@ $(document).ready(function () {
 
         HideAllInterfaces();
         ShowReadEmailUI(data);
+    }
+
+    /**
+     * Function to reply to a selected email
+     */
+    ReplyToEmail = function(){
+        var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+        var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+
+        HideAllInterfaces();
+        ShowNewEmailUI();
+        $('#inputReceiver1').val(data.office);
+        $('#inputReceiver2').val(data.sender);
+        $('#inputSubject').val("RE: [" + data.subject + "]");
     }
 });
