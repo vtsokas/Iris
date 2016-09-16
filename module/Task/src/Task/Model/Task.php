@@ -75,7 +75,7 @@ class Task extends AbstractObject
     public function __construct($id=null, $description=null, $location=null, $subject=null, $calendar=null,
                                 $from=null, $to=null, $recurrenceRule=null, $recurrenceException=null)
     {
-        $this->id = $id;
+        $this->setId($id);
         $this->description = $description;
         $this->location = $location;
         $this->subject = $subject;

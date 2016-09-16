@@ -16,9 +16,14 @@ scheduler = function(){
         ],
         id: 'id'
     };
-
+    /**
+     * Get the resources dynamically
+     */
     var resources = [{calendar:"ΓΕΠ"},{calendar:"ΓΕΠ1"},{calendar:"ΓΕΠ3"}];
-
+    /**
+     * We need this source because we want the resources
+     * to be independent from the existing appoinments
+     */
     var resourceSource =
     {
         dataType: 'array',
@@ -28,13 +33,20 @@ scheduler = function(){
         id: 'calendar',
         localdata: resources
     };
+    /**
+     * Create an adapter from the source to
+     * bind the scheduler data
+     */
     var dataAdapter = new $.jqx.dataAdapter(dataSource);
     var resourceAdapter = new $.jqx.dataAdapter(resourceSource);
+    /**
+     * Create the scheduler
+     */
     $("#scheduler").jqxScheduler({
         width: '99.8%',
         height: '99%',
         source: dataAdapter,
-        showLegend: true,
+        showLegend: false,
         ready: function () { registerEvents() },
         appointmentDataFields:
         {
@@ -51,7 +63,7 @@ scheduler = function(){
         },
         resources:
         {
-            colorScheme: "scheme05",
+            //colorScheme: "scheme05",
             dataField: "calendar",
             //orientation:"horizontal",
             source:  resourceAdapter
@@ -153,27 +165,8 @@ scheduler = function(){
         }
     });
     /**
-     * Method to get all apointments from
-     * server and add them in scheduler
-     */
-    getAppointments = function() {
-        $.ajax({url: "/task-json"}).done(function (data) {
-            var appointments = new Array();
-            for (var i in data) {
-                var appointment = formatAppointment(data[i]);
-                appointments.push(appointment);
-            }
-            dataSource.localdata = appointments;
-            resourceSource.localdata = resources;
-
-            dataAdapter.dataBind();
-            resourceAdapter.dataBind();
-            $("#scheduler").jqxScheduler('addAppointment');
-        });
-    };
-    /**
      * Our first job is to call the REST method
      * to populate our scheduler
      */
-    getAppointments();
+    getAppointments(dataSource, resourceSource, dataAdapter, resourceAdapter, resources);
 };

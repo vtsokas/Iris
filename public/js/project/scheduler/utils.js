@@ -1,5 +1,24 @@
 selectedResource = null;
 /**
+ * Method to get all apointments from
+ * server and add them in scheduler
+ */
+getAppointments = function(dataSource, resourceSource, dataAdapter, resourceAdapter, resources) {
+    $.ajax({url: "/task-json"}).done(function (data) {
+        var appointments = new Array();
+        for (var i in data) {
+            var appointment = formatAppointment(data[i]);
+            appointments.push(appointment);
+        }
+        dataSource.localdata = appointments;
+        resourceSource.localdata = resources;
+
+        dataAdapter.dataBind();
+        resourceAdapter.dataBind();
+        $("#scheduler").jqxScheduler('addAppointment');
+    });
+};
+/**
  * Transform the event object to an object ready to be
  * submitted to our PHP controller. Returns false if
  * no subject has been set.

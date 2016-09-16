@@ -17,8 +17,18 @@ registerEvents = function() {
                 "type" : "POST",
                 "data"   : task
             }).success(function(response){
+                console.log(event, response);
                 /**
-                 * @todo Set id and color
+                 * Set the correct color according to the
+                 * status and the id assigned by the DB
+                 */
+                $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
+                    "id", response.id);
+
+                $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
+                    "background", formatAppointment(task).background);
+                /**
+                 * @todo Cannot edit afterwards
                  */
             });
         }
