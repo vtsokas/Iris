@@ -57,16 +57,12 @@ ClearNewEmailInterface = function(){
  * @param: data of the selected email (selected row from MailTable)
  */
 ShowReadEmailUI = function(data){
-    $('#MailTable').jqxGrid('clearselection');
+
     $('#readEmail').css('display','block');
 
     var sender = data.office + " - " + data.sender;
     var subject = data.subject;
-
-    $('#sender').text(sender);
-    $('#subject').text(subject);
-
-    //TODO show email main body
+    var text = data.text;
 
     $('#viewer').jqxEditor({
         theme: theme,
@@ -76,4 +72,7 @@ ShowReadEmailUI = function(data){
         editable: false
     });
 
+    $('#sender').text(sender);
+    $('#subject').text(subject);
+    $('#viewer').val(text);
 }

@@ -167,7 +167,8 @@ $(document).ready(function () {
      */
     ViewEmail = function(){
         var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
-        var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+        var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
+
 
         HideAllInterfaces();
         ShowReadEmailUI(data);
@@ -176,9 +177,9 @@ $(document).ready(function () {
     /**
      * Function to reply to a selected email
      */
-    ReplyToEmail = function(){
+    ReplyToEmail = function()   {
         var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
-        var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+        var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
 
         HideAllInterfaces();
         ShowNewEmailUI();
