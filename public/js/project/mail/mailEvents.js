@@ -81,12 +81,13 @@ $(document).ready(function () {
                 args=["send","save","cancel"];
                 break;
             case "reply":
+                ReplyToEmail();
+                args=["send","save","cancel"];
                 break;
             case "edit":
                 break;
             case "view":
-                HideAllInterfaces();
-                ShowReadEmailUI();
+                ViewEmail();
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
@@ -161,4 +162,29 @@ $(document).ready(function () {
         $('#MailTable').css('display','block');                     //show interface
     }
 
+    /**
+     * Function to display a selected email
+     */
+    ViewEmail = function(){
+        var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+        var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
+
+
+        HideAllInterfaces();
+        ShowReadEmailUI(data);
+    }
+
+    /**
+     * Function to reply to a selected email
+     */
+    ReplyToEmail = function()   {
+        var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+        var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
+
+        HideAllInterfaces();
+        ShowNewEmailUI();
+        $('#inputReceiver1').val(data.office);
+        $('#inputReceiver2').val(data.sender);
+        $('#inputSubject').val("RE: [" + data.subject + "]");
+    }
 });
