@@ -12,6 +12,27 @@ $(document).ready(function () {
             }
         }
     );
+
+    /**
+     * New/unread mails are styled bold and italic. It applies on every cell of each row.
+     * @param row
+     * @param columnfield
+     * @param value
+     * @param defaulthtml
+     * @param columnproperties
+     * @param rowdata
+     * @returns {string}
+     */
+    var rendrow = function(row, columnfield, value, defaulthtml, columnproperties, rowdata){
+        if(rowdata.newMail == true){
+            var align=columnproperties.align;
+            if(align == "center"){
+                align = "middle";
+            }
+            return '<div class="jqx-grid-cell-' + align + '-align" style="margin-top: 6px;"><b><i>' + value + '</i></b></div>';
+        }
+    };
+
     //SampleData.dataBind();
     $("#MailTable").jqxGrid(
         {
@@ -30,10 +51,11 @@ $(document).ready(function () {
             showtoolbar: true,
             rendertoolbar:datagridtoolbar,
             columns: [
-                { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' },
-                { text: 'Αποστολέας', dataField: 'sender', width: '15%' },
-                { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto' },
-                { text: 'Ημερομηνία', dataField: 'date', width: '15%', cellsAlign: 'right', align: 'right' },
+                { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' , cellsrenderer: rendrow },
+                { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
+                { text: 'Θέμα', editable: false, dataField: 'subject', width: '40%' , cellsrenderer: rendrow },
+                { text: 'Τύπος', editable: false, dataField: 'type', width: 'auto',cellsAlign: 'center', align: 'center' , cellsrenderer: rendrow },
+                { text: 'Ημερομηνία', dataField: 'date', width: '15%', cellsAlign: 'right', align: 'right' , cellsrenderer: rendrow }
             ]
         });
     $("#MailTable").css('visibility', 'visible');

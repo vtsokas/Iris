@@ -20,16 +20,27 @@ $(document).ready(function () {
         ];
     var date =
         [
-            "25/5/2016", "28/5/2016", "22/6/2016", "12/4/2016", "18/10/2016",
+            "25/5/2016", "28/5/2016", "22/6/2016", "12/4/2016", "18/10/2016"
         ];
     var state =
         [
             "inbox", "outbox", "draft"
         ];
-    var text = [
+    var text =
+        [
             "hasta la vista baby.", "I'll make him an offer, he can't refuse.",  "I know people.",
             "Say it one more time motherfucker. I dare you, I double dare you", "Go ahead, make my day."
         ];
+    var newMail =
+        [
+            true,
+            false
+        ]
+    var type =
+        [
+            "απλό μηνυμα", "ανακοίνωση", "αίτημα"
+        ]
+
     generatedata = function(){
         for (var i = 0; i < 200; i++) {
             var row = {};
@@ -39,9 +50,18 @@ $(document).ready(function () {
             row["state"] = state[Math.floor(Math.random() * state.length)]; //test purpose
             row["date"] = date[Math.floor(Math.random() * date.length)];
             row["text"] = text[Math.floor(Math.random() * text.length)];
+            if(row.state == "inbox") {
+                row["newMail"] = newMail[Math.floor(Math.random() * newMail.length)];
+            }
+            else{
+                row["newMail"] = false;
+            }
+            row["type"] = type[Math.floor(Math.random() * type.length)];
+
             data[i] = row;
         }
-    }
+
+    };
     generatedata();
 
     datatablesampledata =
@@ -56,6 +76,8 @@ $(document).ready(function () {
                 { name: 'date', type: 'string' },
                 { name: 'state', type: 'string' },
                 { name: 'text', type: 'string' },
+                { name: 'newMail', type: 'boolean' },
+                { name: 'type', type: 'string' }
             ]
     };
 });
