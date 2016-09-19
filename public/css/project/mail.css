@@ -2,6 +2,30 @@
     box-sizing: border-box;
 }
 
+#schedulercontainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#jqxLayout,
+#showWindowButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#showWindowButton {
+    z-index: 9999;
+}
+
+.MailButton{
+    /*background:url('../../img/emaillogo.png') no-repeat;*/
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+
 .topmenu {
     margin-left:10%;
     width:50%;
@@ -32,27 +56,45 @@
     display: inherit;
 }
 
-#viewSender{
-    border: 3px solid;
-    border-radius: 2px;
-    border-color: #0a73a7;
-    margin-bottom: 6.6px;
-    text-indent: 2px;
+.ViewTextBlock{
+    height:25px;
+    width:100%;
+    margin-bottom: 5px;
+    text-indent: 5px;
+    color: #004a73;
+    border: 1px solid;
+    border-radius: 3px;
+    border-color: #004a73;
 }
-#viewSubject{
-    border: 3px solid;
-    border-radius: 2px;
-    border-color: #0a73a7;
-    margin-bottom: 6.6px;
-    text-indent: 2px;
+
+#viewer{
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+    border-color: #004a73;
+    background-color: #FFFFFF;
+    text-indent: 5px;
 }
 
 .editor {
     height:508px;
-    /*text-indent: 3px;*/
 }
 
-.jqx-fill-state-hover-darkblue{
-    background: #FFFFFF; !important;
-    color:#004a73; !important;
+.edcontainer {
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    border-color: #004a73;
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
 }
+
+/*.jqx-fill-state-hover-darkblue{*/
+    /*background: #FFFFFF; !important;*/
+    /*color:#004a73; !important;*/
+/*}*/
+
+/*.jqx-checkbox-check-checked-darkblue {*/
+    /*background: transparent url(../../js/jqwidgets/styles/images/check_black.png) center center no-repeat; !important;*/
+/*}*/

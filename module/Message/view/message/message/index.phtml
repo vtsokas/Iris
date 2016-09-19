@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
+
     <?
     $this->inlineScript()
         //The files live inside the public folder
@@ -53,6 +54,7 @@
             margin: 0;
         }
     </style>
+
 </head>
 
 <body>
@@ -90,17 +92,19 @@
         -->
         <div id="readEmail" style="display: none">
             <div id="info">
-                <div id="viewSender">
+                <div class="ViewTextBlock">
                     <span style="font-weight: bolder">Αποστολέας: </span>
-                    <span id="sender" style="font-style: italic"></span>
+                    <span id="sender" style="font-style: italic" ></span>
                 </div>
-                <div id="viewSubject">
-                    <span style="font-weight: bolder">Θέμα: </span>
+                <div class="ViewTextBlock">
+                    <span style="font-weight: bolder">�?έμα: </span>
                     <span id="subject" style="font-style: italic"></span>
                 </div>
             </div>
             <div class="editor">
-                <div id="viewer"></div>
+                <div class="edcontainer">
+                    <div id="viewer" readonly></div>
+                </div>
             </div>
         </div>
 

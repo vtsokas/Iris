@@ -28,4 +28,17 @@ $(document).ready(function () {
      */
     $("#LeftMenu").jqxMenu({source: LeftMenuItems, height:'100%',  mode: 'vertical', theme: theme});
     $("#LeftMenu").css('visibility', 'visible');
+
+    $( "#drag1" ).draggable();
+    $( "#jqxLayout" ).droppable({
+        drop: function(ev,ui) {
+            console.log(ui);
+            ev.preventDefault();
+
+            var data = ui.draggable.attr("id");
+
+            ev.target.appendChild(document.getElementById(data));
+            $("#"+data).css({top: ui.offset.top, left: ui.offset.left, position:'absolute'});
+        }
+    });
 });

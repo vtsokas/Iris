@@ -94,7 +94,7 @@ $(document).ready(function () {
                 break;
             case "send":
                 //mock message
-                alert("Μήνυμα εστάλη");
+                alert("�?ήνυμα εστάλη");
                 HideAllInterfaces();
                 ShowMailTableInterface();
                 args = previousState;

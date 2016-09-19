@@ -6,12 +6,12 @@ ShowNewEmailUI = function(){
 
     ClearNewEmailInterface();   //TODO find a way to clear tools selection
 
-    var offices = ["1ο ΕΓ","2o ΕΓ","3ο ΕΓ","4ο ΕΓ","ΔΟΙ","ΔΜΧ","ΔΔΒ","ΔΠΒ","ΓΕΠ",
-                    "ΔΚΤΗΣ","ΥΔΚΤΗΣ","ΕΠΧΗΣ","Β.ΕΠΧΗ","ΙΕΡΕΑΣ","ΥΠΑΣΠΙΣΤΗΡΙΟ"];     //all offices to choose from
+    var offices = ["1ο ΕΓ","2o ΕΓ","3ο ΕΓ","4ο ΕΓ","Δ�?Ι","Δ�?Χ","ΔΔΒ","ΔΠΒ","ΓΕΠ",
+                    "Δ�?ΤΗΣ","ΥΔ�?ΤΗΣ","ΕΠΧΗΣ","Β.ΕΠΧΗ","ΙΕΡΕΑΣ","ΥΠΑΣΠΙΣΤΗΡΙ�?"];     //all offices to choose from
     /*
     Auto-completed list and multiple choices for Receivers' input
      */
-    $('#inputReceiver1').jqxInput({placeHolder: 'Γραφείο/Δκση/Δνση', theme: theme, height: 25, width: 250, minLength: 1,
+    $('#inputReceiver1').jqxInput({placeHolder: 'Γ�?αφείο/Δκση/Δνση', theme: theme, height: 25, width: 250, minLength: 1,
         source: function (query, response) {
             var item = query.split(/,\s*/).pop();
             // update the search query.
@@ -32,7 +32,7 @@ ShowNewEmailUI = function(){
     });
 
     $('#inputReceiver2').jqxInput({placeHolder: 'Επιτελής', theme: theme, height: 25, width: 250, minLength: 1});
-    $('#inputSubject').jqxInput({placeHolder: 'Θέμα', theme: theme,height: 25, width: 250, minLength: 1});
+    $('#inputSubject').jqxInput({placeHolder: '�?έμα', theme: theme,height: 25, width: 250, minLength: 1});
     $('#newEmail').css('display','block');
     $('#text').jqxEditor({
         theme: theme,
@@ -64,15 +64,16 @@ ShowReadEmailUI = function(data){
     var subject = data.subject;
     var text = data.text;
 
-    $('#viewer').jqxEditor({
+    /*$('#viewer').jqxEditor({
         theme: theme,
         height: '100%',
         width: '100%',
         tools: '',
-        editable: false
-    });
+        //editable: false
+    });*/
 
     $('#sender').text(sender);
     $('#subject').text(subject);
-    $('#viewer').val(text);
+    $('#viewer').html(text);
+    //document.getElementById("viewer").setAttribute("readonly", true);
 }
