@@ -1,9 +1,10 @@
 scheduler = function(){
-    var dataSource =
+    dataSource =
     {
         dataType: 'array',
         dataFields: [
             { name: 'id', type: 'string' },
+            { name: 'dbid', type: 'string' },
             { name: 'status', type: 'string' },
             { name: 'background', type: 'string' },
             { name: 'description', type: 'string' },
@@ -19,12 +20,12 @@ scheduler = function(){
     /**
      * Get the resources dynamically
      */
-    var resources = [{calendar:"ΓΕΠ"},{calendar:"ΓΕΠ1"},{calendar:"ΓΕΠ3"}];
+    resources = [{calendar:"ΓΕΠ"},{calendar:"ΓΕΠ1"},{calendar:"ΓΕΠ3"}];
     /**
      * We need this source because we want the resources
      * to be independent from the existing appoinments
      */
-    var resourceSource =
+    resourceSource =
     {
         dataType: 'array',
         dataFields: [
@@ -37,8 +38,8 @@ scheduler = function(){
      * Create an adapter from the source to
      * bind the scheduler data
      */
-    var dataAdapter = new $.jqx.dataAdapter(dataSource);
-    var resourceAdapter = new $.jqx.dataAdapter(resourceSource);
+    dataAdapter = new $.jqx.dataAdapter(dataSource);
+    resourceAdapter = new $.jqx.dataAdapter(resourceSource);
     /**
      * Create the scheduler
      */
@@ -47,7 +48,7 @@ scheduler = function(){
         height: '99%',
         source: dataAdapter,
         showLegend: false,
-        ready: function () { registerEvents() },
+        ready: function () { registerEvents(dataAdapter) },
         appointmentDataFields:
         {
             from: "start",
@@ -168,5 +169,5 @@ scheduler = function(){
      * Our first job is to call the REST method
      * to populate our scheduler
      */
-    getAppointments(dataSource, resourceSource, dataAdapter, resourceAdapter, resources);
+    getAppointments();
 };

@@ -6,7 +6,7 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Sql;
 
-class TaskRepository implements TaskRepositoryInterface
+class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterface
 {
     const TABLE_NAME = "task";
 
@@ -14,6 +14,10 @@ class TaskRepository implements TaskRepositoryInterface
      * Our database adapter
      */
     protected $db;
+    /**
+     * Role service
+     */
+    protected $roleService;
 
     public function __construct(Adapter $adapter)
     {
@@ -23,13 +27,17 @@ class TaskRepository implements TaskRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findAllTasks()
+    public function findAllTasks($resources = array())
     {
+        if (empty($resources)){
+            $resources = array($this->roleService->getUserRole());
+        }
         /**
          * Prepare an SQL statement
          */
         $sql    = new Sql($this->db);
         $select = $sql->select(self::TABLE_NAME);
+        $select->where->in("calendar", $resources);
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
         /**
@@ -102,5 +110,9 @@ class TaskRepository implements TaskRepositoryInterface
         $statement  = $sql->prepareStatementForSqlObject( $update );//var_dump($statement);die();
         $statement->execute();
         return $task;
+    }
+
+    public function setRoleService($roleService){
+        $this->roleService = $roleService;
     }
 }

@@ -76,6 +76,16 @@ class RoleService
     }
 
     /**
+     * Get roles.
+     *
+     * @return String $roles
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
      * Get authService.
      *
      * @return AuthenticationService
@@ -84,6 +94,17 @@ class RoleService
     {
         return $this->authService;
     }
+
+    /**
+     * Get userRole
+     *
+     * @return String userRole
+     */
+    public function getUserRole()
+    {
+        return $this->userRole;
+    }
+
 
     /**
      * Set authService.

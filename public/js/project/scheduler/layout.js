@@ -20,8 +20,14 @@ $(document).ready(function () {
                         $('#jqxTree').jqxTree({ height: '99%', hasThreeStates: false, checkboxes: true, width: '99%'});
                         $('#jqxTree').css('visibility', 'visible');
                         $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
-                        $("#jqxTree").bind('change', function (event) {
-                            console.log($('#jqxTree').jqxTree('getItems'));
+                        $("#jqxTree").bind('change', function (event) {//event.
+                            var items = $('#jqxTree').jqxTree('getItems');
+                            var ar = [];
+                            for (var i in items){console.log(items[i]);
+                                if (items[i].checked) ar.push(items[i].originalTitle);
+                            }
+                            selectedResources = ar.join(",");
+                            getAppointments();
                         });
                     }
                     }, {

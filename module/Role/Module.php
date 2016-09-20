@@ -4,6 +4,7 @@ namespace Role;
 
 use Role\Service\RoleService;
 use Role\View\Helper\IsAllowed;
+use Role\View\Helper\RoleTree;
 
 class Module
 {
@@ -42,6 +43,11 @@ class Module
             'factories' => array(
                 'isAllowed' => function($sm){
                     $helper = new IsAllowed();
+                    $helper->setRoleService($sm->getServiceLocator()->get("role_service"));
+                    return $helper;
+                },
+                'roleTree' => function($sm){
+                    $helper = new RoleTree();
                     $helper->setRoleService($sm->getServiceLocator()->get("role_service"));
                     return $helper;
                 }

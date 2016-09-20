@@ -32,6 +32,7 @@ class Module
                 'task_repository' =>  function($sm) {
                     $dbAdapter = $sm->get('DBAdapter');
                     $table = new TaskRepository($dbAdapter);
+                    $table->setRoleService($sm->get("role_service"));
                     return $table;
                 },
                 'DBAdapter' => function ($sm) {

@@ -3,6 +3,7 @@
   "children" : [
     {
       "role" : "Ιεραρχία",
+      "isRoot": true,
       "children" : [
         {
           "role" : "ΓΕΠ",

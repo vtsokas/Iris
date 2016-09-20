@@ -17,16 +17,20 @@ registerEvents = function() {
                 "type" : "POST",
                 "data"   : task
             }).success(function(response){
-                console.log(event, response);
                 /**
-                 * Set the correct color according to the
-                 * status and the id assigned by the DB
+                 * Match the id assigned by the JQX
+                 * logic with the one from our DB
+                 */
+                newObjectIds[event.args.appointment.id] = response.id;
+                $("#scheduler").jqxScheduler('beginAppointmentsUpdate');
+
+                /**
+                 * Set the correct color according to the status
                  */
                 $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
-                    "id", response.id);
-
-                $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                     "background", formatAppointment(task).background);
+
+                $("#scheduler").jqxScheduler('endAppointmentsUpdate');
                 /**
                  * @todo Cannot edit afterwards
                  */
@@ -35,8 +39,15 @@ registerEvents = function() {
     });
 
     $("#scheduler").on("appointmentChange", function (event) {
-        console.log(event, $('#scheduler').jqxScheduler('selectAppointment', event.id));
         var task = exchangeTaskObject(event);
+
+        /**
+         * If we have a recently added appointment we
+         * want to retreive the id assigned by our DB
+         */
+        var id = event.args.appointment.id.indexOf("-") > 0
+            ? newObjectIds[event.args.appointment.id]
+            : event.args.appointment.id;
         /**
          * Leave if task is false
          */
@@ -47,7 +58,7 @@ registerEvents = function() {
              * entity ID as a param
              */
             $.ajax({
-                "url"    : "/task-json/" + event.args.appointment.id,
+                "url"    : "/task-json/" + id,
                 "type" : "PUT",
                 "data"   : task
             });

@@ -1,12 +1,19 @@
 selectedResource = null;
+newObjectIds = {};
+selectedResources = "";
 /**
  * Method to get all apointments from
  * server and add them in scheduler
  */
-getAppointments = function(dataSource, resourceSource, dataAdapter, resourceAdapter, resources) {
-    $.ajax({url: "/task-json"}).done(function (data) {
+getAppointments = function() {
+    //dataSource.localdata = [];
+    //dataAdapter.dataBind();
+    $.ajax({url: "/task-json?resources=" + selectedResources}).done(function (data) {
+        $("#scheduler").jqxScheduler('beginAppointmentsUpdate');
+
         var appointments = new Array();
         for (var i in data) {
+
             var appointment = formatAppointment(data[i]);
             appointments.push(appointment);
         }
@@ -15,7 +22,8 @@ getAppointments = function(dataSource, resourceSource, dataAdapter, resourceAdap
 
         dataAdapter.dataBind();
         resourceAdapter.dataBind();
-        $("#scheduler").jqxScheduler('addAppointment');
+
+        $("#scheduler").jqxScheduler('endAppointmentsUpdate');
     });
 };
 /**
@@ -29,7 +37,6 @@ exchangeTaskObject = function(event){
     var isRec = (isJQX) ? appointment.jqxAppointment.isRecurrentAppointment(): false;
     if (appointment.subject !== "")
     {
-        console.log(appointment);
         var object = {
             description         : appointment.originalData.description,
             location            : appointment.originalData.location,
@@ -49,7 +56,6 @@ exchangeTaskObject = function(event){
              */
             calendar            : (selectedResource != null) ? selectedResource : appointment.resourceId
         };
-        console.log(object);
         return object;
     }
     return false;
@@ -74,6 +80,5 @@ formatAppointment = function(appointment){
         default :
             break;
     };
-
     return appointment;
-}
+};
