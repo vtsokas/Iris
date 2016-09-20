@@ -94,7 +94,7 @@ $(document).ready(function () {
                 break;
             case "send":
                 //mock message
-                alert("�?ήνυμα εστάλη");
+                alert("Μήνυμα εστάλη");
                 HideAllInterfaces();
                 ShowMailTableInterface();
                 args = previousState;
@@ -169,7 +169,6 @@ $(document).ready(function () {
         var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
         var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
 
-
         HideAllInterfaces();
         ShowReadEmailUI(data);
     }
@@ -177,7 +176,7 @@ $(document).ready(function () {
     /**
      * Function to reply to a selected email
      */
-    ReplyToEmail = function()   {
+    ReplyToEmail = function(){
         var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
         var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
 
@@ -187,4 +186,43 @@ $(document).ready(function () {
         $('#inputReceiver2').val(data.sender);
         $('#inputSubject').val("RE: [" + data.subject + "]");
     }
+
+    /**
+     * Function to modify recommended choices for input2 according to input1
+     */
+    $('#inputReceiver1').on('change', function(){
+
+        $('#inputReceiver2').jqxInput({
+            placeHolder: 'Επιτελής', theme: theme, height: 25, width: 250, minLength: 1,
+            source: function (query, response) {
+                var sourceArray = [];
+                var rec = $("#inputReceiver1").val();
+                for(var key in dict){
+                    if(rec.indexOf(key) != -1){
+                        sourceArray = sourceArray.concat(dict[key]);
+                    }
+                }
+                var item = query.split(/,\s*/).pop();
+                // update the search query.
+                $("#inputReceiver2").jqxInput({query: item});
+                response(sourceArray);
+            }
+        });
+
+    });
+
+    var ddlSource = [
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/message.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Απλό Μήνυμα</span></div>" },
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/announcement.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Ανακοίνωση</span></div>"},
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/request.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Αίτημα</span></div>"}
+    ]
+
+    $('#inputMessageType').jqxDropDownList({
+        source: ddlSource,
+        placeHolder: "Επιλέξτε τύπο μηνύματος:",
+        selectedIndex: -1,
+        width: '200',
+        autoDropDownHeight: true,
+        theme: theme
+    });
 });
