@@ -1,5 +1,5 @@
 
-var dict = {
+var dict = {                                        //all offices and their officers to choose from
     "1ο ΕΓ": ["ΚΙΟΡΤΣΗΣ","ΒΛΑΧΟΠΟΥΛΟΣ"],
     "2ο ΕΓ" : ["ΠΑΛΤΙΔΗΣ","ΣΙΔΗΡΟΠΟΥΛΟΣ"],
     "3ο ΕΓ" : ["ΠΡΟΔΡΟΜΟΥ","ΤΑΣΙΑΣ"],
@@ -15,10 +15,6 @@ ShowNewEmailUI = function() {
 
     ClearNewEmailInterface();   //TODO find a way to clear tools selection
 
-
-
-    var offices = ["1ο ΕΓ", "2o ΕΓ", "3ο ΕΓ", "4ο ΕΓ", "ΔΟΙ", "ΔΜΧ", "ΔΔΒ", "ΔΠΒ", "ΓΕΠ",
-        "ΔΚΤΗΣ", "ΥΔΚΤΗΣ", "ΕΠΧΗΣ", "Β.ΕΠΧΗ", "ΙΕΡΕΑΣ", "ΥΠΑΣΠΙΣΤΗΡΙΟ"];     //all offices to choose from
     /*
      Auto-completed list and multiple choices for Office's input
      */
@@ -87,6 +83,7 @@ ClearNewEmailInterface = function(){
     $('#inputReceiver1').val(null);
     $('#inputReceiver2').val(null);
     $('#inputSubject').val(null);
+    $('#inputMessageType').jqxDropDownList('clearSelection');
 };
 
 /**

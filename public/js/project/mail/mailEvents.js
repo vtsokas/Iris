@@ -188,7 +188,7 @@ $(document).ready(function () {
     }
 
     /**
-     *
+     * Function to modify recommended choices for input2 according to input1
      */
     $('#inputReceiver1').on('change', function(){
 
@@ -209,5 +209,20 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    var ddlSource = [
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/message.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Απλό Μήνυμα</span></div>" },
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/announcement.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Ανακοίνωση</span></div>"},
+        { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/request.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>Αίτημα</span></div>"}
+    ]
+
+    $('#inputMessageType').jqxDropDownList({
+        source: ddlSource,
+        placeHolder: "Επιλέξτε τύπο μηνύματος:",
+        selectedIndex: -1,
+        width: '200',
+        autoDropDownHeight: true,
+        theme: theme
     });
 });
