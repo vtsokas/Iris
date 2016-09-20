@@ -1,5 +1,5 @@
 
-var dict = {                                        //all offices and their officers to choose from
+var dict = {                                        //all offices and their officers to choose from as receivers
     "1ο ΕΓ": ["ΚΙΟΡΤΣΗΣ","ΒΛΑΧΟΠΟΥΛΟΣ"],
     "2ο ΕΓ" : ["ΠΑΛΤΙΔΗΣ","ΣΙΔΗΡΟΠΟΥΛΟΣ"],
     "3ο ΕΓ" : ["ΠΡΟΔΡΟΜΟΥ","ΤΑΣΙΑΣ"],
