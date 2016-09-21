@@ -4,7 +4,7 @@ registerEvents = function() {
             $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                 "hidden", true);
         }
-        console.log(event);
+
         /**
          * Get the task object in the correct format
          */
@@ -36,6 +36,9 @@ registerEvents = function() {
                     "background", formatAppointment(task).background);
 
                 $("#scheduler").jqxScheduler('endAppointmentsUpdate');
+
+                $("#messageNotificationText").text("Προστέθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
+                $("#messageNotification").jqxNotification("open");
                 /**
                  * @todo Cannot edit afterwards
                  */
@@ -73,6 +76,9 @@ registerEvents = function() {
              */
             $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                 "background", formatAppointment(task).background);
+
+            $("#messageNotificationText").text("Τροποποιήθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
+            $("#messageNotification").jqxNotification("open");
         }
     });
 

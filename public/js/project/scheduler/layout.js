@@ -33,7 +33,18 @@ $(document).ready(function () {
                     }, {
                         type: 'documentPanel',
                         title: 'Επιλογές',
-                        contentContainer: 'Document2Panel'
+                        contentContainer: 'Document2Panel',
+                    initContent: function(){
+                        $("#excelExport").jqxButton();
+                        $("#htmlExport").jqxButton();
+
+                        $("#excelExport").click(function () {
+                            $("#scheduler").jqxScheduler('exportData', 'xls');
+                        });
+                        $("#htmlExport").click(function () {
+                            $("#scheduler").jqxScheduler('exportData', 'html');
+                        });
+                    }
                 }]
             }, {
                 type: 'tabbedGroup',
@@ -59,6 +70,11 @@ $(document).ready(function () {
     }];
     $('#jqxLayout').jqxLayout({ width: '100%', height: '100%',
         theme:theme,layout: layout });
+
+    $("#messageNotification").jqxNotification({
+        width: 250, position: "bottom-right", opacity: 0.9,
+        autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 300000, template: "info"
+    });
 
     /*
     Temp code

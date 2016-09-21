@@ -21,6 +21,7 @@
         ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxdata.export.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxdate.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxscheduler.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxscheduler.api.js'))
@@ -39,6 +40,7 @@
         ->appendFile($this->basePath('js/jqwidgets/jqxnumberinput.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxradiobutton.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
+        ->appendFile($this->basePath('js/jqwidgets/jqxnotification.js'))
         ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
         ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
 
@@ -71,15 +73,26 @@
             <?=$this->roleTree()?>
         </div>
         <div data-container="Document2Panel">
+            <div style='text-align: center; margin-top:20px;'>
+                <input style="width:80%" type="button" value="Εξαγωγή εγγράφου Excel" id='excelExport' />
             </div>
+            </br>
+            <div style='text-align: center;'>
+                <input style="width:80%" type="button" value="Εξαγωγή σελίδας HTML" id='htmlExport' />
+            </div>
+        </div>
         <!--bottom tabbedGroup-->
         <div data-container="OutputPanel">
             </div>
         <!--right tabbedGroup-->
         <div data-container="SolutionExplorerPanel">
-            <div id="scheduler"></div></div>
-
+            <div id="scheduler"></div>
+            <div id="messageNotification" style="z-index:1001 !important;">
+                <div id="messageNotificationText"></div>
+            </div>
+        </div>
     </div>
+
     <div>
 <!--        <img id="dragit" src='../../../img/emaillogo.png' alt="Email" height="100">-->
 <!--        <button id="dragit" class="MailButton"</button>-->

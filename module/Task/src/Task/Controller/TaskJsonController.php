@@ -21,13 +21,13 @@ class TaskJsonController extends AbstractRestfulController
         $resources =  explode(",",$params);
 
         $tasks = $this->getRepository()->findAllTasks($resources);
-        $return = array();
-        foreach($tasks as $task){
-            $task["subject"] = $task["calendar"] . " - " . $task["subject"];
-            $return[] = $task;
-        }
+//        $return = array();
+//        foreach($tasks as $task){
+////            $task["subject"] = $task["calendar"] . " - " . $task["subject"];
+//            $return[] = $task;
+//        }
 
-        return new JsonModel($return);
+        return new JsonModel($tasks);
 
     }
 

@@ -42,6 +42,7 @@ scheduler = function(){
     $("#scheduler").jqxScheduler({
         width: '99.8%',
         height: '99%',
+        rowsHeight:30,
         source: dataAdapter,
         showLegend: false,
         ready: function () { registerEvents(dataAdapter) },
@@ -87,6 +88,10 @@ scheduler = function(){
                 tentative: "Κοινό",
                 busy: "Επείγον"
             }
+        },
+        renderAppointment: function(data){
+            data.html = data.appointment.resourceId + " - " + data.appointment.subject;
+            return data;
         },
         /**
          * called when the context menu is created.
