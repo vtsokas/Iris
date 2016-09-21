@@ -89,37 +89,57 @@ $(document).ready(function () {
         start: function (event, ui) {
             $(this).css({left: 'auto', right: 'auto', top: 'auto', bottom: 'auto'});
         },
-        stop: function (event, ui) {
-            var cWidth = $(window).width() / 2;
-            var cHeight = $(window).height() / 2;
-
-            if (ui.position.left > cWidth) {
-                $(this).css({left: 'auto', right: 0});
-            }
-            else {
-                $(this).css({right: 'auto', left: 0});
-            }
-
-            if (ui.position.top > cHeight) {
-                $(this).css({top: 'auto', bottom: 0});
-            }
-            else {
-                $(this).css({bottom: 'auto', top: 0});
-            }
-        }
+        stop: MailButtonPosition
     });
+
     $("#jqxwindow").jqxWindow({
-        height: 570,
-        width: 700,
+        height: '100%',
+        width: '100%',
+        maxHeight: '100%',
+        //maxWidth: 8,
         theme: theme,
         autoOpen: false,
-        //InitContent: <iframe src="http://iris/mail" width="100%" height="100%"></iframe>,
+        animationType: 'combined',
+        isModal: true,
+        draggable: false,
+        resizable: false,
+        modalOpacity: 0.5,
+        modalZIndex: 999,
+        initContent: function() {document.getElementById("content").innerHTML='<object type="text/html" data="http://iris/mail" style="width:100%; height: 100%;"></object>'}
     });
-/*
-    $("#jqxwindow").jqxWindow('setContent', '<iframe src="http://iris/mail" width="100%" height="100%"></iframe>');
-*/
 
-    $('#showWindowButton').click(function () {
-        $('#jqxwindow').jqxWindow('open');
+
+    $('#showWindowButton').click(function (event, ui) {
+        if ($(this).position().left == 0){
+            var x = $(this).position().left + $(this).width()+10;
+        }
+        else{
+            var x = $(this).position().left - $('#jqxwindow').width();
+        }
+        $("#jqxwindow").jqxWindow({ position: { x: x, y: 0} });
+        $("#jqxwindow").jqxWindow('open');
     });
+
+     function MailButtonPosition (event, ui) {
+        var cWidth = $(window).width() / 2;
+        var cHeight = $(window).height() / 2;
+
+        if (ui.position.left > cWidth) {
+            $(this).css({left: 'auto', right: 0});
+            var x = $(this).position().left - $('#jqxwindow').width();
+            $('#jqxwindow').jqxWindow('move', x, 0);
+        }
+        else {
+            $(this).css({right: 'auto', left: 0});
+            var x = $(this).position().left + $(this).width()+10;
+        }
+
+        if (ui.position.top > cHeight) {
+            $(this).css({top: 'auto', bottom: 0});
+        }
+        else {
+            $(this).css({bottom: 'auto', top: 0});
+        }
+         $('#jqxwindow').jqxWindow('move', x, 0);
+    }
 });

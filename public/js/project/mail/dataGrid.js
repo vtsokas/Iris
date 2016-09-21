@@ -1,17 +1,6 @@
-/**
- * Created by gep on 06-Sep-16.
- */
-var theme = 'darkblue';
+
 var SampleData;
-$(document).ready(function () {
-    SampleData = new $.jqx.dataAdapter(datatablesampledata,
-        {
-            formatData: function (data) {
-                data.office_startsWith == $("#searchField").val(); //to be continued
-                return data;
-            }
-        }
-    );
+initDataGrid = function() {
 
     /**
      * New/unread mails are styled bold and italic. It applies on every cell of each row.
@@ -33,7 +22,15 @@ $(document).ready(function () {
         }
     };
 
-    //SampleData.dataBind();
+    SampleData = new $.jqx.dataAdapter(datatablesampledata,
+        {
+            formatData: function (data) {
+                data.office_startsWith == $("#searchField").val(); //to be continued
+                return data;
+            }
+        }
+    );
+
     $("#MailTable").jqxGrid(
         {
             width:'100%',
@@ -45,11 +42,10 @@ $(document).ready(function () {
             pagesizeoptions: ['20', '50', '100'],
             pagesize:20,
             sortable: true,
-            showtoolbar: true,
             enabletooltips: true,
-            selectionmode: 'checkbox',
-            showtoolbar: true,
-            rendertoolbar:datagridtoolbar,
+            selectionmode: 'multiplerows',
+            //showtoolbar: true,
+            //rendertoolbar:datagridtoolbar,
             columns: [
                 { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' , cellsrenderer: rendrow },
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
@@ -58,9 +54,48 @@ $(document).ready(function () {
                 { text: 'Ημερομηνία', dataField: 'date', width: '15%', cellsAlign: 'right', align: 'right' , cellsrenderer: rendrow }
             ]
         });
-    $("#MailTable").css('visibility', 'visible');
+    $("#MailTable").css('visibility','visible');
 
-    function datagridtoolbar(toolbar) {
+    /**
+     * Changes on interface on row selected
+     */
+    $("#MailTable").on('rowselect', function (event){
+        GetTopButtonsOnGridSelectionChange();
+    });
+
+    /**
+     * Changes on interface on row unselected
+     */
+    $('#MailTable').on('rowunselect', function (event){
+        GetTopButtonsOnGridSelectionChange();
+    });
+
+    /**
+     * Function determines which buttons should appear on top menu, according to email selection
+     */
+    GetTopButtonsOnGridSelectionChange = function(){
+        var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');
+        if (selectedrowindexes.length==1){
+            var args=["create", "reply", "view", "delete"];
+            ShowTopMenuItems(args);;
+        }
+        else if (selectedrowindexes.length==0){
+            var args=["create"];
+            ShowTopMenuItems(args);
+        }
+        else{
+            var args=["create", "delete"];
+            ShowTopMenuItems(args);
+        }
+    }
+}
+
+
+
+    //SampleData.dataBind();
+
+
+    /*function datagridtoolbar(toolbar) {
         var me = this;
         var container = $("<div style='margin: 5px;'></div>");
         var span = $("<span style='float: left; margin-top: 5px; margin-right: 4px;'>Αναζήτηση μηνύματος: </span>");
@@ -90,5 +125,4 @@ $(document).ready(function () {
                 $("#MailTable").jqxGrid('updatebounddata');
             }
         });
-    }
-});
+    }*/

@@ -1,3 +1,11 @@
+/** {
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+    -o-box-sizing: border-box !important;
+    -ms-box-sizing: border-box !important;
+}*/
+
 * {
     box-sizing: border-box;
 }
@@ -19,29 +27,32 @@
 }
 
 .MailButton{
-    /*background:url('../../img/emaillogo.png') no-repeat;*/
     cursor:pointer;
     border:none;
     width:100px;
     height:100px;
 }
 
+.MailButton:focus{
+    outline:none;
+}
+
 .topmenu {
-    margin-left:10%;
-    width:50%;
-    height:30px;
-    margin-bottom: 5px;
+    width:100% !important;
+    height:100% !important;
+    box-sizing: border-box;
 }
 .leftmenu {
-    width: 10%;
-    height:570px;
-    padding-right: 5px;
-    float: left;
+    margin-top: 100px;
+    width: 100% !important;
+    height: calc(100% - 100px); !important;
+    box-sizing: border-box;
 }
 .content {
-    width: 50%;
-    height:570px;
+    width: 550px;
+    height:100%;
     float: left;
+    display: inline;
 }
 
 .inputparams {
@@ -82,7 +93,7 @@
 }
 
 .editor {
-    height:508px;
+    height:100%;
 }
 
 .edcontainer {
@@ -95,11 +106,26 @@
     background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
 }
 
-/*.jqx-fill-state-hover-darkblue{*/
+.jqx-fill-state-hover-darkblue{
     /*background: #FFFFFF; !important;*/
     /*color:#004a73; !important;*/
-/*}*/
+}
 
-/*.jqx-checkbox-check-checked-darkblue {*/
-    /*background: transparent url(../../js/jqwidgets/styles/images/check_black.png) center center no-repeat; !important;*/
-/*}*/
+.jqx-checkbox-check-checked-darkblue {
+    background: transparent url(../../js/jqwidgets/styles/images/check_black.png) center center no-repeat; !important;
+}
+
+/*
+#jqxwindow .jqx-window-header {
+    display:none !important;
+}*/
+
+.jqx-layout-ribbon-header-ltr{
+    display:none !important;
+}
+
+
+.jqx-widget-content{
+    padding:0px 0px 0px !important;
+    box-sizing: border-box !important;
+}

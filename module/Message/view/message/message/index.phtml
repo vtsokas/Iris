@@ -1,115 +1,122 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
+<?
+$this->inlineScript()
+    //The files live inside the public folder
+    ->appendFile($this->basePath('js/project/mail/sampleData.js'))
+    ->appendFile($this->basePath('js/project/mail/emailUI.js'))
+    ->appendFile($this->basePath('js/project/mail/utils.js'))
+    ->appendFile($this->basePath('js/project/mail/dataGrid.js'))
+    ->appendFile($this->basePath('js/project/mail/menus.js'))
+    ->appendFile($this->basePath('js/project/mail/layout.js'))
 
-    <?
-    $this->inlineScript()
-        //The files live inside the public folder
-        ->appendFile($this->basePath('js/project/mail/sampleData.js'))
-        ->appendFile($this->basePath('js/project/mail/dataGrid.js'))
-        ->appendFile($this->basePath('js/project/mail/mailEvents.js'))
-        ->appendFile($this->basePath('js/project/mail/Editor.js'))
-        ->appendFile($this->basePath('js/project/mail/menus.js'))
+    ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxnavbar.js'))
 
+    ->appendFile($this->basePath('js/jqwidgets/jqxdockpanel.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxmenu.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxeditor.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxribbon.js'))
 
-        ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxdockpanel.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxmenu.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxinput.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxdata.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxeditor.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxlistbox.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxbuttons.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxscrollbar.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxdropdownlist.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxdropdownbutton.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcolorpicker.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxwindow.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxtooltip.js'))
 
-        ->appendFile($this->basePath('js/jqwidgets/jqxdropdownbutton.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxcolorpicker.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxwindow.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxtooltip.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.sort.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.pager.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.selection.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxgrid.edit.js'))
+    ->appendFile($this->basePath('js/jqwidgets/jqxcheckbox.js'))
 
-        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.sort.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.pager.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.selection.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxgrid.edit.js'))
-        ->appendFile($this->basePath('js/jqwidgets/jqxcheckbox.js'))
+    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
+    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
+?>
 
-        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
-        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
+<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
+<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
+<link rel="stylesheet" href="<? echo $this->basePath('css/project/mail.css')?>" type="text/css" />
 
-    ?>
-    <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<? echo $this->basePath('css/project/mail.css')?>" type="text/css" />
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            padding: 3px;
-            box-sizing: border-box;
-            margin: 0;
-        }
-    </style>
+<style>
+    body, html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 3px;
+        box-sizing: border-box;
+        margin: 0;
+    }
+</style>
 
-</head>
-
-<body>
-    <div>
-        <img src='../../../img/emaillogo.png' alt="Email" height="30" style="float:left; margin-left:50px;">
-        <div class="topmenu" id='TopMenu' style="visibility:hidden;">
+<div id="jqxLayout">
+    <div data-container="TopMenuPanel" >
+        <div id='TopMenu' class="topmenu" style="visibility: hidden;">
         </div>
     </div>
-    <div class="leftmenu">
-        <div  id='LeftMenu' style="visibility:hidden;">
+    <div data-container="LeftMenuPanel" >
+        <div id='LeftMenu' class="leftmenu" style="visibility: hidden;">
+            <ul>
+                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
+                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
+                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Drafts</span></li>
+            </ul>
         </div>
     </div>
-    <div class="content">
-        <!--
-        area for mail interface
-        -->
-        <div id='MailTable' style="visibility:hidden;"></div>
 
-        <!--
-        area for new email interface
-        -->
-        <div id="newEmail" style="display: none">
+
+    <!--
+    area for mail interface
+    -->
+    <div data-container="MailsPanel">
+        <div id='MailTable' style="visibility: hidden;">
+        </div>
+    </div>
+
+
+    <!--
+    area for new email interface
+    -->
+    <div data-container="NewEmailPanel">
+        <div id="newEmail" style="visibility: hidden; height:100%;">
             <div id="inputs">
                 <input class="inputparams" id="inputReceiver1"/>
                 <input class="inputparams" id="inputReceiver2"/>
                 <input class="inputparams" id="inputSubject"/>
                 <div class="inputparams" id="inputMessageType"></div>
             </div>
-            <div class="editor">
-                <div id="text"></div>
+            <div class="editor" style="height: calc(100% - 64px);">
+                <div id="text" style="height:100%"></div>
             </div>
         </div>
+    </div>
 
-        <!--
-        area for received emails
-        -->
-        <div id="readEmail" style="display: none">
+    <!--
+    area for received emails
+    -->
+    <div data-container="ViewEmailPanel">
+        <div id="readEmail" style="visibility: hidden; height:100%;">
             <div id="info">
                 <div class="ViewTextBlock">
-                    <span style="font-weight: bolder">Αποστολέας: </span>
+                    <span style="font-weight: bolder">Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚: </span>
                     <span id="sender" style="font-style: italic" ></span>
                 </div>
                 <div class="ViewTextBlock">
-                    <span style="font-weight: bolder">Θέμα: </span>
+                    <span style="font-weight: bolder">Ξ?Ξ­ΞΌΞ±: </span>
                     <span id="subject" style="font-style: italic"></span>
                 </div>
             </div>
-            <div class="editor">
+            <div class="editor" style="height: calc(100% - 60px);">
                 <div class="edcontainer">
                     <div id="viewer" readonly></div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
-</body>
+</div>
