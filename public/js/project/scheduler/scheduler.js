@@ -18,10 +18,6 @@ scheduler = function(){
         id: 'id'
     };
     /**
-     * Get the resources dynamically
-     */
-    resources = [{calendar:"ΓΕΠ"},{calendar:"ΓΕΠ1"},{calendar:"ΓΕΠ3"}];
-    /**
      * We need this source because we want the resources
      * to be independent from the existing appoinments
      */

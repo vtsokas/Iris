@@ -29,7 +29,7 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
      */
     public function findAllTasks($resources = array())
     {
-        if (empty($resources)){
+        if ($resources[0] == "default"){
             $resources = array($this->roleService->getUserRole());
         }
         /**

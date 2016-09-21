@@ -1,5 +1,10 @@
 registerEvents = function() {
     $("#scheduler").on("appointmentAdd", function (event) {
+        if (selectedResources.split(",").indexOf(event.args.appointment.resourceId)==-1){
+            $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
+                "hidden", true);
+        }
+        console.log(event);
         /**
          * Get the task object in the correct format
          */

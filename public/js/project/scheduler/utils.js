@@ -1,13 +1,23 @@
 selectedResource = null;
 newObjectIds = {};
-selectedResources = "";
+selectedResources = "default";
+resources = [];
+/**
+ * Get the resources dynamically
+ */
+$.ajax({url:"/role-json"}).done(function(data){
+    selectedResources = data.userRole;
+
+    for (var i in data.childRoles){
+        resources.push({calendar:data.childRoles[i]});
+    }
+});
+
 /**
  * Method to get all apointments from
  * server and add them in scheduler
  */
 getAppointments = function() {
-    //dataSource.localdata = [];
-    //dataAdapter.dataBind();
     $.ajax({url: "/task-json?resources=" + selectedResources}).done(function (data) {
         $("#scheduler").jqxScheduler('beginAppointmentsUpdate');
 
