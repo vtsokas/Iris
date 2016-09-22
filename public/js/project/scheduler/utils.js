@@ -2,6 +2,8 @@ selectedResource = null;
 newObjectIds = {};
 selectedResources = "default";
 resources = [];
+refreshInterval = 60;
+lastUpdate = new Date().getTime() / 1000;
 /**
  * Get the resources dynamically
  */
@@ -24,6 +26,14 @@ getAppointments = function() {
         var appointments = new Array();
         for (var i in data) {
 
+            if (parseInt(data[i].dateAdded) > lastUpdate) {
+                $("#messageNotificationText").text("Προστέθηκε μία εργασία (" + data[i].calendar + ")");
+                $("#messageNotification").jqxNotification("open");
+            } else if (data[i].dateUpdated > lastUpdate){
+                $("#messageNotificationText").text("Τροποποιήθηκε μία εργασία (" + data[i].calendar + ")");
+                $("#messageNotification").jqxNotification("open");
+            }
+
             var appointment = formatAppointment(data[i]);
             appointments.push(appointment);
         }
@@ -34,6 +44,8 @@ getAppointments = function() {
         resourceAdapter.dataBind();
 
         $("#scheduler").jqxScheduler('endAppointmentsUpdate');
+
+        lastUpdate = new Date().getTime() / 1000;
     });
 };
 /**
@@ -92,3 +104,9 @@ formatAppointment = function(appointment){
     };
     return appointment;
 };
+/**
+ * Auto refresh by an interval set above
+ */
+setInterval(function(){
+    getAppointments();
+}, refreshInterval * 1000);

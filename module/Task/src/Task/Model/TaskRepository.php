@@ -62,6 +62,8 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
 
     public function insert(Task $task)
     {
+        $task->setDateAdded(time())
+             ->setDateUpdated(time());
         /**
          * Prepare an SQL statement
          */
@@ -88,6 +90,7 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
 
     public function update(Task $task)
     {
+        $task->setDateUpdated(time());
         /**
          * Prepare an SQL statement
          */
@@ -97,6 +100,7 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
          */
         $newData = $task->toArray();
         unset($newData['id']);
+        unset($newData['dateAdded']);
         /**
          * Define the statement parameters
          */

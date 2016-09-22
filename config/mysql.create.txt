@@ -11,7 +11,8 @@ CREATE TABLE `task` (
   `recurrenceRule` varchar(45) DEFAULT NULL,
   `recurrenceException` varchar(255) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
-  `resource` varchar(45) DEFAULT NULL,
+  `dateAdded` int(11) DEFAULT NULL,
+  `dateUpdated` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 

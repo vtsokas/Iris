@@ -40,8 +40,8 @@ scheduler = function(){
      * Create the scheduler
      */
     $("#scheduler").jqxScheduler({
-        width: '99.8%',
-        height: '99%',
+        width: '98%',
+        height: '98%',
         rowsHeight:30,
         source: dataAdapter,
         showLegend: false,
@@ -72,7 +72,7 @@ scheduler = function(){
                 'dayView',
                 'weekView',
                 'monthView',
-                'agendaView'
+                //'agendaView'
             ],
         theme:theme,
         editDialogCreate: function (dialog, fields, editAppointment) {
@@ -82,13 +82,7 @@ scheduler = function(){
             fields.timeZoneContainer.hide();
             fields.colorContainer.hide();
         },
-        localization: {
-            editDialogStatuses: {
-                free: "Ολοκληρωμένο",
-                tentative: "Κοινό",
-                busy: "Επείγον"
-            }
-        },
+        localization : greekLanguage,
         renderAppointment: function(data){
             data.html = data.appointment.resourceId + " - " + data.appointment.subject;
             return data;

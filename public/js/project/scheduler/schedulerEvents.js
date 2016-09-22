@@ -37,8 +37,12 @@ registerEvents = function() {
 
                 $("#scheduler").jqxScheduler('endAppointmentsUpdate');
 
-                $("#messageNotificationText").text("Προστέθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
-                $("#messageNotification").jqxNotification("open");
+                getAppointments();
+
+                if (selectedResources.split(",").indexOf(event.args.appointment.resourceId) < 0) {
+                    $("#messageNotificationText").text("Προστέθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
+                    $("#messageNotification").jqxNotification("open");
+                }
                 /**
                  * @todo Cannot edit afterwards
                  */
@@ -77,8 +81,9 @@ registerEvents = function() {
             $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                 "background", formatAppointment(task).background);
 
-            $("#messageNotificationText").text("Τροποποιήθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
-            $("#messageNotification").jqxNotification("open");
+            getAppointments();
+            //$("#messageNotificationText").text("Τροποποιήθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
+            //$("#messageNotification").jqxNotification("open");
         }
     });
 

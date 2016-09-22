@@ -20,10 +20,10 @@ $(document).ready(function () {
                         $('#jqxTree').jqxTree({ height: '99%', hasThreeStates: false, checkboxes: true, width: '99%'});
                         $('#jqxTree').css('visibility', 'visible');
                         $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
-                        $("#jqxTree").bind('change', function (event) {//event.
+                        $("#jqxTree").bind('change', function (event) {
                             var items = $('#jqxTree').jqxTree('getItems');
                             var ar = [];
-                            for (var i in items){console.log(items[i]);
+                            for (var i in items){
                                 if (items[i].checked) ar.push(items[i].originalTitle);
                             }
                             selectedResources = ar.join(",");
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     $("#messageNotification").jqxNotification({
         width: 250, position: "bottom-right", opacity: 0.9,
-        autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 300000, template: "info"
+        autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
     });
 
     /*
@@ -105,7 +105,7 @@ $(document).ready(function () {
         resizable: false,
         modalOpacity: 0.5,
         modalZIndex: 999,
-        initContent: function() {document.getElementById("content").innerHTML='<object type="text/html" data="http://iris/mail" style="width:100%; height: 100%;"></object>'}
+        initContent: function() {document.getElementById("content").innerHTML='<object type="text/html" data="/mail" style="width:100%; height: 100%;"></object>'}
     });
 
 

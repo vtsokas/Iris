@@ -37,7 +37,7 @@ class Task extends AbstractObject
     protected $from;
 
     /**
-     * @var string
+     * @var int
      */
     protected $to;
 
@@ -57,9 +57,14 @@ class Task extends AbstractObject
     protected $status;
 
     /**
-     * @var string
+     * @var int
      */
-    protected $resource;
+    protected $dateAdded;
+
+    /**
+     * @var int
+     */
+    protected $dateUpdated;
 
     /**
      * @param int|null $id
@@ -72,27 +77,19 @@ class Task extends AbstractObject
      * @param string $recurrenceRule
      * @param string $recurrenceException
      */
-    public function __construct($id=null, $description=null, $location=null, $subject=null, $calendar=null,
-                                $from=null, $to=null, $recurrenceRule=null, $recurrenceException=null)
+    public function __construct(/*$id=null, $description=null, $location=null, $subject=null, $calendar=null,
+                                $from=null, $to=null, $recurrenceRule=null, $recurrenceException=null*/)
     {
-        $this->setId($id);
-        $this->description = $description;
-        $this->location = $location;
-        $this->subject = $subject;
-        $this->calendar = $calendar;
-        $this->from = $from;
-        $this->to = $to;
-        $this->recurrenceRule = $recurrenceRule;
-        $this->recurrenceException = $recurrenceException;
+//        $this->setId($id);
+//        $this->description = $description;
+//        $this->location = $location;
+//        $this->subject = $subject;
+//        $this->calendar = $calendar;
+//        $this->from = $from;
+//        $this->to = $to;
+//        $this->recurrenceRule = $recurrenceRule;
+//        $this->recurrenceException = $recurrenceException;
     }
-
-    /**
-     * @return int|null
-     */
-//    public function getId()
-//    {
-//        return $this->id;
-//    }
 
     /**
      * @return string
@@ -118,7 +115,11 @@ class Task extends AbstractObject
         return $this->subject;
     }
 
-    public function setSubject($sub){ $this->subject = $sub; return $this; }
+    public function setSubject($sub)
+    {
+        $this->subject = $sub;
+        return $this;
+    }
 
     /**
      * @return string
@@ -169,10 +170,29 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getResource()
+    public function getDateAdded()
     {
-        return $this->resource;
+        return $this->dateAdded;
+    }
+
+    public function setDateAdded($dateAdded){
+        $this->dateAdded = $dateAdded;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateAdded;
+    }
+
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->dateUpdated = $dateUpdated;
+        return $this;
     }
 }
