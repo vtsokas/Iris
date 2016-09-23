@@ -6,9 +6,15 @@
     -ms-box-sizing: border-box !important;
 }*/
 
-* {
+/** {
     box-sizing: border-box;
+}*/
+
+#MailTable{
+    box-sizing: border-box !important;
 }
+
+iframe { display: block; }
 
 #schedulercontainer {
     width: 100%;
@@ -23,7 +29,7 @@
     left: 0;
 }
 #showWindowButton {
-    z-index: 1000;
+    z-index: 9999991;
 }
 
 .MailButton{
@@ -48,28 +54,21 @@
     height: calc(100% - 100px); !important;
     box-sizing: border-box;
 }
-.content {
-    width: 550px;
-    height:100%;
-    float: left;
-    display: inline;
-}
 
-.inputparams {
+.inputs * {
     margin-bottom:5px;
     margin-right:5px;
     text-indent: 5px;
     display:block;
 }
 
-#inputReceiver1{
+#inputReceiver1,
+#inputSubject {
     float: left;
-    display: inherit;
 }
 
-#inputSubject{
-    float: left;
-    display: inherit;
+.editor {
+    height: calc(100% - 64px);
 }
 
 .ViewTextBlock{
@@ -92,10 +91,6 @@
     text-indent: 5px;
 }
 
-.editor {
-    height:100%;
-}
-
 .edcontainer {
     height: 100%;
     width: 100%;
@@ -106,26 +101,105 @@
     background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
 }
 
-.jqx-fill-state-hover-darkblue{
-    /*background: #FFFFFF; !important;*/
-    /*color:#004a73; !important;*/
-}
-
-.jqx-checkbox-check-checked-darkblue {
-    background: transparent url(../../js/jqwidgets/styles/images/check_black.png) center center no-repeat; !important;
-}
-
-/*
+/*hide window title*/
 #jqxwindow .jqx-window-header {
-    display:none !important;
-}*/
+    display:none;
+}
 
-.jqx-layout-ribbon-header-ltr{
+/*style window content after hidding title*/
+#jqxwindow .jqx-window-content{
+    padding: 0px;
+    display: inline;
+}
+
+/*jqxlayout hide tab headers*/
+.jqx-layout-ribbon-header{
     display:none !important;
 }
 
+/*notification table z position*/
+.jqx-notification-container {
+    z-index: 10000000;
+}
 
-.jqx-widget-content{
-    padding:0px 0px 0px !important;
-    box-sizing: border-box !important;
+
+/*style login and register pages*/
+.iris-login-main{
+    width: 380px;
+    border: 1px solid #CCC;
+    padding: 12px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+}
+
+.iris-page-header{
+    margin: 0 0 12px;
+    padding-top: 7px;
+}
+
+.iris-header{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d5e3ef;
+    font-size: 21px;
+    line-height:28px;
+    color: #478fca;
+    font-weight: lighter;
+}
+
+.iris-label label{
+    margin-top: 11px;
+    min-height: 30px;
+    padding-top: 3px;
+    margin-bottom: 6px;
+    font-weight: normal;
+    font-size: 14px;
+    display: inline-block;
+}
+
+.iris-input input{
+    width: 100%;
+}
+
+.iris-button button{
+    margin-top: 15px;
+    float: right;
+    min-width: 90px;
+    background-color: #87b87f;
+    color: #fff;
+    border: 5px solid #87b87f;
+    padding: 6px 12px;
+}
+
+.iris-button button{
+    top: 1px;
+    left: 1px;
+}
+
+.iris-button button:hover{
+    background-color: #629b58;
+}
+
+.iris-input input[type="text"], .iris-input input[type="password"]{
+    color: #858585;
+    border: 1px solid #d5d5d5;
+    padding: 5px 4px;
+    line-height: 1.2;
+    font-size: 14px;
+    box-shadow: none;
+    transition-duration: .1s;
+}
+
+.iris-input input[type="text"]:hover, .iris-input input[type="password"]:hover {
+    border-color: #b5b5b5;
+}
+
+.iris-input input[type="text"]:focus, .iris-input input[type="password"]:focus {
+    color: #696969;
+    border-color: #f59942;
+    outline: 0;
 }

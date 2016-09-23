@@ -60,16 +60,4 @@ $(document).ready(function () {
         resizable : true,
         theme:theme,
         layout: layout });
-
-    /*$('#jqxLayout').on('mouseup', function(event) {
-        var target = $(event.target);
-        console.log(target);
-        console.log(target[0]._index);
-/!*        if (target.hasClass('jqx-ribbon-item-docking-layout')) {
-            console.log('Panel selected.');
-        }*!/
-        if (target[0]._index == 0){
-            console.log('Panel selected.');
-        }
-    });*/
 });

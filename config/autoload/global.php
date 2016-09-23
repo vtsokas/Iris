@@ -15,7 +15,7 @@ return array(
     'db' => array(
         'driver'    => 'PdoMysql',
         'hostname'  => '127.0.0.1',
-        'database'  => 'scheduler',
+        'database'  => 'iris',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8'

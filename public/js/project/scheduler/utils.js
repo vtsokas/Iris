@@ -16,7 +16,7 @@ $.ajax({url:"/role-json"}).done(function(data){
 });
 
 /**
- * Method to get all apointments from
+ * Method to get all appointments from
  * server and add them in scheduler
  */
 getAppointments = function() {
@@ -26,13 +26,11 @@ getAppointments = function() {
         var appointments = new Array();
         for (var i in data) {
 
-            if (parseInt(data[i].dateAdded) > lastUpdate) {
-                $("#messageNotificationText").text("Ξ ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ ΞΌΞ―Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ± (" + data[i].calendar + ")");
-                $("#messageNotification").jqxNotification("open");
-            } else if (data[i].dateUpdated > lastUpdate){
-                $("#messageNotificationText").text("Ξ¤ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ ΞΌΞ―Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ± (" + data[i].calendar + ")");
-                $("#messageNotification").jqxNotification("open");
-            }
+            if (parseInt(data[i].dateAdded) > lastUpdate)
+                //console.log(data[i]);
+                ShowNotification("Προστέθηκε μία εργασία", "success", data[i].calendar );
+            else if (data[i].dateUpdated > lastUpdate)
+                ShowNotification("Τροποποιήθηκε μία εργασία", "success", data[i].calendar );
 
             var appointment = formatAppointment(data[i]);
             appointments.push(appointment);
@@ -103,6 +101,12 @@ formatAppointment = function(appointment){
             break;
     };
     return appointment;
+};
+
+ShowNotification = function(text, template, arg){
+    $("#messageNotificationText").text(text + " (" + arg + ")");
+    $('#messageNotification').jqxNotification({ template: template });
+    $("#messageNotification").jqxNotification("open");
 };
 /**
  * Auto refresh by an interval set above

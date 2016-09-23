@@ -13,6 +13,7 @@
         ->appendFile($this->basePath('js/project/scheduler/scheduler.js'))
         ->appendFile($this->basePath('js/project/scheduler/schedulerEvents.js'))
         ->appendFile($this->basePath('js/project/scheduler/utils.js'))
+        ->appendFile($this->basePath('js/project/scheduler/mailWindow.js'))
 
         ->appendFile($this->basePath('js/scripts/demos.js'))
         ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
@@ -70,26 +71,28 @@
         <!--The panel content divs can have a flat structure-->
         <!--documentGroup-->
 
+        <div id="lefttoppanel">
+            <div data-container="Document1Panel">
+                <?=$this->roleTree()?>
+            </div>
+            <div data-container="Document2Panel">
+                <div style='text-align: center; margin-top:20px;'>
+                    <input style="width:80%" type="button" value="Εξαγωγή εγγράφου Excel" id='excelExport' />
+                </div>
+                </br>
+                <div style='text-align: center;'>
+                    <input style="width:80%" type="button" value="Εξαγωγή σελίδας HTML" id='htmlExport' />
+                </div>
+            </div>
+        </div>
 
-        <div data-container="Document1Panel">
-            <?=$this->roleTree()?>
-        </div>
-        <div data-container="Document2Panel">
-            <div style='text-align: center; margin-top:20px;'>
-                <input style="width:80%" type="button" value="Εξαγωγή εγγράφου Excel" id='excelExport' />
-            </div>
-            </br>
-            <div style='text-align: center;'>
-                <input style="width:80%" type="button" value="Εξαγωγή σελίδας HTML" id='htmlExport' />
-            </div>
-        </div>
         <!--bottom tabbedGroup-->
         <div data-container="OutputPanel">
             </div>
         <!--right tabbedGroup-->
         <div data-container="SolutionExplorerPanel">
             <div id="scheduler"></div>
-            <div id="messageNotification" style="z-index:1001 !important;">
+            <div id="messageNotification">
                 <div id="messageNotificationText"></div>
             </div>
         </div>
@@ -100,11 +103,8 @@
     </div>
 </div>
 <div id='jqxwindow' >
-<!--    <div>
-        Header</div>-->
-    <div id="content" >
-<!--        <iframe src="http://iris/mail" style="width:717px; height:555px"></iframe>-->
-    </div>
+    <div>Header</div>
+    <div id="content"></div>
 </div>
 </body>
 </html>

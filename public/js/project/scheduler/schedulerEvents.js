@@ -39,13 +39,15 @@ registerEvents = function() {
 
                 getAppointments();
 
-                if (selectedResources.split(",").indexOf(event.args.appointment.resourceId) < 0) {
-                    $("#messageNotificationText").text("Προστέθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
-                    $("#messageNotification").jqxNotification("open");
-                }
+                if (selectedResources.split(",").indexOf(event.args.appointment.resourceId) < 0)
+                    ShowNotification("Προστέθηκε μία εργασία", "success", event.args.appointment.resourceId);
+
                 /**
                  * @todo Cannot edit afterwards
                  */
+            }).error(function(){
+                $('#scheduler').jqxScheduler('deleteAppointment', event.args.appointment.id);
+                ShowNotification("Αδυναμία εισαγωγής εργασίας", "error", event.args.appointment.resourceId);
             });
         }
     });
@@ -73,17 +75,22 @@ registerEvents = function() {
                 "url"    : "/task-json/" + id,
                 "type" : "PUT",
                 "data"   : task
-            });
-            /**
-             * Set the correct color according to the
-             * status that might has been changed
-             */
-            $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
-                "background", formatAppointment(task).background);
+            }).success(function(response){
+                /**
+                 * Set the correct color according to the
+                 * status that might has been changed
+                 */
+                $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
+                    "background", formatAppointment(task).background);
 
-            getAppointments();
-            //$("#messageNotificationText").text("Τροποποιήθηκε μία εργασία (" + event.args.appointment.resourceId + ")");
-            //$("#messageNotification").jqxNotification("open");
+                /**
+                 * @todo Cannot edit afterwards
+                 */
+            }).error(function(){
+                ShowNotification("Αδυναμία τροποποίησης εργασίας", "error", event.args.appointment.resourceId);
+            }).always(function(){
+                getAppointments();
+            });
         }
     });
 

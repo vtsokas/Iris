@@ -55,66 +55,68 @@ $this->inlineScript()
     }
 </style>
 
-<div id="jqxLayout">
-    <div data-container="TopMenuPanel" >
-        <div id='TopMenu' class="topmenu" style="visibility: hidden;">
-        </div>
-    </div>
-    <div data-container="LeftMenuPanel" >
-        <div id='LeftMenu' class="leftmenu" style="visibility: hidden;">
-            <ul>
-                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
-                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
-                <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Drafts</span></li>
-            </ul>
-        </div>
-    </div>
-
-
-    <!--
-    area for mail interface
-    -->
-    <div data-container="MailsPanel">
-        <div id='MailTable' style="visibility: hidden;">
-        </div>
-    </div>
-
-
-    <!--
-    area for new email interface
-    -->
-    <div data-container="NewEmailPanel">
-        <div id="newEmail" style="visibility: hidden; height:100%;">
-            <div id="inputs">
-                <input class="inputparams" id="inputReceiver1"/>
-                <input class="inputparams" id="inputReceiver2"/>
-                <input class="inputparams" id="inputSubject"/>
-                <div class="inputparams" id="inputMessageType"></div>
-            </div>
-            <div class="editor" style="height: calc(100% - 64px);">
-                <div id="text" style="height:100%"></div>
+<div id="mailcontainer">
+    <div id="jqxLayout">
+        <div data-container="TopMenuPanel" >
+            <div id='TopMenu' class="topmenu" style="visibility: hidden;">
             </div>
         </div>
-    </div>
+        <div data-container="LeftMenuPanel" >
+            <div id='LeftMenu' class="leftmenu" style="visibility: hidden;">
+                <ul>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Drafts</span></li>
+                </ul>
+            </div>
+        </div>
 
-    <!--
-    area for received emails
-    -->
-    <div data-container="ViewEmailPanel">
-        <div id="readEmail" style="visibility: hidden; height:100%;">
-            <div id="info">
-                <div class="ViewTextBlock">
-                    <span style="font-weight: bolder">Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚: </span>
-                    <span id="sender" style="font-style: italic" ></span>
+
+        <!--
+        area for mail interface
+        -->
+        <div data-container="MailsPanel">
+            <div id='MailTable' style="visibility: hidden;">
+            </div>
+        </div>
+
+
+        <!--
+        area for new email interface
+        -->
+        <div data-container="NewEmailPanel">
+            <div id="newEmail" style="visibility: hidden; height:100%;">
+                <div class="inputs">
+                    <input id="inputReceiver1"/>
+                    <input id="inputReceiver2"/>
+                    <input id="inputSubject"/>
+                    <div id="inputMessageType"></div>
                 </div>
-                <div class="ViewTextBlock">
-                    <span style="font-weight: bolder">Ξ?Ξ­ΞΌΞ±: </span>
-                    <span id="subject" style="font-style: italic"></span>
+                <div class="editor">
+                    <div id="text" style="height:100%"></div>
                 </div>
             </div>
-            <div class="editor" style="height: calc(100% - 60px);">
-                <div class="edcontainer">
-                    <div id="viewer" readonly></div>
+        </div>
+
+        <!--
+        area for received emails
+        -->
+        <div data-container="ViewEmailPanel">
+            <div id="readEmail" style="visibility: hidden; height:100%;">
+                <div id="info">
+                    <div class="ViewTextBlock">
+                        <span style="font-weight: bolder">Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚: </span>
+                        <span id="sender" style="font-style: italic" ></span>
+                    </div>
+                    <div class="ViewTextBlock">
+                        <span style="font-weight: bolder">Ξ?Ξ­ΞΌΞ±: </span>
+                        <span id="subject" style="font-style: italic"></span>
+                    </div>
+                </div>
+                <div class="editor" style="height: calc(100% - 60px);">
+                    <div class="edcontainer">
+                        <div id="viewer" readonly></div>
+                    </div>
                 </div>
             </div>
         </div>

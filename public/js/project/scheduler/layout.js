@@ -1,3 +1,4 @@
+var theme = 'darkblue';
 $(document).ready(function () {
     var theme = 'darkblue';
     // the 'layout' JSON array defines the internal structure of the layout
@@ -75,71 +76,4 @@ $(document).ready(function () {
         width: 250, position: "bottom-right", opacity: 0.9,
         autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
     });
-
-    /*
-    Temp code
-    */
-
-    $( "#showWindowButton" ).draggable({
-        cancel: false,
-        grid: [1,1],
-        snap: 'body',
-        snapMode: 'inner',
-        snapTolerance: 40,
-        start: function (event, ui) {
-            $(this).css({left: 'auto', right: 'auto', top: 'auto', bottom: 'auto'});
-        },
-        stop: MailButtonPosition
-    });
-
-    $("#jqxwindow").jqxWindow({
-        height: '100%',
-        width: '100%',
-        maxHeight: '100%',
-        //maxWidth: 8,
-        theme: theme,
-        autoOpen: false,
-        animationType: 'combined',
-        isModal: true,
-        draggable: false,
-        resizable: false,
-        modalOpacity: 0.5,
-        modalZIndex: 999,
-        initContent: function() {document.getElementById("content").innerHTML='<object type="text/html" data="/mail" style="width:100%; height: 100%;"></object>'}
-    });
-
-
-    $('#showWindowButton').click(function (event, ui) {
-        if ($(this).position().left == 0){
-            var x = $(this).position().left + $(this).width()+10;
-        }
-        else{
-            var x = $(this).position().left - $('#jqxwindow').width();
-        }
-        $("#jqxwindow").jqxWindow({ position: { x: x, y: 0} });
-        $("#jqxwindow").jqxWindow('open');
-    });
-
-     function MailButtonPosition (event, ui) {
-        var cWidth = $(window).width() / 2;
-        var cHeight = $(window).height() / 2;
-
-        if (ui.position.left > cWidth) {
-            $(this).css({left: 'auto', right: 0});
-            var x = $(this).position().left - $('#jqxwindow').width();
-            $('#jqxwindow').jqxWindow('move', x, 0);
-        }
-        else {
-            $(this).css({right: 'auto', left: 0});
-            var x = $(this).position().left + $(this).width()+10;
-        }
-
-        if (ui.position.top > cHeight) {
-            $(this).css({top: 'auto', bottom: 0});
-        }
-        else {
-            $(this).css({bottom: 'auto', top: 0});
-        }
-         $('#jqxwindow').jqxWindow('move', x, 0);
-    }
 });
