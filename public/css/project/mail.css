@@ -1,104 +1,133 @@
-/** {
-    box-sizing: border-box !important;
-    -webkit-box-sizing: border-box !important;
-    -moz-box-sizing: border-box !important;
-    -o-box-sizing: border-box !important;
-    -ms-box-sizing: border-box !important;
+/*#jqxTabs .jqx-tabs-content{
+    height:100%;
+    width:100% !important;
 }*/
 
-/** {
-    box-sizing: border-box;
-}*/
+.jqx-tabs-header{
+    height:26px !important;
+}
+
+.jqx-tabs-title{
+    padding-top:3px !important;
+}
+
+.jqx-tabs{
+    border:0px;
+}
+
+.jqx-scheduler{
+    border:0px;
+}
+
+.jqx-tree{
+    border:0px;
+}
+
+.jqx-rc-all {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.jqx-rc-t {
+    -moz-border-radius-topleft: 0px;
+    -webkit-border-top-left-radius: 0px;
+    border-top-left-radius: 0px;
+    -moz-border-radius-topright: 0px;
+    -webkit-border-top-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
 
 #MailTable{
-    box-sizing: border-box !important;
+box-sizing: border-box !important;
 }
 
 iframe { display: block; }
 
 #schedulercontainer {
-    width: 100%;
-    height: 100%;
-    position: relative;
+width: 100%;
+height: 100%;
+position: relative;
 }
 
 #jqxLayout,
 #showWindowButton {
-    position: absolute;
-    top: 0;
-    left: 0;
+position: absolute;
+top: 0;
+left: 0;
 }
 #showWindowButton {
-    z-index: 9999991;
+z-index: 9999991;
 }
 
 .MailButton{
-    cursor:pointer;
-    border:none;
-    width:100px;
-    height:100px;
+cursor:pointer;
+border:none;
+width:100px;
+height:100px;
 }
 
 .MailButton:focus{
-    outline:none;
+outline:none;
 }
 
 .topmenu {
-    width:100% !important;
-    height:100% !important;
-    box-sizing: border-box;
+width:100% !important;
+height:100% !important;
+box-sizing: border-box;
 }
 .leftmenu {
-    margin-top: 100px;
-    width: 100% !important;
-    height: calc(100% - 100px); !important;
-    box-sizing: border-box;
+margin-top: 100px;
+width: 100% !important;
+height: calc(100% - 100px); !important;
+box-sizing: border-box;
 }
 
 .inputs * {
-    margin-bottom:5px;
-    margin-right:5px;
-    text-indent: 5px;
-    display:block;
+margin-bottom:5px;
+margin-right:5px;
+text-indent: 5px;
+display:block;
 }
 
 #inputReceiver1,
 #inputSubject {
-    float: left;
+float: left;
 }
 
 .editor {
-    height: calc(100% - 64px);
+height: calc(100% - 64px);
 }
 
 .ViewTextBlock{
-    height:25px;
-    width:100%;
-    margin-bottom: 5px;
-    text-indent: 5px;
-    color: #004a73;
-    border: 1px solid;
-    border-radius: 3px;
-    border-color: #004a73;
+height:25px;
+width:100%;
+margin-bottom: 5px;
+text-indent: 5px;
+color: #004a73;
+border: 1px solid;
+border-radius: 3px;
+border-color: #004a73;
 }
 
 #viewer{
-    height: 100%;
-    width: 100%;
-    border: 1px solid transparent;
-    border-color: #004a73;
-    background-color: #FFFFFF;
-    text-indent: 5px;
+height: 100%;
+width: 100%;
+border: 1px solid transparent;
+border-color: #004a73;
+background-color: #FFFFFF;
+text-indent: 5px;
 }
 
 .edcontainer {
-    height: 100%;
-    width: 100%;
-    padding: 4px;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    border-color: #004a73;
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
+height: 100%;
+width: 100%;
+padding: 4px;
+border: 1px solid transparent;
+border-radius: 3px;
+border-color: #004a73;
+background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
 }
 
 /*hide window title*/

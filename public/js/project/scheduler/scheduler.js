@@ -40,8 +40,8 @@ scheduler = function(){
      * Create the scheduler
      */
     $("#scheduler").jqxScheduler({
-        width: '98%',
-        height: '98%',
+        width: '100%',
+        height: '100%',
         rowsHeight:30,
         source: dataAdapter,
         showLegend: false,

@@ -18,35 +18,40 @@ $(document).ready(function () {
                     title: 'Προβολή',
                     contentContainer: 'Document1Panel',
                     initContent: function(){
-                        $('#jqxTree').jqxTree({ height: '99%', hasThreeStates: false, checkboxes: true, width: '99%'});
-                        $('#jqxTree').css('visibility', 'visible');
-                        $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
-                        $("#jqxTree").bind('change', function (event) {
-                            var items = $('#jqxTree').jqxTree('getItems');
-                            var ar = [];
-                            for (var i in items){
-                                if (items[i].checked) ar.push(items[i].originalTitle);
-                            }
-                            selectedResources = ar.join(",");
-                            getAppointments();
-                        });
-                    }
-                    }, {
-                        type: 'documentPanel',
-                        title: 'Επιλογές',
-                        contentContainer: 'Document2Panel',
-                    initContent: function(){
-                        $("#excelExport").jqxButton();
-                        $("#htmlExport").jqxButton();
+                        $('#jqxTabs').jqxTabs({
+                            width: '100%',
+                            height: '100%',
+                            theme: theme,
+                            initTabContent: function (tab){
+                                if (tab==0){
+                                    $('#jqxTree').jqxTree({ height: '%', hasThreeStates: false, checkboxes: true, width: '100%'});
+                                    $('#jqxTree').css('visibility', 'visible');
+                                    $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
+                                    $("#jqxTree").bind('change', function (event) {
+                                        var items = $('#jqxTree').jqxTree('getItems');
+                                        var ar = [];
+                                        for (var i in items){
+                                            if (items[i].checked) ar.push(items[i].originalTitle);
+                                        }
+                                        selectedResources = ar.join(",");
+                                        getAppointments();
+                                    });
+                                }
+                                else if (tab==1){
+                                    $("#excelExport").jqxButton();
+                                    $("#htmlExport").jqxButton();
 
-                        $("#excelExport").click(function () {
-                            $("#scheduler").jqxScheduler('exportData', 'xls');
-                        });
-                        $("#htmlExport").click(function () {
-                            $("#scheduler").jqxScheduler('exportData', 'html');
+                                    $("#excelExport").click(function () {
+                                        $("#scheduler").jqxScheduler('exportData', 'xls');
+                                    });
+                                    $("#htmlExport").click(function () {
+                                        $("#scheduler").jqxScheduler('exportData', 'html');
+                                    });
+                                }
+                            }
                         });
                     }
-                }]
+                    }]
             }, {
                 type: 'tabbedGroup',
                 height: '20%',
