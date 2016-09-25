@@ -46,7 +46,7 @@
         ->appendFile($this->basePath('js/jqwidgets/jqxnotification.js'))
         ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
 
-        ->appendFile($this->basePath('js/project/scheduler/globalize.GR.js'))
+        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.GR.js'))
 //        ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
 
     ?>
@@ -76,7 +76,7 @@
         <div id="lefttoppanel">
             <div data-container="Document1Panel">
                 <div id='jqxTabs'>
-                    <ul style='margin-left: 20px;'>
+                    <ul id="tablist" style='margin-left: 20px; visibility: hidden;'>
                         <li>Προβολή</li>
                         <li>Επιλογές</li>
                     </ul>
@@ -85,10 +85,10 @@
                     </div>
                     <div>
                         <div style='text-align: center; margin-top:20px;'>
-                            <input style="width:80%" type="button" value="Εξαγωγή εγγράφου Excel" id='excelExport' />
+                            <input style="width:80%; visibility: hidden;" type="button" value="Εξαγωγή εγγράφου Excel" id='excelExport' />
                         </div>
                         <div style='text-align: center;'>
-                            <input style="width:80%" type="button" value="Εξαγωγή σελίδας HTML" id='htmlExport' />
+                            <input style="width:80%; visibility: hidden;" type="button" value="Εξαγωγή σελίδας HTML" id='htmlExport' />
                         </div>
                     </div>
                 </div>
@@ -115,16 +115,13 @@
             </div>
         </div>
     </div>
-
     <div>
-        <input type="image" src="<?= $this->basePath().'/img/emaillogo.png'?>" id="showWindowButton" class="MailButton"/>
+        <input  style="visibility: hidden;" type="image" src="<?= $this->basePath().'/img/emaillogo.png'?>" id="showWindowButton" class="MailButton"/>
     </div>
 </div>
-<div id='jqxwindow' >
+<div id='jqxwindow'>
     <div>Header</div>
     <div id="content"></div>
-</div>
-<div id="jqxLoader">
 </div>
 </body>
 </html>

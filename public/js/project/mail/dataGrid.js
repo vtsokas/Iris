@@ -44,8 +44,7 @@ initDataGrid = function() {
             sortable: true,
             enabletooltips: true,
             selectionmode: 'multiplerows',
-            //showtoolbar: true,
-            //rendertoolbar:datagridtoolbar,
+            localization: greekLanguage,
             columns: [
                 { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' , cellsrenderer: rendrow },
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },

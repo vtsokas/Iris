@@ -29,6 +29,7 @@ function ShowTopMenuItems(args){
  */
 initTopMenu = function () {
 
+    //$("#TopMenu").jqxNavBar({selectedItem: 0,  height: '100%', width:200, orientation:'horizontal', theme:theme });
 
     $("#TopMenu").jqxMenu({source: TopMenuItems, height: '100%', width: '100%', mode: 'horizontal', theme: theme});
     $("#TopMenu").css('visibility','visible');
@@ -61,8 +62,10 @@ initTopMenu = function () {
                 args=["create"];
                 break;
             case "send":
-                //mock message
-                alert("Μήνυμα εστάλη");
+                /**
+                 * @TODO implement
+                 */
+                onSendMessage();
                 ShowMailTableInterface();
                 args=["create"];
                 break;
@@ -84,7 +87,7 @@ initTopMenu = function () {
  * Left menu
  */
 initLeftMenu = function () {
-    $("#LeftMenu").jqxNavBar({selectedItem: 0,  height: 140, width:'100%', orientation:'vertical', theme:theme });
+    $("#LeftMenu").jqxNavBar({selectedItem: 0,  height:140, width:'100%', orientation:'vertical', theme:theme });
     $("#LeftMenu").css('visibility','visible');
 
     /**

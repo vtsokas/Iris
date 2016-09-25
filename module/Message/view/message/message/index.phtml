@@ -8,6 +8,7 @@ $this->inlineScript()
     ->appendFile($this->basePath('js/project/mail/menus.js'))
     ->appendFile($this->basePath('js/project/mail/layout.js'))
 
+
     ->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxcore.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxlayout.js'))
@@ -36,8 +37,8 @@ $this->inlineScript()
     ->appendFile($this->basePath('js/jqwidgets/jqxgrid.edit.js'))
     ->appendFile($this->basePath('js/jqwidgets/jqxcheckbox.js'))
 
-    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.js'))
-    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.culture.de-DE.js'))
+    ->appendFile($this->basePath('js/jqwidgets/globalization/globalize.GR.js'))
+
 ?>
 
 <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
@@ -49,7 +50,7 @@ $this->inlineScript()
         width: 100%;
         height: 100%;
         overflow: hidden;
-        padding: 3px;
+        padding: 0px;
         box-sizing: border-box;
         margin: 0;
     }
@@ -57,12 +58,8 @@ $this->inlineScript()
 
 <div id="mailcontainer">
     <div id="jqxLayout">
-        <div data-container="TopMenuPanel" >
-            <div id='TopMenu' class="topmenu" style="visibility: hidden;">
-            </div>
-        </div>
-        <div data-container="LeftMenuPanel" >
-            <div id='LeftMenu' class="leftmenu" style="visibility: hidden;">
+        <div data-container="TopMenuPanel">
+            <div id='TopMenu' style="visibility: hidden;">
                 <ul>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
@@ -70,6 +67,21 @@ $this->inlineScript()
                 </ul>
             </div>
         </div>
+        <div data-container="Search" >
+            <div id="search">
+                sds
+            </div>
+        </div>
+        <div data-container="LeftMenuPanel">
+            <div id='LeftMenu'>
+                <ul>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
+                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Drafts</span></li>
+                </ul>
+            </div>
+        </div>
+
 
 
         <!--

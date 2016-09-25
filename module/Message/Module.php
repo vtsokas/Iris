@@ -2,6 +2,9 @@
 
 namespace Message;
 
+
+use Message\Model\MessageRepository;
+
 class Module
 {
     public function getAutoloaderConfig()
@@ -18,5 +21,17 @@ class Module
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'message_repository' =>  function() {
+                    $repository = new MessageRepository();
+                    return $repository;
+                }
+            ),
+        );
     }
 }

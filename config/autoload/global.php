@@ -10,7 +10,26 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
+use Pixie\Connection;
 
+// Create a connection, once only.
+$config = array(
+    'driver'    => 'mysql', // Db driver
+    'host'      => '127.0.0.1',
+    'database'  => 'iris',
+    'username'  => 'root',
+    'password'  => '',
+    'charset'   => 'utf8', // Optional
+    'options'   => array( // PDO constructor options, optional
+        \PDO::ATTR_TIMEOUT => 5,
+        \PDO::ATTR_EMULATE_PREPARES => false,
+    ),
+);
+new Connection('mysql', $config, 'MyAlias');
+
+/**
+ * @TODO merge
+ */
 return array(
     'db' => array(
         'driver'    => 'PdoMysql',
@@ -26,3 +45,4 @@ return array(
         ),
     ),
 );
+

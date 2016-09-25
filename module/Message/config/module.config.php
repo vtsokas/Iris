@@ -2,7 +2,8 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Message\Controller\Message' => 'Message\Controller\MessageController'
+            'Message\Controller\Message' => 'Message\Controller\MessageController',
+            'Message\Controller\MessageJson' => 'Message\Controller\MessageJsonController'
         ),
     ),
 
@@ -20,6 +21,19 @@ return array(
                     'defaults' => array(
                         'controller' => 'Message\Controller\Message',
                         'action' => 'index'
+                    ),
+                ),
+            ),
+            'message-json' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/message-json[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Message\Controller\MessageJson'
                     ),
                 ),
             ),

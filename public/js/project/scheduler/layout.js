@@ -40,6 +40,8 @@ $(document).ready(function () {
                                 else if (tab==1){
                                     $("#excelExport").jqxButton();
                                     $("#htmlExport").jqxButton();
+                                    $("#excelExport").css('visibility','visible');
+                                    $("#htmlExport").css('visibility','visible');
 
                                     $("#excelExport").click(function () {
                                         $("#scheduler").jqxScheduler('exportData', 'xls');
@@ -50,6 +52,7 @@ $(document).ready(function () {
                                 }
                             }
                         });
+                        $("#tablist").css('visibility','visible');
                     }
                     }]
             }, {
@@ -81,4 +84,7 @@ $(document).ready(function () {
         width: 250, position: "bottom-right", opacity: 0.9,
         autoOpen: false, animationOpenDelay: 800, autoClose: true, autoCloseDelay: 3000, template: "info"
     });
+});
+$(window).load(function() {
+    $("#showWindowButton").css('visibility','visible');
 });

@@ -28,3 +28,27 @@ CREATE TABLE `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `message` (
+  `msg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sender` varchar(255) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `msgBody` text DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `dateAdded` int(11) DEFAULT NULL,
+  `isDeleted` smallint(5) unsigned DEFAULT NULL,
+  `isSent` smallint(5) unsigned DEFAULT NULL,
+  PRIMARY KEY (`msg_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `message_correlation` (
+  `correlation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `msg_id` int(10) unsigned NOT NULL,
+  `office` varchar(50) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `isSent` smallint(5) unsigned DEFAULT NULL,
+  `isRead` smallint(5) unsigned DEFAULT NULL,
+  `isDeleted` smallint(5) unsigned DEFAULT NULL,
+  PRIMARY KEY (`correlation_id`),
+  FOREIGN KEY (`msg_id`) REFERENCES message(`msg_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

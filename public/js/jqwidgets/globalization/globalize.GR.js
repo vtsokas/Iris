@@ -138,5 +138,47 @@ greekLanguage = {
         free: "Ολοκληρωμένο",
         tentative: "Κοινό",
         busy: "Επείγον"
-    }
+    },
+
+    /**
+     * grid translation
+     */
+    percentsymbol: "%",
+    currencysymbol: "$",
+    currencysymbolposition: "before",
+    decimalseparator: '.',
+    thousandsseparator: ',',
+    pagergotopagestring: "Πήγαινε στην σελίδα:",
+    pagershowrowsstring: "Εμφάνιση γραμμών:",
+    pagerrangestring: " από ",
+    pagerpreviousbuttonstring: "Προηγούμενη",
+    pagernextbuttonstring: "Επόμενη",
+    groupsheaderstring: "Σείρετε μια στήλη και αφήστε την εδώ για να ομαδοποιήσετε με βάση αυτή",
+    sortascendingstring: "Αύξουσα Ταξινόμηση",
+    sortdescendingstring: "Φθίνουσα Ταξινόμηση",
+    sortremovestring: "Κατάργηση ταξινόμησης",
+    groupbystring: "Ομαδοποίηση με βάση αυτή τη στήλη",
+    groupremovestring: "Αφαίρεση από τις ομάδες",
+    filterclearstring: "Εκκαθάριση",
+    filterstring: "Φιλτράρισμα",
+    filtershowrowstring: "Δείξτε γραμμές όπου:",
+    filtershowrowdatestring: "Δείτε γραμμές όπου ημερομηνία:",
+    filterorconditionstring: "Ή",
+    filterandconditionstring: "Και",
+    filterselectallstring: "(Επιλογή Όλων)",
+    filterchoosestring: "Παρακαλώ επιλέξτε:",
+    filterstringcomparisonoperators: ['άδειο', 'όχι άδειο', 'περιέχει', 'περιέχει(Ταίριασμα Κεφαλαίων/Μικρών)',
+        'δεν περιέχει', 'δεν περιέχει(Ταίριασμα Κεφαλαίων/Μικρών)', 'αρχίζει με', 'αρχίζει(Ταίριασμα Κεφαλαίων/Μικρών)',
+        'τελειώνει με', 'τελειώνει με(Ταίριασμα Κεφαλαίων/Μικρών)', 'ίσο', 'ίσο(Ταίριασμα Κεφαλαίων/Μικρών)', 'κενό', 'όχι κενό'],
+    filternumericcomparisonoperators: ['ίσο', 'όχι ίσο', 'λιγότερο από', 'λιγότερο από ή ίσο',
+        'περισσότερο από', 'περισσότερο από ή ίσο', 'κενό', 'όχι κενό'],
+    filterdatecomparisonoperators: ['ίσο', 'όχι ίσο', 'λιγότερο από', 'λιγότερο από ή ίσο',
+        'περισσότερο από', 'περισσότερο από ή ίσο', 'κενό', 'όχι κενό'],
+    filterbooleancomparisonoperators: ['ίσο', 'όχι ίσο'],
+    validationstring: "Η εισηγμένη τιμή δεν είναι έγκυρη",
+    emptydatastring: "Δεν υπάρχουν δεδομένα προς εμφάνιση",
+    filterselectstring: "Επιλογή Φίλτρου",
+    loadtext: "Φόρτωση...",
+    clearstring: "Εκκαθάριση",
+    todaystring: "Σήμερα"
 };

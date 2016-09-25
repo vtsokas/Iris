@@ -6,13 +6,32 @@ $(document).ready(function () {
         type: 'layoutGroup',
         orientation: 'horizontal',
         items: [{
-            type: 'documentGroup',
+            type: 'layoutGroup',
+            orientation: 'vertical',
             width: '15%',
             items: [{
-                type: 'documentPanel',
-                title: 'Left Menu',
-                contentContainer: 'LeftMenuPanel',
-                initContent: initLeftMenu
+                type: 'documentGroup',
+                height: '10%',
+                items: [{
+                    type: 'documentPanel',
+                    title: 'search',
+                    contentContainer: 'Search',
+                    initContent: function(){
+                        /**
+                         * TODO initialize search html content
+                         */
+                    }
+                }]
+            },{
+                type: 'documentGroup',
+                height: '90%',
+                items: [{
+                    type: 'documentPanel',
+                    height: '90%',
+                    title: 'Left Menu',
+                    contentContainer: 'LeftMenuPanel',
+                    initContent: initLeftMenu
+                }]
             }]
         }, {
             type: 'layoutGroup',
@@ -20,7 +39,7 @@ $(document).ready(function () {
             width: '85%',
             items: [{
                 type: 'documentGroup',
-                height: '5%',
+                height: '10%',
                 items: [{
                     type: 'documentPanel',
                     title: 'Top Menu',
@@ -29,7 +48,7 @@ $(document).ready(function () {
                 }]
             }, {
                 type: 'documentGroup',
-                height: '95%',
+                height: '90%',
                 items: [{
                     type: 'documentPanel',
                     title: 'MailsPanel',
