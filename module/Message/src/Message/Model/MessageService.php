@@ -47,7 +47,7 @@ class MessageService
 
     public function storeMessageToDB($DTMessage){
         /* adding message to DB */
-        $this->getMessageRepository()->insert($DTMessage->getMsg()->getMessageDataArray());
+        $this->getMessageRepository()->insert($DTMessage->getMsg());
 
         /* adding correlation to DB for sender*/
 /*
@@ -74,7 +74,7 @@ class MessageService
             $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
             $messageCorrelation->setIsRead($DTMessage->isIsRead());
 
-            $this->getMessageCorrelationRepository()->insert($messageCorrelation->getMessageCorrelationDataArray());
+            $this->getMessageCorrelationRepository()->insert($messageCorrelation);
         }
 
     }
