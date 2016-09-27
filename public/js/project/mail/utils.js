@@ -98,7 +98,7 @@ createMessageTaskObject = function(){
                 break;
         }
     }else{
-        alert("Παρακαλώ επιλέξτε τύπο μηνύματος");
+        alert("�������� �������� ���� ���������");
         return false;
     }
     var object = {

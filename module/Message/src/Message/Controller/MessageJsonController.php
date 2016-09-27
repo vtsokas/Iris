@@ -2,6 +2,7 @@
 
 namespace Message\Controller;
 
+use Message\Model\DTMessage;
 use Message\Model\Message;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
@@ -39,22 +40,12 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function create($data)
     {
-        /**
-         * Create a new task and set
-         * its values as in the
-         * request parameters
-         */
-        $message = new Message();
-        $message->exchangeArray($data);
-        /**
-         * Call the repository to
-         * save our object
-         */
-        $message = $this->getRepository()->insert($message);
+        $dtm = new DTMessage($data);
+        $this->getServiceLocator()->get("message_service")->storeMessageToDB($dtm);
         /**
          * Return the object as JSON
          */
-        return new JsonModel($message->toArray());
+        return new JsonModel($dtm->toArray());
     }
 
     /**

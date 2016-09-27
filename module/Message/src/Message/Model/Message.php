@@ -15,9 +15,14 @@ class Message extends AbstractObject
     protected $isDeleted;
     protected $isSent;
 
-    public function __construct()
-    {
 
+    public function __construct($dataArray)
+    {
+        $this->exchangeArray($dataArray);
+    }
+
+    public function getMessageDataArray(){
+        return $this->toArray();
     }
 
     public function getId()
