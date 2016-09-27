@@ -4,6 +4,8 @@ namespace Message;
 
 
 use Message\Model\MessageRepository;
+use Message\Model\MessageCorrelationRepository;
+use Message\Model\MessageService;
 
 class Module
 {
@@ -35,8 +37,8 @@ class Module
                 },
                 'message_service' =>  function($sm) {
                     $service = new MessageService();
-                    $service->setMessageRepository($sm->getRepository('message_repository'));
-                    $service->setMessageCorrelationRepository($sm->getRepository('messageCorrelation_repository'));
+                    $service->setMessageRepository($sm->get('message_repository'));
+                    $service->setMessageCorrelationRepository($sm->get('messageCorrelation_repository'));
                     return $service;
                 }
             ),

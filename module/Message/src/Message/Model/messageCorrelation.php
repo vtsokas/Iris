@@ -14,7 +14,7 @@ class MessageCorrelation extends AbstractObject{
     /**
      * @var msgId
      */
-    protected $msgId;
+    protected $msg_id;
 
     /**
      * @var office
@@ -63,7 +63,7 @@ class MessageCorrelation extends AbstractObject{
      */
     public function getmsgId()
     {
-        return $this->msgId;
+        return $this->msg_id;
     }
 
     /**
@@ -165,9 +165,9 @@ class MessageCorrelation extends AbstractObject{
     /**
      * @param msgId $msgId
      */
-    public function setMsgId($msgId)
+    public function setMsgId($msg_id)
     {
-        $this->msgId = $msgId;
+        $this->msg_id = $msg_id;
     }
 
     /**

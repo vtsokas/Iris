@@ -1,10 +1,12 @@
 <?
 
+namespace Message\Model;
+
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Sql;
 
-class MessageCorrelationRepository implements MessageRepositoryInterface
+class MessageCorrelationRepository
 {
     const TABLE_NAME = "message_correlation";
 
@@ -12,7 +14,7 @@ class MessageCorrelationRepository implements MessageRepositoryInterface
     {
         $data = $messageCorrelation->getMessageCorrelationDataArray();
         unset($data['id']);
-        $messageCorrelation->setId(\MyAlias::table(TABLE_NAME)->insert($data));
+        $messageCorrelation->setId(\MyAlias::table(self::TABLE_NAME)->insert($data));
         return $messageCorrelation;
     }
 

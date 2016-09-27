@@ -98,17 +98,24 @@ createMessageTaskObject = function(){
                 break;
         }
     }else{
-        alert("�������� �������� ���� ���������");
+        alert("τεστ");
         return false;
     }
+
+    var recieversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
     var object = {
-        sender :    $('#inputReceiver1').val(),
-        subject:    $('#inputSubject').val(),
-        msgBody:    $('#text').val(),
-        type:       type,
-        isDeleted:  0,
-        isSent:     1
+        message: {
+            sender :    $('#inputReceiver1').val(),
+            subject:    $('#inputSubject').val(),
+            msgBody:    $('#text').val(),
+            type:       type,
+            isDeleted:  0,
+            isSent:     1
+        },
+        offices: recieversArray,
+        regarding: $('#inputReceiver2').val()
     };
+
     //$('#inputReceiver2').val(null);
     return object;
 }

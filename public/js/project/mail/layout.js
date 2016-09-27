@@ -8,7 +8,7 @@ $(document).ready(function () {
         items: [{
             type: 'layoutGroup',
             orientation: 'vertical',
-            width: '15%',
+            width: '25%',
             items: [{
                 type: 'documentGroup',
                 height: '10%',
@@ -36,7 +36,7 @@ $(document).ready(function () {
         }, {
             type: 'layoutGroup',
             orientation: 'vertical',
-            width: '85%',
+            width: '75%',
             items: [{
                 type: 'documentGroup',
                 height: '10%',
@@ -81,6 +81,6 @@ $(document).ready(function () {
         layout: layout });
 
 
-    $("#searchInput").jqxInput({ placeHolder: "Αναζήτηση", height: 23, width: 250, minLength: 1 });
+    $("#searchInput").jqxInput({ placeHolder: "Αναζήτηση", height: '100%', width: '100%', minLength: 1, theme:theme });
 
 });

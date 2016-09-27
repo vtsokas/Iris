@@ -8,7 +8,7 @@ class MessageService
     protected $messageCorrelationRepository;
 
 
-    public function __construct($messageRepository, $messageCorrelationRepository){
+    public function __construct(){
 
     }
 
@@ -47,6 +47,7 @@ class MessageService
 
     public function storeMessageToDB($DTMessage){
         /* adding message to DB */
+        var_dump($DTMessage);
         $this->getMessageRepository()->insert($DTMessage->getMsg());
 
         /* adding correlation to DB for sender*/

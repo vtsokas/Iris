@@ -30,6 +30,7 @@ class MessageRepository
 
     public function insert(Message $message)
     {
+        var_dump($message);
         $message->setDateAdded(time());
         $data = $message->toArray();
         unset($data['id']);

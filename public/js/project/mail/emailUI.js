@@ -1,16 +1,17 @@
 var dict = {
-    "1О ец": ["йиоятсгс","бкавопоукос"],
-    "2О ец" : ["пактидгс","сидгяопоукос"],
-    "3О ец" : ["пяодяолоу","тасиас"],
-    "4О ец" : ["лгтяоутсийос","ахамасиадгс"],
-    "дои" : ["тсолпамос"],
-    "дMX" : ["лпекос"]
+    "1н© н∙н⌠": ["О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫","О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "2н© н∙н⌠" : ["О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫","О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "3н© н∙н⌠" : ["О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫","О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "4н© н∙н⌠" : ["О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫","О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "н■н■н▓" : ["О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "н■MX" : ["О©╫О©╫О©╫О©╫О©╫О©╫"],
+    "н⌠н∙н═" : ["н╓о┐о▄н╨н╠о┌","н⌠н╧н╠нЁн╨н©о█н╩н╠о┌","н═н╠н╫о└н╜н╩н©о┌","н н╠н╪н╛о│н©нЁн╩н©о┘","н═н╠о─н╠н╢о▄о─н©о┘н╩н©о┌"]
 };
 
 var ddlSource = [
-    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/message.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>аПКЭ лчМУЛА</span></div>" },
-    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/announcement.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>аМАЙОъМЫСГ</span></div>"},
-    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/request.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>аъТГЛА</span></div>"}
+    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/message.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>н▒о─н╩о▄ н╪н╝н╫о┘н╪н╠</span></div>" },
+    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/announcement.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>н▒н╫н╠н╨н©н╞н╫о┴о┐н╥</span></div>"},
+    { html: "<div style='height: 16px; float: left;'><img style='height: 16px; float: left; margin-top: 2px; margin-right: 5px;' src='../../img/request.png'/><span style='float: left; font-size: 13px; font-family: Verdana Arial;'>н▒н╞о└н╥о┐н╥</span></div>"}
 ]
 
 /**
@@ -23,7 +24,7 @@ initEmailUI = function() {
      * Auto-completed list and multiple choices for Office's input
      */
     $('#inputReceiver1').jqxInput({
-        placeHolder: 'цЯАЖЕъО/дЙСГ/дМСГ', theme: theme, height: 25, width: 250, minLength: 1,
+        placeHolder: 'н⌠о│н╠о├н╣н╞н©', theme: theme, height: 25, width: 250, minLength: 1,
         source: function (query, response) {
             var item = query.split(/,\s*/).pop();
             // update the search query.
@@ -48,7 +49,7 @@ initEmailUI = function() {
      */
     $('#inputReceiver1').on('change', function(){
         $('#inputReceiver2').jqxInput({
-            placeHolder: 'еПИТЕКчР', theme: theme, height: 25, width: 250, minLength: 1,
+            placeHolder: 'н╔о─о▄о┬н╧н╫', theme: theme, height: 25, width: 250, minLength: 1,
             source: function (query, response) {
                 var sourceArray = [];
                 var rec = $("#inputReceiver1").val();
@@ -70,7 +71,7 @@ initEmailUI = function() {
      * List of available choices according to Office selection
      */
     $('#inputReceiver2').jqxInput({
-        placeHolder: 'еПИТЕКчР', theme: theme, height: 25, width: 250, minLength: 1,
+        placeHolder: 'н╔о─о▄о┬н╧н╫', theme: theme, height: 25, width: 250, minLength: 1,
         source: function (query, response) {
             var sourceArray = [];
 
@@ -94,14 +95,14 @@ initEmailUI = function() {
 
     $('#inputMessageType').jqxDropDownList({
         source: ddlSource,
-        placeHolder: "еПИКщНТЕ ТЩПО ЛГМЩЛАТОР:",
+        placeHolder: "н╓о█о─н©о┌ н╪н╥н╫о█н╪н╠о└н©о┌:",
         selectedIndex: -1,
         width: '200',
         autoDropDownHeight: true,
         theme: theme
     });
 
-    $('#inputSubject').jqxInput({placeHolder: 'хщЛА', theme: theme, height: 25, width: 250, minLength: 1});
+    $('#inputSubject').jqxInput({placeHolder: 'н≤н╜н╪н╠', theme: theme, height: 25, width: 250, minLength: 1});
 
     $('#text').jqxEditor({
         theme: theme,
