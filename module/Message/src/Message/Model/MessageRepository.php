@@ -5,7 +5,7 @@ namespace Message\Model;
 
 class MessageRepository
 {
-    const TABLE_NAME = "task";
+    //const TABLE_NAME = "task";
 
     public function __construct()
     {

@@ -50,7 +50,7 @@
     box-sizing: border-box;
 }
 
-.jqx-grid{
+#mailcontainer .jqx-grid{
     border:1px solid #004a73;
     box-sizing: border-box;
 }

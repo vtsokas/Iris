@@ -79,4 +79,8 @@ $(document).ready(function () {
         resizable : true,
         theme:theme,
         layout: layout });
+
+
+    $("#searchInput").jqxInput({ placeHolder: "Αναζήτηση", height: 23, width: 250, minLength: 1 });
+
 });

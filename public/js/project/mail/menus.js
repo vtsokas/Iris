@@ -1,4 +1,4 @@
-﻿var TopMenuItems = [
+var TopMenuItems = [
     { id: "create", html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Δημιουργία</span>" },
     { id: "reply", html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Απάντηση</span>" },
     { id: "edit", html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Επεξεργασία</span>" },
