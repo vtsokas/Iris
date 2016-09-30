@@ -14,17 +14,22 @@ class DTMessage extends AbstractObject
 
     /**
      * DTMessage constructor.
-     * @param $data
      */
-    public function __construct($data)
+    public function __construct()
     {
-        $this->msg =  new Message($data->message);
-        $this->offices = $data->offices;
-        $this->regarding = $data->regarding;
         $this->isRead = false;
         $this->isDeleted = false;
     }
 
+    /**
+     * Sets all dtmessage values from a data array, possibly obtained from a DB query
+     * @param $data
+     */
+    public function setValuesFromDataArray($data){
+        $this->msg =  new Message($data->message);
+        $this->offices = $data->offices;
+        $this->regarding = $data->regarding;
+    }
 
     public function getDTMessageDataArray(){
         return $this->toArray();
@@ -39,11 +44,27 @@ class DTMessage extends AbstractObject
     }
 
     /**
+     * @param mixed $msg
+     */
+    public function setMsg($msg)
+    {
+        $this->msg = $msg;
+    }
+
+    /**
      * @return array[string]
      */
     public function getOffices()
     {
         return $this->offices;
+    }
+
+    /**
+     * @param mixed $offices
+     */
+    public function setOffices($offices)
+    {
+        $this->offices = $offices;
     }
 
     /**
@@ -55,6 +76,14 @@ class DTMessage extends AbstractObject
     }
 
     /**
+     * @param mixed $regarding
+     */
+    public function setRegarding($regarding)
+    {
+        $this->regarding = $regarding;
+    }
+
+    /**
      * @return boolean
      */
     public function isIsRead()
@@ -63,10 +92,26 @@ class DTMessage extends AbstractObject
     }
 
     /**
+     * @param boolean $isRead
+     */
+    public function setIsRead($isRead)
+    {
+        $this->isRead = $isRead;
+    }
+
+    /**
      * @return boolean
      */
     public function isIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * @param boolean $isDeleted
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
     }
 }

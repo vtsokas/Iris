@@ -35,16 +35,28 @@ class MessageJsonController extends AbstractRestfulController
     /**
      * Create a new resource
      *
-     * @param  mixed $data
-     * @return mixed
+     * @param mixed $data
+     * @return JsonModel
      */
     public function create($data)
     {
-        $dtm = new DTMessage((object)$data);
+        $dtm = new DTMessage();
+        $dtm->setValuesFromDataArray((object)$data);
         $this->getServiceLocator()->get("message_service")->storeMessageToDB($dtm);
         /**
          * Return the object as JSON
          */
+        return new JsonModel($dtm->toArray());
+    }
+
+    /**
+     * Get a single resource
+     *
+     * @param $id
+     * @return JsonModel
+     */
+    public function get($id){
+        $dtm = $this->getServiceLocator()->get("message_service")->getMessageFromDB($id);
         return new JsonModel($dtm->toArray());
     }
 

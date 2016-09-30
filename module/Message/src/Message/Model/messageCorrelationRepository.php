@@ -10,6 +10,10 @@ class MessageCorrelationRepository
 {
     const TABLE_NAME = "message_correlation";
 
+    public function findMessageCorrelation($msgId){
+        return \DB::table('message_correlation'); // TODO GET where msgId = $id (multiple results) || Cast array of arrays to array of objects?
+    }
+
     public function insert($receiversArray, $qb)
     {
         /* Batch insert normally returns an array of the inserted Ids */

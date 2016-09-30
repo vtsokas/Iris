@@ -22,10 +22,9 @@ class MessageRepository
     /**
      * {@inheritDoc}
      */
-    public function findTask($id)
+    public function findMessage($id)
     {
-        $query = \MyAlias::table('task')->where('subject', '=', 'afaf');
-        //var_dump($query->get());
+        return DB::table('message'); // TODO GET where id = $id (one result)
     }
 
     public function insert($message, $qb)

@@ -51,6 +51,12 @@ class MessageService
         return $this->messageCorrelationRepository;
     }
 
+    /**
+     * Storing a message to the database
+     * One message entry and N correlation entries for the N receivers of the message
+     * Able to rollback on both tables, in case of error
+     * @param $DTMessage
+     */
     public function storeMessageToDB($DTMessage){
         \DB::transaction(function ($qb) use ($DTMessage) {
             try {
@@ -82,4 +88,30 @@ class MessageService
         });
 
     }
+
+    /**
+     * Retrieving a message & its messageCorrelations from DB
+     * @param $messageId
+     * @return DTMessage
+     */
+    public function getMessageFromDB($messageId){
+
+        $message = $this->getMessageRepository()->findMessage($messageId);
+        $allMessageCorrelations = $this->getMessageCorrelationRepository()->findMessageCorrelation($messageId);
+
+        $allOffices = array();
+        foreach ($allMessageCorrelations as $messageCorrelation){
+            array_push($allOffices, $messageCorrelation->office); // TODO if messageCorrelation is an object, use a getter for office
+        }
+
+        $dtm = new DTMessage();
+        $dtm->setMsg($message); // TODO cast it to object OR returned as object
+        $dtm->setOffices($allOffices);
+        $dtm->setRegarding($messageCorrelation->regarding); // TODO get first correlation's "regarding". The same for all correlations
+        $dtm->setIsRead(true);  // since user viewed the message, it is now "read"
+
+        return $dtm;
+    }
+
+
 }
