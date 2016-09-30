@@ -57,7 +57,18 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
      */
     public function findTask($id)
     {
-        // TODO: Implement findTask() method.
+        $sql    = new Sql($this->db);
+        $select = $sql->select(self::TABLE_NAME);
+        $select->where(array("id"=>$id));
+        $stmt   = $sql->prepareStatementForSqlObject($select);
+        $result = $stmt->execute();
+        /**
+         * Convert into a collection of Task Objects
+         */
+        $resultSet = new ResultSet();
+        $resultSet->setArrayObjectPrototype(new Task());
+        $resultSet->initialize($result);
+        return $resultSet->current();
     }
 
     public function insert(Task $task)
@@ -90,6 +101,10 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
 
     public function update(Task $task)
     {
+        if (strpos($task->getId(), "-")){
+            return $this->saveRecurringException($task);
+        }
+
         $task->setDateUpdated(time());
         /**
          * Prepare an SQL statement
@@ -114,6 +129,20 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
         $statement  = $sql->prepareStatementForSqlObject( $update );//var_dump($statement);die();
         $statement->execute();
         return $task;
+    }
+
+    public function saveRecurringException(Task $task){
+        $id = explode(".", $task->getId());//?
+        $recurringTask = $this->findTask($id);
+
+//        $exception = ($recurringTask->getRecurrenceException() == null)
+//            ? date("Y-m-d", (int)$task->getSourceTaskDateFrom()) . " 00:00:00"
+//            : $recurringTask->getRecurrenceException() . "," . date("Y-m-d", (int)$task->getSourceTaskDateFrom()) . " 00:00:00";
+
+        $recurringTask->setRecurrenceException($task->getExceptions()/*$exception*/);
+        $this->update($recurringTask);
+
+        return $this->insert($task->setId(null));
     }
 
     public function setRoleService($roleService){

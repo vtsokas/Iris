@@ -4,7 +4,7 @@ greekLanguage = {
     // separator of parts of a time (e.g. ':' in 05:44 PM)
     ':': ":",
     // the first day of the week (0 = Sunday, 1 = Monday, etc)
-    firstDay: 1,
+    firstDay: 0,
     days: {
         // full day names
         names: ["Κυριακή","Δευτέρα","Τρίτη","Τετάρτη","Πέμπτη","Παρασκευή","Σάββατο"],

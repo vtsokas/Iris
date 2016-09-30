@@ -12,8 +12,10 @@ scheduler = function(){
             { name: 'subject', type: 'string' },
             { name: 'style', type: 'string' },
             { name: 'calendar', type: 'string' },
+            { name: 'recurrenceRule', type: 'string' },
+            { name: 'recurrenceException', type: 'string' },
             { name: 'start', type: 'date', format: "yyyy-MM-dd HH:mm" },
-            { name: 'end', type: 'date', format: "yyyy-MM-dd HH:mm" }
+            { name: 'end', type: 'date', format: "yyyy-MM-dd HH:mm" },
         ],
         id: 'id'
     };
@@ -57,7 +59,9 @@ scheduler = function(){
             location: "location",
             subject: "subject",
             style: "style",
-            status: "status"
+            status: "status",
+            recurrencePattern: "recurrenceRule",
+            recurrenceException: "recurrenceException"
         },
         resources:
         {

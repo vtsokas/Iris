@@ -67,6 +67,11 @@ class Task extends AbstractObject
     protected $dateUpdated;
 
     /**
+     * BUG SOLVER
+     */
+    protected $exceptions;
+
+    /**
      * @param int|null $id
      * @param string $description
      * @param string $location
@@ -161,6 +166,12 @@ class Task extends AbstractObject
         return $this->recurrenceException;
     }
 
+    public function setRecurrenceException($recurrenceException)
+    {
+        $this->recurrenceException = $recurrenceException;
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -194,5 +205,17 @@ class Task extends AbstractObject
     {
         $this->dateUpdated = $dateUpdated;
         return $this;
+    }
+
+    public function getExceptions()
+    {
+        return $this->exceptions;
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        unset($array["exceptions"]);
+        return $array;
     }
 }

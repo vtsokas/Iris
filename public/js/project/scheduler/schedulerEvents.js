@@ -4,7 +4,6 @@ registerEvents = function() {
             $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                 "hidden", true);
         }
-
         /**
          * Get the task object in the correct format
          */
@@ -52,16 +51,31 @@ registerEvents = function() {
         }
     });
 
-    $("#scheduler").on("appointmentChange", function (event) {
+    $("#scheduler").on("appointmentChange", function (event) {console.log("changed ... ... ... ",event.args.appointment.from.toString());
+        /**
+         *  EDIT RECURRENT APPOINTMENT
+         */
+        var isJQX = typeof event.args.appointment.jqxAppointment != "undefined";
+        var appointment = (isJQX) ? event.args.appointment.jqxAppointment.boundAppointment : event.args.appointment;
+        if (isJQX && appointment.jqxAppointment.rootAppointment !== null)
+        {
+            $("#scheduler").jqxScheduler('beginAppointmentsUpdate');
+
+            delete(appointment.id);
+            $("#scheduler").jqxScheduler("addAppointment", appointment);
+            event.args.appointment.jqxAppointment.rootAppointment.exceptions.push( event.args.appointment.jqxAppointment);
+            event.args.appointment.jqxAppointment = event.args.appointment.jqxAppointment.rootAppointment;
+            //return;
+        }
         var task = exchangeTaskObject(event);
 
         /**
          * If we have a recently added appointment we
          * want to retreive the id assigned by our DB
          */
-        var id = event.args.appointment.id.indexOf("-") > 0
-            ? newObjectIds[event.args.appointment.id]
-            : event.args.appointment.id;
+        var id = (typeof event.args.appointment.jqxAppointment !== 'undefined')
+            ? event.args.appointment.jqxAppointment.id
+            :event.args.appointment.id;
         /**
          * Leave if task is false
          */
@@ -72,7 +86,7 @@ registerEvents = function() {
              * entity ID as a param
              */
             $.ajax({
-                "url"    : "/task-json/" + id,
+                "url"    : "/task-json/" + id.replace(".","-"),
                 "type" : "PUT",
                 "data"   : task
             }).success(function(response){
@@ -96,5 +110,9 @@ registerEvents = function() {
 
     $("#scheduler").on("appointmentDelete", function (event) {
         console.log(event);
+    });
+
+    $("#scheduler").on("appointmentClick", function (event) {
+        clickedApp = event.args.appointment;
     });
 };
