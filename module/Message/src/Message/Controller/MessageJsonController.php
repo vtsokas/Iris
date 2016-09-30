@@ -40,7 +40,6 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function create($data)
     {
-        var_dump($data);
         $dtm = new DTMessage((object)$data);
         $this->getServiceLocator()->get("message_service")->storeMessageToDB($dtm);
         /**

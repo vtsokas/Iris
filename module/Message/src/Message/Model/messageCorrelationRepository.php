@@ -10,12 +10,11 @@ class MessageCorrelationRepository
 {
     const TABLE_NAME = "message_correlation";
 
-    public function insert(MessageCorrelation $messageCorrelation)
+    public function insert($receiversArray, $qb)
     {
-        $data = $messageCorrelation->getMessageCorrelationDataArray();
-        unset($data['id']);
-        $messageCorrelation->setId(\MyAlias::table(self::TABLE_NAME)->insert($data));
-        return $messageCorrelation;
+        /* Batch insert normally returns an array of the inserted Ids */
+        $insertIds = $qb->table(self::TABLE_NAME)->insert($receiversArray);
+        //return $insertIds;
     }
 
 }

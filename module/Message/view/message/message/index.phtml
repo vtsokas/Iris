@@ -43,8 +43,8 @@ $this->inlineScript()
 
 <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
 <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
-<link rel="stylesheet" href="<? echo $this->basePath('css/project/mail.css')?>" type="text/css" />
-
+<!--<link rel="stylesheet" href="<?/* echo $this->basePath('css/project/mail.css')*/?>" type="text/css" />
+-->
 <style>
     body, html {
         width: 100%;
@@ -55,11 +55,10 @@ $this->inlineScript()
         margin: 0;
     }
 </style>
-
-<div id="mailcontainer">
-    <div id="jqxLayout">
-        <div data-container="TopMenuPanel">
-            <div id='TopMenu' style="visibility: hidden;">
+<div id="mailcontainer" style="width: 100%; height:100%">
+    <div id="jqxLayout" style="width: 100%; height:100%">
+        <div data-container="TopMenuPanel" style="width: 100%; height:100%">
+            <div id='TopMenu' style="visibility: hidden;" style="width: 100%; height:100%">
                 <ul>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
@@ -67,14 +66,14 @@ $this->inlineScript()
                 </ul>
             </div>
         </div>
-        <div data-container="Search" >
-            <div id="searchInput">
-                <input type="text" />
+        <div data-container="Search" style="width: 100%; height:100%" >
+            <div id="searchInput" style="width: 100%; height:100%">
+                <input type="text" style="width: 100%; height:100%"/>
                 <div id="search"><img alt="search" width="16" height="16" src="../../../img/search.ico" /></div>
             </div>
         </div>
-        <div data-container="LeftMenuPanel">
-            <div id='LeftMenu'>
+        <div data-container="LeftMenuPanel" style="width: 100%; height:100%">
+            <div id='LeftMenu' style="width: 100%; height:100%">
                 <ul>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Εισερχόμενα</span></li>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Εξερχόμενα</span></li>

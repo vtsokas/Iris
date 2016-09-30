@@ -6,7 +6,7 @@ class MessageService
 {
     protected $messageRepository;
     protected $messageCorrelationRepository;
-
+    protected $userRole;
 
     public function __construct(){
 
@@ -29,6 +29,12 @@ class MessageService
         $this->messageCorrelationRepository = $messageCorrelationRepository;
     }
 
+    public function setUserRole($userRole)
+    {
+        $this->userRole = $userRole;
+        return $this;
+    }
+
     /**
      * @return mixed
      */
@@ -46,37 +52,34 @@ class MessageService
     }
 
     public function storeMessageToDB($DTMessage){
-        /* adding message to DB */
-        var_dump($DTMessage);
-        $this->getMessageRepository()->insert($DTMessage->getMsg());
+        \DB::transaction(function ($qb) use ($DTMessage) {
+            try {
+                /* adding message to DB */
+                $DTMessage->getMsg()->setSender($this->userRole);
+                $this->getMessageRepository()->insert($DTMessage->getMsg(), $qb);
 
-        /* adding correlation to DB for sender*/
-/*
-        $messageCorrelation = new MessageCorrelation();
-        $messageCorrelation->setMsgId($DTMessage->getMsg()->getId());
-        $messageCorrelation->setOffice($DTMessage->getMsg()->getSender());
-        $messageCorrelation->setRegarding($DTMessage->getRegarding());
-        $messageCorrelation->setState("Outbox");
-        $messageCorrelation->setIsSent($DTMessage->getMsg()->getIsSent());
-        $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
-        $messageCorrelation->setIsRead($DTMessage->isIsRead());
+                /* adding correlation to DB for every receiver */
+                $receiversArray = array();
+                foreach($DTMessage->getOffices() as $office){
+                    $messageCorrelation = new MessageCorrelation();
+                    $messageCorrelation->setMsgId($DTMessage->getMsg()->getId());
+                    $messageCorrelation->setOffice($office);
+                    $messageCorrelation->setRegarding($DTMessage->getRegarding());
+                    $messageCorrelation->setState("Inbox");
+                    $messageCorrelation->setIsSent($DTMessage->getMsg()->getIsSent());
+                    $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
+                    $messageCorrelation->setIsRead($DTMessage->isIsRead());
+                    $messageCorrelation = $messageCorrelation->toArray();
+                    unset($messageCorrelation['id']);
+                    array_push($receiversArray, $messageCorrelation);
+                }
 
-        $this->getMessageCorrelationRepository()->insert($messageCorrelation);
-*/
-
-        /* adding correlation to DB for every receiver */
-        foreach($DTMessage->getOffices() as $office){
-            $messageCorrelation = new MessageCorrelation();
-            $messageCorrelation->setMsgId($DTMessage->getMsg()->getId());
-            $messageCorrelation->setOffice($office);
-            $messageCorrelation->setRegarding($DTMessage->getRegarding());
-            $messageCorrelation->setState("Inbox");
-            $messageCorrelation->setIsSent($DTMessage->getMsg()->getIsSent());
-            $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
-            $messageCorrelation->setIsRead($DTMessage->isIsRead());
-
-            $this->getMessageCorrelationRepository()->insert($messageCorrelation);
-        }
+                $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
+                $qb->commit();
+            } catch (\PDOException $e) {
+                $qb->rollBack();
+            }
+        });
 
     }
 }

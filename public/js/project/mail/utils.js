@@ -102,7 +102,7 @@ createMessageTaskObject = function(){
         return false;
     }
 
-    var recieversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
+    var receiversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
     var object = {
         message: {
             sender :    $('#inputReceiver1').val(),
@@ -112,7 +112,7 @@ createMessageTaskObject = function(){
             isDeleted:  0,
             isSent:     1
         },
-        offices: recieversArray,
+        offices: receiversArray,
         regarding: $('#inputReceiver2').val()
     };
 

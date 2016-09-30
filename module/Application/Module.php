@@ -9,7 +9,7 @@
 
 namespace Application;
 
-use Application\Service\RoleService;
+//use Application\Service\RoleService;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Stdlib\Parameters;
@@ -40,11 +40,13 @@ class Module
         $isJson = true;
 
         foreach($data->toArray() as $key => $value){
-            $dec = json_decode($value, true);
-            if ($dec && $isJson){
-                $newData[$key] = $dec;
-            } else {
-                $isJson = false;
+            if (is_string($value)) {
+                $dec = json_decode($value, true);
+                if ($dec && $isJson) {
+                    $newData[$key] = $dec;
+                } else {
+                    $isJson = false;
+                }
             }
         }
 

@@ -42,7 +42,7 @@ return array(
 
     'view_manager' => array(
         'template_path_stack' => array(
-            'task' => __DIR__ . '/../view',
+            'message' => __DIR__ . '/../view',
         ),
         'strategies' => array(
             'ViewJsonStrategy',

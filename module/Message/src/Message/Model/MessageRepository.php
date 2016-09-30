@@ -28,13 +28,12 @@ class MessageRepository
         //var_dump($query->get());
     }
 
-    public function insert(Message $message)
+    public function insert($message, $qb)
     {
-        var_dump($message);
         $message->setDateAdded(time());
         $data = $message->toArray();
         unset($data['id']);
-        $message->setId(\MyAlias::table('message')->insert($data));
+        $message->setId($qb->table('message')->insert($data));
         return $message;
     }
 

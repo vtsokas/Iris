@@ -25,7 +25,7 @@ $config = array(
         \PDO::ATTR_EMULATE_PREPARES => false,
     ),
 );
-new Connection('mysql', $config, 'MyAlias');
+new Connection('mysql', $config, 'DB');
 
 /**
  * @TODO merge

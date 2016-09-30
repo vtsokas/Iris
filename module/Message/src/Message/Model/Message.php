@@ -41,6 +41,12 @@ class Message extends AbstractObject
         return $this->sender;
     }
 
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+        return $this;
+    }
+
     public function getSubject()
     {
         return $this->subject;

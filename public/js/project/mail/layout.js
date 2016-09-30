@@ -82,5 +82,6 @@ $(document).ready(function () {
 
 
     $("#searchInput").jqxInput({ placeHolder: "Αναζήτηση", height: '100%', width: '100%', minLength: 1, theme:theme });
+    $("#searchInput").css({"box-sizing": "border-box"});
 
 });
