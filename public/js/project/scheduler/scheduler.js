@@ -73,9 +73,16 @@ scheduler = function(){
         view: 'weekView',
         views:
             [
-                'dayView',
-                'weekView',
-                'monthView',
+                {type:'dayView'},
+                {type:'weekView', workTime:
+                    {
+                        fromDayOfWeek: 1,
+                        toDayOfWeek: 5,
+                        fromHour: 7,
+                        toHour: 15
+                    }
+                },
+                {type:'monthView'},
                 //'agendaView'
             ],
         theme:theme,
@@ -96,73 +103,73 @@ scheduler = function(){
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} settings - Object with the menu's initialization settings.
          */
-        contextMenuCreate: function(menu, settings)
-        {
-            var source = settings.source;
-            source.push({ id: "delete", label: "Delete Appointment" });
-            source.push({
-                id: "status", label: "Set Status", items:
-                    [
-                        { label: "Ολοκληρωμένο", id: "free" },
-                        { label: "Κοινό", id: "tentative" },
-                        { label: "Επείγον", id: "busy" }
-                    ]
-            });
-        },
+        //contextMenuCreate: function(menu, settings)
+        //{
+            //var source = settings.source;
+            //source.push({ id: "delete", label: "Delete Appointment" });
+            //source.push({
+            //    id: "status", label: "Set Status", items:
+            //        [
+            //            { label: "Ολοκληρωμένο", id: "free" },
+            //            { label: "Κοινό", id: "tentative" },
+            //            { label: "Επείγον", id: "busy" }
+            //        ]
+            //});
+        //},
         /**
          * called when the user clicks an item in the Context Menu. Returning true as a result disables the built-in Click handler.
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} the selected appointment instance or NULL when the menu is opened from cells selection.
          * @param {jQuery.Event Object} the jqxMenu's itemclick event object.
          */
-        contextMenuItemClick: function (menu, appointment, event)
-        {
-            var args = event.args;
-            switch (args.id) {
-                case "delete":
-                    $("#scheduler").jqxScheduler('deleteAppointment', appointment.id);
-                    return true;
-                case "free":
-                    $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'free');
-                    return true;
-                case "outOfOffice":
-                    $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'outOfOffice');
-                    return true;
-                case "tentative":
-                    $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'tentative');
-                    return true;
-                case "busy":
-                    $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'busy');
-                    return true;
-            }
-            /**
-             * @todo SAVE
-             */
-        },
+        //contextMenuItemClick: function (menu, appointment, event)
+        //{
+        //    var args = event.args;
+        //    switch (args.id) {
+        //        case "delete":
+        //            $("#scheduler").jqxScheduler('deleteAppointment', appointment.id);
+        //            return true;
+        //        case "free":
+        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'free');
+        //            return true;
+        //        case "outOfOffice":
+        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'outOfOffice');
+        //            return true;
+        //        case "tentative":
+        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'tentative');
+        //            return true;
+        //        case "busy":
+        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'busy');
+        //            return true;
+        //    }
+        //    /**
+        //     * @todo SAVE
+        //     */
+        //},
         /**
          * called when the menu is opened.
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} the selected appointment instance or NULL when the menu is opened from cells selection.
          * @param {jQuery.Event Object} the open event.
          */
-        contextMenuOpen: function (menu, appointment, event) {
-            if (!appointment) {
-                menu.jqxMenu('hideItem', 'delete');
-                menu.jqxMenu('hideItem', 'status');
-            }
-            else {
-                menu.jqxMenu('showItem', 'delete');
-                menu.jqxMenu('showItem', 'status');
-            }
-        },
+        //contextMenuOpen: function (menu, appointment, event) {
+        //    if (!appointment) {
+        //        menu.jqxMenu('hideItem', 'delete');
+        //        menu.jqxMenu('hideItem', 'status');
+        //    }
+        //    else {
+        //        menu.jqxMenu('showItem', 'delete');
+        //        menu.jqxMenu('showItem', 'status');
+        //    }
+        //},
         /**
          * called when the menu is closed.
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} the selected appointment instance or NULL when the menu is opened from cells selection.
          * @param {jQuery.Event Object} the close event.
          */
-        contextMenuClose: function (menu, appointment, event) {
-        }
+        //contextMenuClose: function (menu, appointment, event) {
+        //}
     });
     /**
      * Our first job is to call the REST method

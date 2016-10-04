@@ -43,6 +43,8 @@ getAppointments = function() {
 
         $("#scheduler").jqxScheduler('endAppointmentsUpdate');
 
+        if (data.length > 0) $("#scheduler").jqxScheduler('ensureAppointmentVisible', data[0].id);
+
         lastUpdate = new Date().getTime() / 1000;
 
     });
@@ -57,15 +59,7 @@ exchangeTaskObject = function(event){console.log(event);
     var appointment = (isJQX) ? event.args.appointment.jqxAppointment.boundAppointment : event.args.appointment;
     var isRec = (isJQX) ? appointment.jqxAppointment.isRecurrentAppointment(): false;
 
-    var exceptionsStr = null;
-    if (clickedApp !== null) {
-        var exceptions = [];
-        for (var i in clickedApp.recurrenceException) {
-            if (clickedApp.recurrenceException[i] != null && exceptions.indexOf(clickedApp.recurrenceException[i].toString()) < 0){
-                exceptions.push(clickedApp.recurrenceException[i].toDate());}
-        }
-        var exceptionsStr = exceptions.join(",", exceptions);console.log(exceptionsStr);
-    }
+    var exceptionsStr = getExceptionsString();
 
     if (appointment.subject !== "")
     {
@@ -116,13 +110,13 @@ formatAppointment = function(appointment){
      */
     switch (appointment.status){
         case "free" :
-            appointment.background = "#088A08";
+            appointment.style = "#088A08";
             break;
         case "tentative" :
-            appointment.background = "#FF8000";
+            appointment.style = "#FF8000";
             break;
         case "busy" :
-            appointment.background = "#FF0000";
+            appointment.style = "#FF0000";
             break;
         default :
             break;
@@ -135,6 +129,22 @@ ShowNotification = function(text, template, arg){
     $('#messageNotification').jqxNotification({ template: template });
     $("#messageNotification").jqxNotification("open");
 };
+/**
+ * Get all exceptions of a recurrence rule.
+ * Dates to Comma Separated String
+ */
+getExceptionsString = function(){
+    var exceptionsStr = null;
+    if (typeof clickedApp !== "undefined") {
+        var exceptions = [];
+        for (var i in clickedApp.recurrenceException) {
+            if (clickedApp.recurrenceException[i] != null && exceptions.indexOf(clickedApp.recurrenceException[i].toString()) < 0){
+                exceptions.push(clickedApp.recurrenceException[i].toDate());}
+        }
+        var exceptionsStr = exceptions.join(",", exceptions);console.log(exceptionsStr);
+    }
+    return exceptionsStr;
+}
 /**
  * Construct recurrence pattern string
  */

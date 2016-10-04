@@ -71,6 +71,8 @@ class Task extends AbstractObject
      */
     protected $exceptions;
 
+    protected $isActive = 1;
+
     /**
      * @param int|null $id
      * @param string $description
@@ -210,6 +212,17 @@ class Task extends AbstractObject
     public function getExceptions()
     {
         return $this->exceptions;
+    }
+
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
     }
 
     public function toArray()

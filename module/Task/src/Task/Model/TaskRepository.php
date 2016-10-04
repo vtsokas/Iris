@@ -38,6 +38,7 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
         $sql    = new Sql($this->db);
         $select = $sql->select(self::TABLE_NAME);
         $select->where->in("calendar", $resources);
+        $select->where(array("isActive" => 1));
         $stmt   = $sql->prepareStatementForSqlObject($select);
         $result = $stmt->execute();
         /**
@@ -135,14 +136,16 @@ class TaskRepository implements TaskRepositoryInterface//,RoleServiceAwareInterf
         $id = explode(".", $task->getId());//?
         $recurringTask = $this->findTask($id);
 
-//        $exception = ($recurringTask->getRecurrenceException() == null)
-//            ? date("Y-m-d", (int)$task->getSourceTaskDateFrom()) . " 00:00:00"
-//            : $recurringTask->getRecurrenceException() . "," . date("Y-m-d", (int)$task->getSourceTaskDateFrom()) . " 00:00:00";
-
         $recurringTask->setRecurrenceException($task->getExceptions()/*$exception*/);
         $this->update($recurringTask);
 
         return $this->insert($task->setId(null));
+    }
+
+    public function delete($id){
+        $task = $this->findTask($id);
+        $task->setIsActive(false);
+        $this->update($task);
     }
 
     public function setRoleService($roleService){

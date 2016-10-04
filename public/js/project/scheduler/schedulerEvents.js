@@ -41,9 +41,6 @@ registerEvents = function() {
                 if (selectedResources.split(",").indexOf(event.args.appointment.resourceId) < 0)
                     ShowNotification("Προστέθηκε μία εργασία", "success", event.args.appointment.resourceId);
 
-                /**
-                 * @todo Cannot edit afterwards
-                 */
             }).error(function(){
                 $('#scheduler').jqxScheduler('deleteAppointment', event.args.appointment.id);
                 ShowNotification("Αδυναμία εισαγωγής εργασίας", "error", event.args.appointment.resourceId);
@@ -97,9 +94,6 @@ registerEvents = function() {
                 $('#scheduler').jqxScheduler('setAppointmentProperty', event.args.appointment.id,
                     "background", formatAppointment(task).background);
 
-                /**
-                 * @todo Cannot edit afterwards
-                 */
             }).error(function(){
                 ShowNotification("Αδυναμία τροποποίησης εργασίας", "error", event.args.appointment.resourceId);
             }).always(function(){
@@ -109,7 +103,27 @@ registerEvents = function() {
     });
 
     $("#scheduler").on("appointmentDelete", function (event) {
-        console.log(event);
+        /**
+         * If we have a recently added appointment we
+         * want to retreive the id assigned by our DB
+         */
+        var id = (typeof event.args.appointment.jqxAppointment !== 'undefined')
+            ? event.args.appointment.jqxAppointment.id
+            :event.args.appointment.id;
+
+        if (id != null){
+            $.ajax({
+                "url" : "/task-json/" + event.args.appointment.id.replace(".","-"),
+                "method" : "DELETE"
+                //"data" : getExceptionsString()
+            }).success(function(){
+                ShowNotification("Διαγράφηκε μία εργασία", "success", event.args.appointment.resourceId);
+            }).error(function(){
+                ShowNotification("Αδυναμία διαγραφής εργασίας", "error", event.args.appointment.resourceId);
+            }).always(function(){
+                getAppointments();
+            });
+        }
     });
 
     $("#scheduler").on("appointmentClick", function (event) {

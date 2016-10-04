@@ -113,9 +113,9 @@ class RoleService
      * @return \Application\Service\RoleService
      */
     public function setAuthService(AuthenticationService $authService)
-    {
-        $this->authService = $authService;
-        $this->userRole = $this->authService->getIdentity()->getRole();
-        return $this;
-    }
+{
+    $this->authService = $authService;
+    $this->userRole = $this->authService->getIdentity()->getRole();
+    return $this;
+}
 }

@@ -94,11 +94,9 @@ class TaskJsonController extends AbstractRestfulController
      */
     public function delete($id)
     {
-        $this->response->setStatusCode(405);
+        $this->getRepository()->delete($id);
 
-        return array(
-            'content' => 'Method Not Allowed'
-        );
+        return new JsonModel(array('success' => true));
     }
 
     public function getRepository(){
