@@ -214,6 +214,12 @@ class Task extends AbstractObject
         return $this->exceptions;
     }
 
+    public function setExceptions($exceptions)
+    {
+        $this->exceptions = $exceptions;
+        return $this;
+    }
+
     public function getIsActive()
     {
         return $this->isActive;

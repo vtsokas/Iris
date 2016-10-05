@@ -48,7 +48,7 @@ registerEvents = function() {
         }
     });
 
-    $("#scheduler").on("appointmentChange", function (event) {console.log("changed ... ... ... ",event.args.appointment.from.toString());
+    $("#scheduler").on("appointmentChange", changeAppointment = function (event) {console.log("changed ... ... ... ",event.args.appointment.from.toString());
         /**
          *  EDIT RECURRENT APPOINTMENT
          */
@@ -128,5 +128,39 @@ registerEvents = function() {
 
     $("#scheduler").on("appointmentClick", function (event) {
         clickedApp = event.args.appointment;
+    });
+
+    $('#scheduler').on('editDialogOpen', function (event) {
+        var args = event.args;
+        var dialog = args.dialog;
+        var appointment = args.appointment;
+
+        dialog[0].style.top = "37px";
+
+        clickedApp = appointment;
+        prevExceptions = getExceptionsString();
+    });
+
+    $('#scheduler').on('editDialogClose', function (event) {
+        var args = event.args;
+        var dialog = args.dialog;
+        var appointment = args.appointment;
+
+        clickedApp = appointment;
+        setTimeout(function(){
+            exceptions = getExceptionsString();
+            if (exceptions != prevExceptions){
+                $.ajax({
+                    "url" : "/task-json/" + event.args.appointment.id.replace(".","-") + "?exceptions=" + exceptions,
+                    "method" : "DELETE"
+                }).success(function(){
+                    ShowNotification("Διαγράφηκε μία εργασία", "success", event.args.appointment.resourceId);
+                }).error(function(){
+                    ShowNotification("Αδυναμία διαγραφής εργασίας", "error", event.args.appointment.resourceId);
+                }).always(function(){
+                    getAppointments();
+                });
+            }
+        },200);
     });
 };

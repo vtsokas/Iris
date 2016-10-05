@@ -141,7 +141,7 @@ getExceptionsString = function(){
             if (clickedApp.recurrenceException[i] != null && exceptions.indexOf(clickedApp.recurrenceException[i].toString()) < 0){
                 exceptions.push(clickedApp.recurrenceException[i].toDate());}
         }
-        var exceptionsStr = exceptions.join(",", exceptions);console.log(exceptionsStr);
+        var exceptionsStr = exceptions.join(",", exceptions);//console.log(exceptionsStr);
     }
     return exceptionsStr;
 }

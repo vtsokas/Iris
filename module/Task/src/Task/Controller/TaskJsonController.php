@@ -94,7 +94,14 @@ class TaskJsonController extends AbstractRestfulController
      */
     public function delete($id)
     {
-        $this->getRepository()->delete($id);
+        $request = $this->getRequest();
+        $exceptions = $request->getQuery("exceptions", false);
+
+        if ($exceptions !== false){
+            $this->getRepository()->update($this->getRepository()->findTask($id)->setRecurrenceException($exceptions));
+        } else {
+            $this->getRepository()->delete($id);
+        }
 
         return new JsonModel(array('success' => true));
     }

@@ -70,19 +70,24 @@ scheduler = function(){
             //orientation:"horizontal",
             source:  resourceAdapter
         },
-        view: 'weekView',
+        view: 'monthView',
         views:
             [
                 {type:'dayView'},
-                {type:'weekView', workTime:
-                    {
+                {
+                    type:'weekView',
+                    workTime: {
                         fromDayOfWeek: 1,
                         toDayOfWeek: 5,
                         fromHour: 7,
                         toHour: 15
-                    }
+                    },
+                    //showWeekends: false
                 },
-                {type:'monthView'},
+                {
+                    type:'monthView',
+                    //showWeekends: false,
+                }
                 //'agendaView'
             ],
         theme:theme,
@@ -103,49 +108,51 @@ scheduler = function(){
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} settings - Object with the menu's initialization settings.
          */
-        //contextMenuCreate: function(menu, settings)
-        //{
-            //var source = settings.source;
+        contextMenuCreate: function(menu, settings)
+        {
+            var source = settings.source;
             //source.push({ id: "delete", label: "Delete Appointment" });
-            //source.push({
-            //    id: "status", label: "Set Status", items:
-            //        [
-            //            { label: "Ολοκληρωμένο", id: "free" },
-            //            { label: "Κοινό", id: "tentative" },
-            //            { label: "Επείγον", id: "busy" }
-            //        ]
-            //});
-        //},
+            source.push({
+                id: "status", label: "Κατάσταση", items:
+                    [
+                        { label: "Ολοκληρωμένο", id: "free" },
+                        { label: "Κοινό", id: "tentative" },
+                        { label: "Επείγον", id: "busy" }
+                    ]
+            });
+        },
         /**
          * called when the user clicks an item in the Context Menu. Returning true as a result disables the built-in Click handler.
          * @param {Object} menu - jqxMenu's jQuery object.
          * @param {Object} the selected appointment instance or NULL when the menu is opened from cells selection.
          * @param {jQuery.Event Object} the jqxMenu's itemclick event object.
          */
-        //contextMenuItemClick: function (menu, appointment, event)
-        //{
-        //    var args = event.args;
-        //    switch (args.id) {
-        //        case "delete":
-        //            $("#scheduler").jqxScheduler('deleteAppointment', appointment.id);
-        //            return true;
-        //        case "free":
-        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'free');
-        //            return true;
-        //        case "outOfOffice":
-        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'outOfOffice');
-        //            return true;
-        //        case "tentative":
-        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'tentative');
-        //            return true;
-        //        case "busy":
-        //            $("#scheduler").jqxScheduler('setAppointmentProperty', appointment.id, 'status', 'busy');
-        //            return true;
-        //    }
-        //    /**
-        //     * @todo SAVE
-        //     */
-        //},
+        contextMenuItemClick: function (menu, appointment, event)
+        {
+            var args = event.args;
+
+            switch (args.id) {
+                //case "delete":
+                //    $("#scheduler").jqxScheduler('deleteAppointment', appointment.id);
+                //    return true;
+                case "free":
+                    appointment.originalData.status = "free";
+                    changeAppointment({args:{appointment:appointment}});
+                    return true;
+                case "tentative":
+                    appointment.originalData.status = "tentative";
+                    changeAppointment({args:{appointment:appointment}});
+                    return true;
+                case "busy":
+                    appointment.originalData.status = "busy";
+                    changeAppointment({args:{appointment:appointment}});
+                    return true;
+            }
+
+            /**
+             * @todo SAVE
+             */
+        },
         /**
          * called when the menu is opened.
          * @param {Object} menu - jqxMenu's jQuery object.
