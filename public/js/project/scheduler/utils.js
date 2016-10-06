@@ -4,6 +4,7 @@ selectedResources = "default";
 resources = [];
 refreshInterval = 60;
 lastUpdate = new Date().getTime() / 1000;
+//firstTime = true;
 /**
  * Get the resources dynamically
  */
@@ -43,10 +44,11 @@ getAppointments = function() {
 
         $("#scheduler").jqxScheduler('endAppointmentsUpdate');
 
-        if (data.length > 0) $("#scheduler").jqxScheduler('ensureAppointmentVisible', data[0].id);
+        //if (firstTime == true && data.length > 0) $("#scheduler").jqxScheduler('ensureAppointmentVisible', data[0].id);
 
         lastUpdate = new Date().getTime() / 1000;
 
+        //firstTime = false;
     });
 };
 /**
