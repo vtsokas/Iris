@@ -6,7 +6,7 @@ class MessageService
 {
     protected $messageRepository;
     protected $messageCorrelationRepository;
-    protected $userRole;
+    protected $identity;
 
     public function __construct(){
 
@@ -29,9 +29,9 @@ class MessageService
         $this->messageCorrelationRepository = $messageCorrelationRepository;
     }
 
-    public function setUserRole($userRole)
+    public function setIdentity($identity)
     {
-        $this->userRole = $userRole;
+        $this->identity = $identity;
         return $this;
     }
 
@@ -61,8 +61,12 @@ class MessageService
         \DB::transaction(function ($qb) use ($DTMessage) {
             try {
                 /* adding message to DB */
-                $DTMessage->getMsg()->setSender($this->userRole);
+                $DTMessage->getMsg()->setSenderOffice($this->identity->getRole());
+                $DTMessage->getMsg()->setSenderUser($this->identity->getUsername());
                 $this->getMessageRepository()->insert($DTMessage->getMsg(), $qb);
+//                var_dump($this->identity->getRole());
+//                die();
+
 
                 /* adding correlation to DB for every receiver */
                 $receiversArray = array();
@@ -83,6 +87,7 @@ class MessageService
                 $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
                 $qb->commit();
             } catch (\PDOException $e) {
+                var_dump($e);
                 $qb->rollBack();
             }
         });
@@ -96,22 +101,40 @@ class MessageService
      */
     public function getMessageFromDB($messageId){
 
-        $message = $this->getMessageRepository()->findMessage($messageId);
+        $message = new Message($this->getMessageRepository()->findMessage($messageId));
         $allMessageCorrelations = $this->getMessageCorrelationRepository()->findMessageCorrelation($messageId);
 
         $allOffices = array();
         foreach ($allMessageCorrelations as $messageCorrelation){
-            array_push($allOffices, $messageCorrelation->office); // TODO if messageCorrelation is an object, use a getter for office
+            array_push($allOffices, $messageCorrelation->office);
         }
 
         $dtm = new DTMessage();
-        $dtm->setMsg($message); // TODO cast it to object OR returned as object
+        $dtm->setMsg($message);
         $dtm->setOffices($allOffices);
-        $dtm->setRegarding($messageCorrelation->regarding); // TODO get first correlation's "regarding". The same for all correlations
+        $dtm->setRegarding($messageCorrelation->first()->regarding);
         $dtm->setIsRead(true);  // since user viewed the message, it is now "read"
 
         return $dtm;
     }
 
+    public function getRequestedMessagesFromDB($folderParameter){
+        switch($folderParameter){
+            case 1:
+                // inbox
+                $messageIds = $this->getMessageCorrelationRepository()->findMessageIds($this->identity->getRole());
+                return $this->getMessageRepository()->findOutboxMessages($messageIds);
+            case 2:
+                // outbox
+                $outboxMessages = $this->getMessageRepository()->findOutboxMessages($this->identity->getRole());
+                break;
+            case 3:
+                // draft
+                return $this->getMessageRepository()->findDraftMessages($this->identity->getRole());
+                break;
+            default:
+
+        }
+    }
 
 }

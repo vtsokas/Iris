@@ -3,6 +3,7 @@
 namespace Message\Model;
 
 use Application\Model\AbstractObject;
+use Zend\Db\Sql\Ddl\Column\Varbinary;
 
 class DTMessage extends AbstractObject
 {

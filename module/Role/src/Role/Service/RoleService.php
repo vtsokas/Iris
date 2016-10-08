@@ -9,6 +9,7 @@ class RoleService
     protected $authService;
     protected $userRole;
     protected $roles;
+    protected $identity;
 
     /**
      * Decides whether a given role is the connected
@@ -105,7 +106,10 @@ class RoleService
         return $this->userRole;
     }
 
-
+    public function getIdentity()
+    {
+        return $this->identity;
+    }
     /**
      * Set authService.
      *
@@ -113,9 +117,10 @@ class RoleService
      * @return \Application\Service\RoleService
      */
     public function setAuthService(AuthenticationService $authService)
-{
-    $this->authService = $authService;
-    $this->userRole = $this->authService->getIdentity()->getRole();
-    return $this;
-}
+    {
+        $this->authService = $authService;
+        $this->userRole = $this->authService->getIdentity()->getRole();
+        $this->identity = $this->authService->getIdentity();
+        return $this;
+    }
 }

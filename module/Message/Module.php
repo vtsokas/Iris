@@ -37,7 +37,7 @@ class Module
                 },
                 'message_service' =>  function($sm) {
                     $service = new MessageService();
-                    $service->setUserRole($sm->get("role_service")->getUserRole());
+                    $service->setIdentity($sm->get("role_service")->getIdentity());
                     $service->setMessageRepository($sm->get('message_repository'));
                     $service->setMessageCorrelationRepository($sm->get('messageCorrelation_repository'));
                     return $service;

@@ -10,8 +10,24 @@ class MessageCorrelationRepository
 {
     const TABLE_NAME = "message_correlation";
 
-    public function findMessageCorrelation($msgId){
-        return \DB::table('message_correlation'); // TODO GET where msgId = $id (multiple results) || Cast array of arrays to array of objects?
+    public function findMessageCorrelation($msgId)
+    {
+        return \DB::table(self::TABLE_NAME)->find($msgId, 'msg_id');
+    }
+
+    /**
+     * Gets the ids of all messages correlations regarding the user
+     *
+     * @param $userRole
+     * @return mixed
+     */
+    public function findMessageIds($userRole)
+    {
+        return \DB::table(self::TABLE_NAME)
+            ->select('msg_id')
+            ->where('office', $userRole)
+            ->where('isDeleted', false)
+            ->where('isSent', true);
     }
 
     public function insert($receiversArray, $qb)

@@ -26,6 +26,7 @@ class Module
     }
 
     public function onRoute(MvcEvent $e){
+        return;
         $request = $e->getRequest();
 
         if ($request->isPost()){

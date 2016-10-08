@@ -7,7 +7,8 @@ use Application\Model\AbstractObject;
 class Message extends AbstractObject
 {
     protected $id;
-    protected $sender;
+    protected $sender_office;
+    protected $sender_user;
     protected $subject;
     protected $msgBody;
     protected $type;
@@ -18,6 +19,7 @@ class Message extends AbstractObject
 
     public function __construct($dataArray)
     {
+        unset($dataArray['sender']); //TODO correct data input from ajax call
         $this->exchangeArray($dataArray);
     }
 
@@ -36,15 +38,31 @@ class Message extends AbstractObject
         return $this;
     }
 
-    public function getSender()
+    public function getSenderOffice()
     {
-        return $this->sender;
+        return $this->sender_office;
     }
 
-    public function setSender($sender)
+    public function setSenderOffice($senderOffice)
     {
-        $this->sender = $sender;
+        $this->sender_office = $senderOffice;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSenderUser()
+    {
+        return $this->sender_user;
+    }
+
+    /**
+     * @param mixed $senderUser
+     */
+    public function setSenderUser($senderUser)
+    {
+        $this->sender_user = $senderUser;
     }
 
     public function getSubject()

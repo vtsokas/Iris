@@ -12,23 +12,18 @@ class MessageJsonController extends AbstractRestfulController
     protected $repository;
 
     /**
-     * Return list of resources
+     * Get list of all resources
      *
-     * @return mixed
+     * @param $folderParameter
+     * @return JsonModel
      */
-    public function getList()
+    public function getList()//$folderParameter
     {
+        // TODO get resources from query and feed to service
         $params = $this->getRequest()->getQuery("resources");
-        $resources =  explode(",",$params);
-
-        $tasks = $this->getRepository()->findTask($resources);
-//        $return = array();
-//        foreach($tasks as $task){
-////            $task["subject"] = $task["calendar"] . " - " . $task["subject"];
-//            $return[] = $task;
-//        }
-
-        return new JsonModel($tasks);
+//        var_dump($params);
+        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB();
+        return new JsonModel($requestedMessages);
 
     }
 
@@ -42,6 +37,7 @@ class MessageJsonController extends AbstractRestfulController
     {
         $dtm = new DTMessage();
         $dtm->setValuesFromDataArray((object)$data);
+
         $this->getServiceLocator()->get("message_service")->storeMessageToDB($dtm);
         /**
          * Return the object as JSON

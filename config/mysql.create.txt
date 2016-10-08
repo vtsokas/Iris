@@ -31,7 +31,8 @@ CREATE TABLE `user` (
 
 CREATE TABLE `message` (
   `msg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `sender` varchar(255) DEFAULT NULL,
+  `sender_office` varchar(255) DEFAULT NULL,
+  `sender_user` varchar(255) DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `msgBody` text DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
