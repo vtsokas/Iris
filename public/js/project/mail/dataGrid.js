@@ -33,7 +33,7 @@ initDataGrid = function() {
             { name: 'newMail', type: 'boolean' }
         ],
         cache: false,
-        url: 'message-json',
+        url: 'message-json?box=inbox',
         root: 'Rows',
         beforeprocessing: function (data) {
             source.totalrecords = data[0].TotalRows;

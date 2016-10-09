@@ -87,7 +87,6 @@ class MessageService
                 $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
                 $qb->commit();
             } catch (\PDOException $e) {
-                var_dump($e);
                 $qb->rollBack();
             }
         });
@@ -125,12 +124,16 @@ class MessageService
      * @return mixed
      */
     public function getRequestedMessagesFromDB($resources){
-        $folderParameter = $resources[0];
+        $folderParameter = $resources['box'];
         switch($folderParameter){
             case 'inbox':
                 // inbox
                 $messageIds = $this->getMessageCorrelationRepository()->findMessageIds($this->identity->getRole());
-                return $this->getMessageRepository()->findOutboxMessages($messageIds);
+                $ids = array();
+                foreach ($messageIds as $messageId) {
+                    array_push($ids,$messageId->msg_id);
+                }
+                return $this->getMessageRepository()->findInboxMessages($ids);
             case 'outbox':
                 // outbox
                 return $this->getMessageRepository()->findOutboxMessages($this->identity->getRole());

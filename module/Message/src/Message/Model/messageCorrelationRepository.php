@@ -23,11 +23,14 @@ class MessageCorrelationRepository
      */
     public function findMessageIds($userRole)
     {
-        return \DB::table(self::TABLE_NAME)
-            ->select('msg_id')
-            ->where('office', $userRole)
-            ->where('isDeleted', false)
-            ->where('isSent', true);
+       $query = \DB::table(self::TABLE_NAME)
+           ->select('msg_id')
+           ->where('office', $userRole)
+           ->where('isDeleted', false)
+           ->where('isSent', true);
+        $result = $query->get();
+
+        return $result;
     }
 
     public function insert($receiversArray, $qb)

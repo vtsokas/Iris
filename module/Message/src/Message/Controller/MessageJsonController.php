@@ -19,9 +19,9 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function getList()
     {
-        $params = $this->getRequest()->getQuery("resources");
-        $resources = explode(',',$params);
-        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB($resources);
+        $params = $this->getRequest()->getQuery();
+        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB($params);
+//        var_dump(new JsonModel($requestedMessages));
         return new JsonModel($requestedMessages);
 
     }
