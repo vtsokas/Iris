@@ -17,12 +17,11 @@ class MessageJsonController extends AbstractRestfulController
      * @param $folderParameter
      * @return JsonModel
      */
-    public function getList()//$folderParameter
+    public function getList()
     {
-        // TODO get resources from query and feed to service
         $params = $this->getRequest()->getQuery("resources");
-//        var_dump($params);
-        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB();
+        $resources = explode(',',$params);
+        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB($resources);
         return new JsonModel($requestedMessages);
 
     }
@@ -93,6 +92,10 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function delete($id)
     {
+        return new JsonModel();
+
+
+
         $this->response->setStatusCode(405);
 
         return array(

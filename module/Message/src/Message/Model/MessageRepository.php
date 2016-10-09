@@ -27,7 +27,7 @@ class MessageRepository
     }
 
     /**
-     * Finds all messages
+     * Finds all outbox messages
      *
      * @param $userRole
      * @return mixed
@@ -35,7 +35,7 @@ class MessageRepository
     public function findOutboxMessages($userRole)
     {
         return \DB::table(self::TABLE_NAME)
-            ->select('message_correlation.office',self::TABLE_NAME.'.subject',self::TABLE_NAME.'.type'
+            ->select('message_correlation.office', 'message_correlation.regarding',self::TABLE_NAME.'.subject',self::TABLE_NAME.'.type'
                         ,self::TABLE_NAME.'.date')
             ->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
             ->where('sender_office',$userRole)

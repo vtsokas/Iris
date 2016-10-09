@@ -118,17 +118,23 @@ class MessageService
         return $dtm;
     }
 
-    public function getRequestedMessagesFromDB($folderParameter){
+    /**
+     * Requested messages returned, according to given parameters
+     *
+     * @param $resources
+     * @return mixed
+     */
+    public function getRequestedMessagesFromDB($resources){
+        $folderParameter = $resources[0];
         switch($folderParameter){
-            case 1:
+            case 'inbox':
                 // inbox
                 $messageIds = $this->getMessageCorrelationRepository()->findMessageIds($this->identity->getRole());
                 return $this->getMessageRepository()->findOutboxMessages($messageIds);
-            case 2:
+            case 'outbox':
                 // outbox
-                $outboxMessages = $this->getMessageRepository()->findOutboxMessages($this->identity->getRole());
-                break;
-            case 3:
+                return $this->getMessageRepository()->findOutboxMessages($this->identity->getRole());
+            case 'draft':
                 // draft
                 return $this->getMessageRepository()->findDraftMessages($this->identity->getRole());
                 break;
