@@ -1,0 +1,66 @@
+/*  Global Ui   */
+.jqx-rc-all { -moz-border-radius: 0px;  -webkit-border-radius: 0px;  border-radius: 0px; }
+.jqx-rc-t { -moz-border-radius-topleft: 0px;  -webkit-border-top-left-radius: 0px; border-top-left-radius: 0px; -moz-border-radius-topright: 0px; -webkit-border-top-right-radius: 0px; border-top-right-radius: 0px; }
+.jqx-rc-r{ -moz-border-radius-topright: 0px; -webkit-border-top-right-radius: 0px; border-top-right-radius: 0px; -moz-border-radius-bottomright: 0px; -webkit-border-bottom-right-radius: 0px; border-bottom-right-radius: 0px; }
+
+/*  Email UI    */
+#mailcontainer { height: 100%; width: 100%; }
+
+/*  jqxlayout   */
+/*  hide tab headers    */
+.jqx-layout-ribbon-header { display: none !important; }
+/*  hide border color   */
+#mailcontainer .jqx-ribbon-content-section { border: 5px solid transparent; }
+
+/*  Top Menu    */
+#TopMenu.jqx-menu{ box-sizing: border-box; width: 100% !important; height: 100% !important; }
+#TopMenu .jqx-menu-ul{ height: 100%; padding: 0px; }
+#TopMenu .jqx-menu-item-top:before { content: ''; display: inline-block; height: 100%; vertical-align: middle; }
+#TopMenu .jqx-menu-item-top{ height: 100%; border: 0px; padding: 0px 12px; margin: 0px; }
+
+/*  Left Menu   */
+#mailcontainer .jqx-navbar{ box-sizing: border-box; }
+#LeftMenu{ height: 100%; background-image: url(../../../img/gemini.png); background-size: 100%; background-repeat: no-repeat; background-position: bottom; }
+
+/*  Grid    */
+#mailcontainer .jqx-grid{ box-sizing: border-box; }
+.jqx-grid-content{ cursor: pointer; }
+
+/*  Search Area */
+#searchInputArea{ width: calc(100% - 50px); float:left; height:100%; }
+#searchImgArea{ width: 50px; float: right; height:100%; border: 1px solid #a4bed4; border-left: 0px; background-color: #e0e9f5; }
+img.searchimg{ position: absolute; top: 50%; right: 0; width: 30px; height: 30px; margin-top: -15px; margin-right: 15px; cursor: pointer; }
+
+/*  New email Area  */
+.inputs * { margin-bottom:5px; margin-right:5px; text-indent: 5px; display:block; }
+#inputReceiver1,
+#inputSubject { float: left; }
+.editor { height: calc(100% - 64px); }
+
+.ViewTextBlock{
+    height:25px;
+    width:100%;
+    margin-bottom: 5px;
+    text-indent: 2px;
+    padding: 3px;
+    border: 1px solid;
+    border-color: #a4bed4;
+}
+
+#viewer{
+    height: 100%;
+    width: 100%;
+    border: 1px solid transparent;
+    border-color: #a4bed4;
+    background-color: #FFFFFF;
+    text-indent: 5px;
+}
+
+.edcontainer {
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid transparent;
+    border-color: #a4bed4;
+    background-color: #e0e9f5;
+}

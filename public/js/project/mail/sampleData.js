@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     datatablesampledata =
     {
-        localData: data,
+        localdata: data,
         dataType: "array",
         dataFields:
             [

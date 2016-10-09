@@ -105,7 +105,7 @@ createMessageTaskObject = function(){
     var receiversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
     var object = {
         message: {
-            sender :    $('#inputReceiver1').val(),
+            sender :    $('#inputReceiver1').val(), // TODO remove
             subject:    $('#inputSubject').val(),
             msgBody:    $('#text').val(),
             type:       type,

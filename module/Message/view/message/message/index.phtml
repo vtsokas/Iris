@@ -4,8 +4,8 @@ $this->inlineScript()
     ->appendFile($this->basePath('js/project/mail/sampleData.js'))
     ->appendFile($this->basePath('js/project/mail/emailUI.js'))
     ->appendFile($this->basePath('js/project/mail/utils.js'))
-    ->appendFile($this->basePath('js/project/mail/dataGrid.js'))
     ->appendFile($this->basePath('js/project/mail/menus.js'))
+    ->appendFile($this->basePath('js/project/mail/dataGrid.js'))
     ->appendFile($this->basePath('js/project/mail/layout.js'))
 
 
@@ -42,9 +42,9 @@ $this->inlineScript()
 ?>
 
 <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
-<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.darkblue.css')?>" type="text/css" />
-<!--<link rel="stylesheet" href="<?/* echo $this->basePath('css/project/mail.css')*/?>" type="text/css" />
--->
+<link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.energyblue.css')?>" type="text/css" />
+<link rel="stylesheet" href="<? echo $this->basePath('css/project/iris.css')?>" type="text/css" />
+
 <style>
     body, html {
         width: 100%;
@@ -55,25 +55,19 @@ $this->inlineScript()
         margin: 0;
     }
 </style>
-<div id="mailcontainer" style="width: 100%; height:100%">
-    <div id="jqxLayout" style="width: 100%; height:100%">
-        <div data-container="TopMenuPanel" style="width: 100%; height:100%">
-            <div id='TopMenu' style="visibility: hidden;" style="width: 100%; height:100%">
-                <ul>
-                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Inbox</span></li>
-                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Outbox</span></li>
-                    <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Drafts</span></li>
-                </ul>
+
+<div id="mailcontainer">
+    <div id="jqxLayout">
+        <div data-container="TopMenuPanel">
+            <div id='TopMenu' style="visibility: hidden;" >
             </div>
         </div>
-        <div data-container="Search" style="width: 100%; height:100%" >
-            <div id="searchInput" style="width: 100%; height:100%">
-                <input type="text" style="width: 100%; height:100%"/>
-                <div id="search"><img alt="search" width="16" height="16" src="../../../img/search.ico" /></div>
-            </div>
+        <div data-container="Search" id="search" style="visibility: hidden;">
+            <div id="searchInputArea" ><input id="searchInput"/></div>
+            <div id="searchImgArea"><img class="searchimg" alt="search" src="../../../img/search.ico" /></div>
         </div>
-        <div data-container="LeftMenuPanel" style="width: 100%; height:100%">
-            <div id='LeftMenu' style="width: 100%; height:100%">
+        <div data-container="LeftMenuPanel" style="visibility: hidden;">
+            <div id='LeftMenu'>
                 <ul>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Εισερχόμενα</span></li>
                     <li style="text-align:left"><img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Εξερχόμενα</span></li>
@@ -82,15 +76,20 @@ $this->inlineScript()
             </div>
         </div>
 
-
-
         <!--
         area for mail interface
         -->
         <div data-container="MailsPanel">
             <div id='MailTable' style="visibility: hidden;">
             </div>
+            <div id="gridMenu" style="visibility: hidden;">
+                <ul>
+                    <li>Διαγραφή</li>
+                    <li>Άκυρο</li>
+                </ul>
+            </div>
         </div>
+        <!-- grid context menu -->
 
 
         <!--
@@ -117,11 +116,11 @@ $this->inlineScript()
             <div id="readEmail" style="visibility: hidden; height:100%;">
                 <div id="info">
                     <div class="ViewTextBlock">
-                        <span style="font-weight: bolder">Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚: </span>
+                        <span style="font-weight: bolder">Αποστολέας: </span>
                         <span id="sender" style="font-style: italic" ></span>
                     </div>
                     <div class="ViewTextBlock">
-                        <span style="font-weight: bolder">Ξ?Ξ­ΞΌΞ±: </span>
+                        <span style="font-weight: bolder">Θέμα: </span>
                         <span id="subject" style="font-style: italic"></span>
                     </div>
                 </div>

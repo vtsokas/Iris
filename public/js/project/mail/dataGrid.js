@@ -1,5 +1,5 @@
 
-var SampleData;
+
 initDataGrid = function() {
 
     /**
@@ -18,33 +18,79 @@ initDataGrid = function() {
             if(align == "center"){
                 align = "middle";
             }
-            return '<div class="jqx-grid-cell-' + align + '-align" style="margin-top: 6px;"><b><i>' + value + '</i></b></div>';
+            return '<div class="jqx-grid-cell-' + align + '-align" style="margin-top: 6px;"><b>' + value + '</b></div>';
         }
     };
 
-    SampleData = new $.jqx.dataAdapter(datatablesampledata,
-        {
-            formatData: function (data) {
-                data.office_startsWith == $("#searchField").val(); //to be continued
-                return data;
-            }
+    var source =
+    {
+        datatype: "json",
+        datafields: [
+            { name: 'office', type: 'string' },
+            { name: 'subject', type: 'string' },
+            { name: 'type', type: 'string' },
+            { name: 'date', type: 'string' },
+            { name: 'newMail', type: 'boolean' }
+        ],
+        cache: false,
+        url: 'message-json',
+        root: 'Rows',
+        beforeprocessing: function (data) {
+            source.totalrecords = data[0].TotalRows;
         }
-    );
+    };
+
+    var dataadapter = new $.jqx.dataAdapter(source);
 
     $("#MailTable").jqxGrid(
         {
             width:'100%',
             height:'100%',
-            source: SampleData,
+            source: dataadapter,
             theme: theme,
             pageable: true,
             pagermode: 'default',
             pagesizeoptions: ['20', '50', '100'],
             pagesize:20,
             sortable: true,
-            enabletooltips: true,
-            selectionmode: 'multiplerows',
+            enablehover: false,
+            selectionmode: 'checkbox',
             localization: greekLanguage,
+            showtoolbar: true,
+            virtualmode: true,
+            rendergridrows: function (params) {
+                return params.data;
+            },
+            rendertoolbar: function (toolbar) {
+                var me = this;
+                var container = $("<div style='margin: 5px;'></div>");
+                var span = $("<span style='float: left; margin-top: 5px; margin-right: 4px;'>Αναζήτηση μηνύματος: </span>");
+                var input = $("<input class='jqx-input jqx-widget-content jqx-rc-all' id='searchField' type='text' style='height: 23px; float: left; width: 223px;' />");
+                toolbar.append(container);
+                container.append(span);
+                container.append(input);
+                if (theme != "") {
+                    input.addClass('jqx-widget-content-' + theme);
+                    input.addClass('jqx-rc-all-' + theme);
+                }
+                var oldVal = "";
+                input.on('keydown', function (event) {
+                    if (input.val().length >= 2) {
+                        if (me.timer) {
+                            clearTimeout(me.timer);
+                        }
+                        if (oldVal != input.val()) {
+                            me.timer = setTimeout(function () {
+                                $("#MailTable").jqxGrid('updatebounddata');
+                            }, 1000);
+                            oldVal = input.val();
+                        }
+                    }
+                     else {
+                        $("#MailTable").jqxGrid('updatebounddata');
+                    }
+                })
+            },
             columns: [
                 { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' , cellsrenderer: rendrow },
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
@@ -87,14 +133,49 @@ initDataGrid = function() {
             ShowTopMenuItems(args);
         }
     }
-}
 
 
 
-    //SampleData.dataBind();
+    // create context menu
+    var contextMenu = $("#gridMenu").jqxMenu({ width: 200, height: 58, autoOpenPopup: false, mode: 'popup'});
+    $("#gridMenu").css("visibility", "visible");
+    $("#MailTable").on('contextmenu', function () {
+        return false;
+    });
+    // handle context menu clicks.
+    $("#gridMenu").on('itemclick', function (event) {
+        var args = event.args;
+        var rowindex = $("#MailTable").jqxGrid('getselectedrowindex');
+        if ($.trim($(args).text()) == "Edit Selected Row") {
 
+        }
+        else {
 
-    /*function datagridtoolbar(toolbar) {
+        }
+    });
+
+    $('#MailTable').on('rowclick', function (event) {
+        if (event.args.rightclick) {
+            //$("#MailTable").jqxGrid('selectrow', event.args.rowindex);
+            var scrollTop = $(window).scrollTop();
+            var scrollLeft = $(window).scrollLeft();
+            contextMenu.jqxMenu('open', parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft, parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
+            return false;
+        }
+        else{
+            var data = $('#MailTable').jqxGrid('getrowdatabyid', event.args.rowindex);
+            var args = ["reply","delete","cancel"];
+
+            $('#sender').text(data.office + " - " + data.sender);
+            $('#subject').text(data.subject);
+            $('#viewer').html(data.text);
+
+            showInterface("ViewEmailPanel");
+            ShowTopMenuItems(args);
+        }
+    });
+
+    function datagridtoolbar(toolbar) {
         var me = this;
         var container = $("<div style='margin: 5px;'></div>");
         var span = $("<span style='float: left; margin-top: 5px; margin-right: 4px;'>Αναζήτηση μηνύματος: </span>");
@@ -109,7 +190,10 @@ initDataGrid = function() {
         var oldVal = "";
         input.on('keydown', function (event) {
             var x = SampleData.source;
-            if (input.val().length >= 2) {
+            me.timer = setTimeout(function () {
+                $("#MailTable").jqxGrid('updatebounddata');
+            }, 1000);
+            /*if (input.val().length >= 2) {
                 if (me.timer) {
                     clearTimeout(me.timer);
                 }
@@ -122,6 +206,13 @@ initDataGrid = function() {
             }
             else {
                 $("#MailTable").jqxGrid('updatebounddata');
-            }
+            }*/
         });
-    }*/
+    }
+}
+
+
+
+    //SampleData.dataBind();
+
+

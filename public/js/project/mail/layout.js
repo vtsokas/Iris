@@ -1,4 +1,4 @@
-var theme = 'darkblue';
+var theme = 'energyblue';
 $(document).ready(function () {
 
     // the 'layout' JSON array defines the internal structure of the layout

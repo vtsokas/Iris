@@ -97,7 +97,7 @@ initEmailUI = function() {
         source: ddlSource,
         placeHolder: "Τύπος μηνύματος:",
         selectedIndex: -1,
-        width: '200',
+        width: '250',
         autoDropDownHeight: true,
         theme: theme
     });

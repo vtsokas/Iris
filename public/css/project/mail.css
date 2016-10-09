@@ -22,46 +22,7 @@
     border:0px;
 }
 
-.jqx-rc-all {
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-}
-
-
-.jqx-rc-t {
-    -moz-border-radius-topleft: 0px;
-    -webkit-border-top-left-radius: 0px;
-    border-top-left-radius: 0px;
-    -moz-border-radius-topright: 0px;
-    -webkit-border-top-right-radius: 0px;
-    border-top-right-radius: 0px;
-}
-
-.jqx-rc-r{
-    -moz-border-radius-topright: 0px;
-    -webkit-border-top-right-radius: 0px;
-    border-top-right-radius: 0px;
-    -moz-border-radius-bottomright: 0px;
-    -webkit-border-bottom-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
-.jqx-navbar{
-    border:1px solid #004a73;
-    box-sizing: border-box;
-}
-
-.jqx-menu{
-    /*border:0px;*/
-}
-
 #leftmenu .jqx-window-header {
-    box-sizing: border-box;
-}
-
-#mailcontainer .jqx-grid{
-    border:1px solid #004a73;
     box-sizing: border-box;
 }
 
@@ -102,27 +63,6 @@ height:100px;
 
 .MailButton:focus{
 outline:none;
-}
-
-/*.leftmenu {
-    margin-top: 100px;
-    height: calc(100% - 100px); !important;
-}*/
-
-.inputs * {
-    margin-bottom:5px;
-    margin-right:5px;
-    text-indent: 5px;
-    display:block;
-}
-
-#inputReceiver1,
-#inputSubject {
-    float: left;: left;
-}
-
-.editor {
-    height: calc(100% - 64px);
 }
 
 .ViewTextBlock{
@@ -166,21 +106,12 @@ outline:none;
     display: inline;
 }
 
-/*jqxlayout hide tab headers*/
-.jqx-layout-ribbon-header{
-    display:none !important;
-}
 
 /*notification table z position*/
 .jqx-notification-container {
     z-index: 10000000;
 }
 
-#mailcontainer .jqx-ribbon-content-section {
-    /*border-color: transparent;*/
-    border: 5px solid transparent;
-    overflow: hidden;
-}
 
 /*style login and register pages*/
 .iris-login-main{

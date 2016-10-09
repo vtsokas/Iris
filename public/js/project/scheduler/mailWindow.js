@@ -20,7 +20,7 @@ $(document).ready(function () {
     $("#jqxwindow").jqxWindow({
         height: '100%',
         width: '800',
-        maxHeight: '100%',
+        maxHeight: '600px',
         theme: theme,
         autoOpen: false,
         isModal: true,
