@@ -137,7 +137,7 @@ ShowNotification = function(text, template, arg){
  */
 getExceptionsString = function(){
     var exceptionsStr = null;
-    if (typeof clickedApp !== "undefined") {
+    if (clickedApp !== null && typeof clickedApp !== "undefined") {
         var exceptions = [];
         for (var i in clickedApp.recurrenceException) {
             if (clickedApp.recurrenceException[i] != null && exceptions.indexOf(clickedApp.recurrenceException[i].toString()) < 0){

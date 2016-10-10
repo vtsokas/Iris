@@ -6,6 +6,7 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use ZfcUser\Controller\RedirectCallback;
+use ZfcUser\Controller\UserAdminController;
 use ZfcUser\Controller\UserController;
 
 class Module implements
@@ -65,6 +66,12 @@ class Module implements
 
                         return $controller;
                     },
+                'zfcuser-admin' => function() {
+                    /* @var UserAdminController $controller */
+                    $controller = new UserAdminController();
+
+                    return $controller;
+                },
             ),
         );
     }

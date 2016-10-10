@@ -4,6 +4,7 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'zfcuser' => __DIR__ . '/../view',
+            'zfcuser-admin' => __DIR__ . '/../view'
         ),
     ),
     'service_manager' => array(
@@ -85,6 +86,50 @@ return array(
                             ),
                         ),
                     ),
+                ),
+            ),
+            'zfcuser-admin' => array(
+                'type' => 'Literal',
+                'priority' => 1000,
+                'options' => array(
+                    'route' => '/user-admin',
+                    'defaults' => array(
+                        'controller' => 'zfcuser-admin',
+                        'action'     => 'index',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'change-role' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/change-role',
+                            'defaults' => array(
+                                'controller' => 'zfcuser-admin',
+                                'action'     => 'changeRole',
+                            ),
+                        ),
+                    ),
+                    'reset-password' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/reset-password',
+                            'defaults' => array(
+                                'controller' => 'zfcuser-admin',
+                                'action'     => 'resetPassword',
+                            ),
+                        ),
+                    ),
+                    'disable' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/disable',
+                            'defaults' => array(
+                                'controller' => 'zfcuser-admin',
+                                'action'     => 'disable',
+                            ),
+                        ),
+                    )
                 ),
             ),
         ),

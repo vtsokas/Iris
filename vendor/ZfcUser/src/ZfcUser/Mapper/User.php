@@ -10,6 +10,11 @@ class User extends AbstractDbMapper implements UserInterface
 {
     protected $tableName  = 'user';
 
+    public function findAll()
+    {
+        return $this->select($this->getSelect()->where(array('state' => 1)));
+    }
+
     public function findByEmail($email)
     {
         $select = $this->getSelect()

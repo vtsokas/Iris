@@ -178,10 +178,10 @@ class UserController extends AbstractActionController
     public function registerAction()
     {
         // if the user is logged in, we don't need to register
-        if ($this->zfcUserAuthentication()->hasIdentity()) {
+        /*if ($this->zfcUserAuthentication()->hasIdentity()) {
             // redirect to the login redirect route
             return $this->redirect()->toRoute($this->getOptions()->getLoginRedirectRoute());
-        }
+        }*/
         // if registration is disabled
         if (!$this->getOptions()->getEnableRegistration()) {
             return array('enableRegistration' => false);
@@ -225,6 +225,8 @@ class UserController extends AbstractActionController
         }
 
         if ($service->getOptions()->getLoginAfterRegistration()) {
+            return $this->redirect()->toRoute("zfcuser-admin");
+
             $identityFields = $service->getOptions()->getAuthIdentityFields();
             if (in_array('email', $identityFields)) {
                 $post['identity'] = $user->getEmail();
@@ -237,7 +239,7 @@ class UserController extends AbstractActionController
         }
 
         // TODO: Add the redirect parameter here...
-        return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+        return $this->redirect()->toRoute("zfcuser-admin");
     }
 
     /**

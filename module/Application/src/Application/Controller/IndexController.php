@@ -16,6 +16,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        return $this->redirect()->toRoute("task");
         return new ViewModel();
     }
 }

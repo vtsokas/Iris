@@ -1,6 +1,6 @@
-var theme = 'darkblue';
+//theme = 'dark';
 $(document).ready(function () {
-    var theme = 'darkblue';
+    theme = 'energyblue';
     // the 'layout' JSON array defines the internal structure of the layout
     var layout = [{
         type: 'layoutGroup',
@@ -87,4 +87,5 @@ $(document).ready(function () {
 });
 $(window).load(function() {
     $("#showWindowButton").css('visibility','visible');
+    $("#outputContainer").css('visibility','visible');
 });

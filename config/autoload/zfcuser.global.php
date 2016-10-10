@@ -40,7 +40,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'enable_username' => false,
+    'enable_username' => true,
 
     /**     
      * Authentication Adapters
@@ -60,7 +60,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'enable_display_name' => true,
+    'enable_display_name' => true,
 
     /**
      * Modes for authentication identity match
@@ -71,7 +71,7 @@ $settings = array(
      * Default value: array containing 'email'
      * Accepted values: array containing one or more of: email, username
      */
-    //'auth_identity_fields' => array( 'email' ),
+    'auth_identity_fields' => array( 'username' ),
 
     /**
      * Login form timeout
@@ -193,7 +193,7 @@ $settings = array(
      * 
      * Should user's state be used in the registration/login process?
      */
-    //'enable_user_state' => true,
+    'enable_user_state' => true,
     
     /**
      * Default user state upon registration
@@ -201,7 +201,7 @@ $settings = array(
      * What state user should have upon registration?
      * Allowed value type: integer
      */
-    //'default_user_state' => 1,
+    'default_user_state' => 1,
     
     /**
      * States which are allowing user to login
