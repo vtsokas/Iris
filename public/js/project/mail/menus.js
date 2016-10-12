@@ -51,7 +51,8 @@ initTopMenu = function () {
                 args=["send", "save", "delete", "cancel"];
                 break;
             case "view":
-                viewEmail();
+                var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+                viewMessage(rowindex);
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
@@ -62,7 +63,7 @@ initTopMenu = function () {
                 /**
                  * @TODO implement
                  */
-                onSendMessage();
+                sendMessage();
                 ShowMailTableInterface();
                 args=["create"];
                 break;
@@ -109,9 +110,10 @@ initLeftMenu = function () {
                 break;
             case 2:
                 args=["create"];
-                var filtereddata = data.filter(function (e) {                //test filter
+                /*var filtereddata = data.filter(function (e) {                //test filter
                     return e.state=="draft";
-                });
+                });*/
+                $('#MailTable').jqxGrid('refreshdata');
                 break;
             default:
             //default code block

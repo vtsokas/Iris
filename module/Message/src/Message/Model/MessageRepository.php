@@ -19,15 +19,18 @@ class MessageRepository
      * @param $messageIds
      * @return mixed
      */
-    public function findInboxMessages($messageIds)
+    public function findInboxMessages($messageIds, $userRole, $pagenum, $pagesize)
     {
         $query = \DB::table(self::TABLE_NAME)
-            ->select('sender_office', 'sender_user', 'subject', 'type', 'isRead', 'dateAdded')
+            ->select('message.msg_id', 'subject', 'type', 'isRead', 'dateAdded')
+            ->select(\DB::raw('CONCAT_WS(" - ", message.sender_office, message.sender_user) AS sender'))
             ->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
-            ->where('message_correlation.office', '=', 'ΓΕΠ')   // TODO use user's role!!!
-            ->whereIn(self::TABLE_NAME.'.msg_id', $messageIds);
+            ->where('message_correlation.office', '=', $userRole)
+            ->whereIn(self::TABLE_NAME.'.msg_id', $messageIds)
+            ->offset($pagenum * $pagesize)
+            ->limit($pagesize)
+            ->orderBy('dateAdded', 'DESC');
         $result = $query->get();
-
         return $result;
     }
 
@@ -63,9 +66,13 @@ class MessageRepository
     /**
      * {@inheritDoc}
      */
-    public function findMessage($id)
+    public function getMessage($id)
     {
-        return \DB::table('message')->find($id);
+        $query = \DB::table(self::TABLE_NAME)
+            ->select('msgBody')
+            ->where('msg_id',$id);
+        $result = $query->get();
+        return $result;
     }
 
     public function insert($message, $qb)

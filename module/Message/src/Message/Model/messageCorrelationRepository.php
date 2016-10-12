@@ -33,6 +33,24 @@ class MessageCorrelationRepository
         return $result;
     }
 
+    public function getTotalInbox($userRole)
+    {
+        $query = \DB::table(self::TABLE_NAME)->where('office', $userRole);
+        $result = $query->count();
+
+        return $result;
+    }
+
+    public function getUnreadMessages($userRole)
+    {
+        $query = \DB::table(self::TABLE_NAME)
+            ->where('office', $userRole)
+            ->where('isRead', false);
+        $result = $query->count();
+
+        return $result;
+    }
+
     public function insert($receiversArray, $qb)
     {
         /* Batch insert normally returns an array of the inserted Ids */
@@ -40,4 +58,15 @@ class MessageCorrelationRepository
         //return $insertIds;
     }
 
+    public function updateMessageSendState($userRole, $id)
+    {
+        $data = array(
+            'isRead' => true
+        );
+
+        \DB::table(self::TABLE_NAME)
+            ->where('msg_id', $id)
+            ->where('office',$userRole)
+            ->update($data);
+    }
 }

@@ -11,7 +11,7 @@ $(document).ready(function () {
             width: '20%',
             items: [{
                 type: 'documentGroup',
-                height: '80%',
+                height: '75%',
                 minHeight: '25%',
                 items: [{
                     type: 'documentPanel',
@@ -24,7 +24,7 @@ $(document).ready(function () {
                             theme: theme,
                             initTabContent: function (tab){
                                 if (tab==0){
-                                    $('#jqxTree').jqxTree({ height: '%', hasThreeStates: false, checkboxes: true, width: '100%'});
+                                    $('#jqxTree').jqxTree({ height: 'auto', hasThreeStates: false, checkboxes: true, width: '100%'});
                                     $('#jqxTree').css('visibility', 'visible');
                                     $("#jqxTree").jqxTree('selectItem', $("#home")[0]);
                                     $("#jqxTree").bind('change', function (event) {
@@ -57,8 +57,8 @@ $(document).ready(function () {
                     }]
             }, {
                 type: 'tabbedGroup',
-                height: '20%',
-                pinnedHeight: '10%',
+                allowPin: false,
+                height: '25%',
                 items: [{
                     type: 'layoutPanel',
                     title: 'Σύνδεση',
@@ -68,6 +68,7 @@ $(document).ready(function () {
             }]
         }, {
             type: 'tabbedGroup',
+            allowPin: false,
             width: '80%',
             items: [{
                 type: 'layoutPanel',

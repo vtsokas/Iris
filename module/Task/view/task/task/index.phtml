@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="gr">
 <head>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
     <?
     $this->inlineScript()
         //The files live inside the public folder
-        //->appendFile($this->basePath('js/scripts/jquery-1.11.1.min.js'))
+        ->appendFile($this->basePath('js/jquery-1.12.1.min.js'))
+        ->appendFile($this->basePath('js/jquery-ui.min.js'))
 
         ->appendFile($this->basePath('js/project/scheduler/layout.js'))
         ->appendFile($this->basePath('js/project/scheduler/scheduler.js'))
@@ -52,7 +53,8 @@
 
     <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.base.css')?>" type="text/css" />
     <link rel="stylesheet" href="<? echo $this->basePath('js/jqwidgets/styles/jqx.energyblue.css')?>" type="text/css" />
-    <link rel="stylesheet" href="<? echo $this->basePath('css/project/mail.css')?>" type="text/css" />
+    <link rel="stylesheet" href="<? echo $this->basePath('js/jquery-ui.min.css')?>" type="text/css" />
+    <link rel="stylesheet" href="<? echo $this->basePath('css/project/iris.css')?>" type="text/css" />
 
 
     <style>
@@ -116,12 +118,23 @@
         <!--bottom tabbedGroup-->
         <div data-container="OutputPanel">
             <div id="outputContainer" style="width: 100%;height:100%;visibility: hidden;">
-                <img src="/img/oplosimo.gif" style="float: left; height: 70%;vertical-align: -webkit-baseline-middle;margin: 5%;"/>
-                <div style="float: left; position: relative; margin: 5%; top: 50%; transform: translateY(-80%);">
-                    <p><?=$this->zfcUserIdentity()->getDisplayName()?>
-                        (<?=$this->zfcUserIdentity()->getRole()?>)</p>
-                    <a href="<?php echo $this->url('zfcuser/logout') ?>">[<?php echo $this->translate('Αποσύνδεση'); ?>]</a>
-                </div>
+                    <img src="/img/emblima.png" style="float: left; margin-left: 10px; height: 80px; position: relative; transform: perspective(1px) translateY(-50%); top: 50%;"/>
+                    <div style="float: left; margin: 5px 0 0 10px; position: relative; top: 50%; transform: perspective(1px) translateY(-50%);">
+                        <p>Όνομα: <?=$this->zfcUserIdentity()->getDisplayName()?></p>
+                        <p>Γραφείο: <?=$this->zfcUserIdentity()->getRole()?></p>
+                        <p>
+                            <a href="<?php echo $this->url('zfcuser/logout') ?>" class="follow">
+                                <img src="/img/logout1.png" style="float: left; height: 20px;"/>
+                                <span style="margin-left: 5px;"><?php echo $this->translate('Αποσύνδεση'); ?></span>
+                            </a>
+                        </p>
+                        <p>
+                            <a href="<?php echo $this->url('zfcuser/changepassword') ?>" class="follow">
+                                <img src="/img/password.png" style="float: left; height: 20px;"/>
+                                <span style="margin-left: 5px;"><?php echo $this->translate('Αλλαγή Κωδικού'); ?></span>
+                            </a>
+                        </p>
+                    </div>
             </div>
         </div>
         <!--right tabbedGroup-->

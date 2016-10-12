@@ -13,34 +13,36 @@ initDataGrid = function() {
      * @returns {string}
      */
     var rendrow = function(row, columnfield, value, defaulthtml, columnproperties, rowdata){
-        if(rowdata.newMail == true){
+        if(rowdata.isRead == 0){
             var align=columnproperties.align;
             if(align == "center"){
                 align = "middle";
             }
             return '<div class="jqx-grid-cell-' + align + '-align" style="margin-top: 6px;"><b>' + value + '</b></div>';
         }
-    };
+    }
 
     var source =
     {
         datatype: "json",
         datafields: [
-            { name: 'office', type: 'string' },
+            { name: 'msg_id' , type: 'string' },
+            { name: 'sender', type: 'string' },
             { name: 'subject', type: 'string' },
             { name: 'type', type: 'string' },
-            { name: 'date', type: 'string' },
-            { name: 'newMail', type: 'boolean' }
+            { name: 'dateAdded', type: 'string' },
+            { name: 'isRead', type: 'boolean' }
         ],
-        cache: false,
-        url: 'message-json?box=inbox',
+        id: 'msg_id',
+        //cache: false,
+        //url: 'message-json?box=inbox',
         root: 'Rows',
         beforeprocessing: function (data) {
             source.totalrecords = data[0].TotalRows;
-        }
+        },
     };
 
-    var dataadapter = new $.jqx.dataAdapter(source);
+    dataadapter = new $.jqx.dataAdapter(source);
 
     $("#MailTable").jqxGrid(
         {
@@ -50,7 +52,7 @@ initDataGrid = function() {
             theme: theme,
             pageable: true,
             pagermode: 'default',
-            pagesizeoptions: ['20', '50', '100'],
+            pagesizeoptions: ['1', '20', '50', '100'],
             pagesize:20,
             sortable: true,
             enablehover: false,
@@ -92,11 +94,10 @@ initDataGrid = function() {
                 })
             },
             columns: [
-                { text: 'Γραφείο - Δνση/Δκση', dataField: 'office', width: '10%' , cellsrenderer: rendrow },
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
                 { text: 'Θέμα', editable: false, dataField: 'subject', width: '40%' , cellsrenderer: rendrow },
                 { text: 'Τύπος', editable: false, dataField: 'type', width: 'auto',cellsAlign: 'center', align: 'center' , cellsrenderer: rendrow },
-                { text: 'Ημερομηνία', dataField: 'date', width: '15%', cellsAlign: 'right', align: 'right' , cellsrenderer: rendrow }
+                { text: 'Ημερομηνία', dataField: 'dateAdded', width: '15%', cellsAlign: 'right', align: 'right', cellsrenderer: rendrow }
             ]
         });
     $("#MailTable").css('visibility','visible');
@@ -113,6 +114,17 @@ initDataGrid = function() {
      */
     $('#MailTable').on('rowunselect', function (event){
         GetTopButtonsOnGridSelectionChange();
+    });
+
+    $("#MailTable").on("pagesizechanged", function (event)
+    {
+        // event arguments.
+        var args = event.args;
+        // page number.
+        var pagenum = args.pagenum;
+        // page size.
+        var pagesize = args.pagesize;
+        getUnreadEmailCount();
     });
 
     /**
@@ -163,14 +175,9 @@ initDataGrid = function() {
             return false;
         }
         else{
-            var data = $('#MailTable').jqxGrid('getrowdatabyid', event.args.rowindex);
+            viewMessage(event.args.rowindex);
+
             var args = ["reply","delete","cancel"];
-
-            $('#sender').text(data.office + " - " + data.sender);
-            $('#subject').text(data.subject);
-            $('#viewer').html(data.text);
-
-            showInterface("ViewEmailPanel");
             ShowTopMenuItems(args);
         }
     });

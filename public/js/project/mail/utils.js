@@ -1,3 +1,6 @@
+refreshInterval = 15;
+unreadMessages = 0;
+paginginformation = null;
 /**
  * Update Content Interface dependent on param value.
  * Possible values: MailsPanel/NewEmailPanel/ViewEmailPanel
@@ -15,20 +18,6 @@ ShowMailTableInterface = function () {
     $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
     showInterface("MailsPanel");
 };
-
-/**
- * Display selected email
- */
-viewEmail = function(){
-    var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
-    var data = $('#MailTable').jqxGrid('getrowdatabyid', rowindex);
-
-    $('#sender').text(data.office + " - " + data.sender);
-    $('#subject').text(data.subject);
-    $('#viewer').html(data.text);
-
-    showInterface("ViewEmailPanel");
-}
 
 /**
  * Open new email form. If flag is true it is a new email.
@@ -53,6 +42,7 @@ newEmail = function(flag){
     }
 
     showInterface("NewEmailPanel");
+    $("#MailTable").jqxGrid('gotopage', 0);
 }
 
 /**
@@ -67,7 +57,10 @@ clearNewEmailInterface = function(){
     $('#inputMessageType').jqxDropDownList('clearSelection');
 };
 
-onSendMessage = function(){
+/**
+ * ajax call to save new/edited message to database
+ */
+sendMessage = function(){
     var message = createMessageTaskObject();
 
     if (message !== false){
@@ -83,6 +76,29 @@ onSendMessage = function(){
     }
 }
 
+/**
+ * ajax call to get message info from db to display
+ */
+viewMessage = function(rowindex){
+    var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+
+    if (data.msg_id){
+        $.ajax({
+            "url": "/message-json/" + data.msg_id,
+        }).success(function(response){
+            $('#sender').text(data.sender);
+            $('#subject').text(data.subject);
+            $('#viewer').html(response[0].msgBody);
+
+        }).error(function(){
+            $('#sender').text(data.sender);
+            $('#subject').text(data.subject);
+        });
+    }
+
+
+    showInterface("ViewEmailPanel");
+}
 createMessageTaskObject = function(){
     var type;
     if ($('#inputMessageType').jqxDropDownList('getSelectedItem') != null){
@@ -105,7 +121,6 @@ createMessageTaskObject = function(){
     var receiversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
     var object = {
         message: {
-            sender :    $('#inputReceiver1').val(), // TODO remove
             subject:    $('#inputSubject').val(),
             msgBody:    $('#text').val(),
             type:       type,
@@ -119,3 +134,56 @@ createMessageTaskObject = function(){
     //$('#inputReceiver2').val(null);
     return object;
 }
+
+getUnreadEmailCount = function() {
+    setTimeout(function(){
+        //do what you need here
+    }, 2000);
+    paginginformation = $('#MailTable').jqxGrid('getpaginginformation');
+    $.ajax({
+        url: "/message-json/newMessages?count=" + unreadMessages + "&box=inbox" +
+        "&pagenum=" + paginginformation.pagenum + "&pagesize=" + paginginformation.pagesize
+    }).success(function (response) {
+        unreadMessages = response.data[0].count;
+        //alert(response);
+        if (paginginformation.pagenum == 0)
+        if (response.data[0].source)
+        {
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'msg_id' , type: 'string' },
+                    { name: 'sender', type: 'string' },
+                    { name: 'subject', type: 'string' },
+                    { name: 'type', type: 'string' },
+                    { name: 'dateAdded', type: 'string' },
+                    { name: 'isRead', type: 'boolean' }
+                ],
+                id: 'msg_id',
+                localdata: response.data[0].source,
+                root: 'Rows',
+                beforeprocessing: function (data) {
+                    source.totalrecords = data[0].TotalRows;
+                }
+            };
+            //var dataAdapter = new $.jqx.dataAdapter(source);
+            dataadapter = new $.jqx.dataAdapter(source);
+            $('#MailTable').jqxGrid('updatebounddata');
+        }
+        $("#LeftMenu ul li span").first().text("");
+        $("#LeftMenu ul li span").first().text("Εισερχόμενα" + " (" + unreadMessages + ")");
+    }).error(function(data){
+    });
+};
+
+/**
+ * @TODO get dictionary from db
+ */
+getOfficeDictionary = function(){
+
+}
+
+setInterval(function(){
+    getUnreadEmailCount();
+}, refreshInterval * 1000);

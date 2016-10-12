@@ -18,10 +18,6 @@
     border:0px;
 }
 
-.jqx-tree{
-    border:0px;
-}
-
 #leftmenu .jqx-window-header {
     box-sizing: border-box;
 }
@@ -36,13 +32,6 @@ box-sizing: border-box !important;
 }
 
 iframe { display: block; }
-
-#schedulercontainer,
-#mailcontainer{
-width: 100%;
-height: 100%;
-position: relative;
-}
 
 #jqxLayout,
 #showWindowButton {
@@ -63,36 +52,6 @@ height:100px;
 
 .MailButton:focus{
 outline:none;
-}
-
-.ViewTextBlock{
-    height:25px;
-    width:100%;
-    margin-bottom: 5px;
-    text-indent: 5px;
-    color: #004a73;
-    border: 1px solid;
-    border-radius: 3px;
-    border-color: #004a73;
-}
-
-#viewer{
-    height: 100%;
-    width: 100%;
-    border: 1px solid transparent;
-    border-color: #004a73;
-    background-color: #FFFFFF;
-    text-indent: 5px;
-}
-
-.edcontainer {
-    height: 100%;
-    width: 100%;
-    padding: 4px;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    border-color: #004a73;
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#3c91c2),to(#449bca));
 }
 
 /*hide window title*/
@@ -121,7 +80,7 @@ outline:none;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -52%);
+    transform: perspective(1px) translate(-50%, -50%);
 }
 
 .iris-page-header{

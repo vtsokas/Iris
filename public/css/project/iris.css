@@ -4,7 +4,7 @@
 .jqx-rc-r{ -moz-border-radius-topright: 0px; -webkit-border-top-right-radius: 0px; border-top-right-radius: 0px; -moz-border-radius-bottomright: 0px; -webkit-border-bottom-right-radius: 0px; border-bottom-right-radius: 0px; }
 
 /*  Email UI    */
-#mailcontainer { height: 100%; width: 100%; }
+#mailcontainer { height: 100%; width: 100%; position: relative; }
 
 /*  jqxlayout   */
 /*  hide tab headers    */
@@ -20,7 +20,7 @@
 
 /*  Left Menu   */
 #mailcontainer .jqx-navbar{ box-sizing: border-box; }
-#LeftMenu{ height: 100%; background-image: url(../../../img/gemini.png); background-size: 100%; background-repeat: no-repeat; background-position: bottom; }
+#LeftMenu{ height: 100%; background-image: url(../../../img/gemini1.png); background-size: auto calc(100% - 150px); background-repeat: no-repeat; background-position: bottom; }
 
 /*  Grid    */
 #mailcontainer .jqx-grid{ box-sizing: border-box; }
@@ -37,30 +37,22 @@ img.searchimg{ position: absolute; top: 50%; right: 0; width: 30px; height: 30px
 #inputSubject { float: left; }
 .editor { height: calc(100% - 64px); }
 
-.ViewTextBlock{
-    height:25px;
-    width:100%;
-    margin-bottom: 5px;
-    text-indent: 2px;
-    padding: 3px;
-    border: 1px solid;
-    border-color: #a4bed4;
-}
+/*  View email Area */
+.ViewTextBlock{ height:25px; width:100%; margin-bottom: 5px; text-indent: 2px; padding: 3px; border: 1px solid; border-color: #a4bed4; }
+#viewer{ height: 100%; width: 100%; border: 1px solid transparent; border-color: #a4bed4; background-color: #FFFFFF; text-indent: 5px; }
+.edcontainer { height: 100%; width: 100%; padding: 4px; border: 1px solid transparent; border-color: #a4bed4; background-color: #e0e9f5; }
 
-#viewer{
-    height: 100%;
-    width: 100%;
-    border: 1px solid transparent;
-    border-color: #a4bed4;
-    background-color: #FFFFFF;
-    text-indent: 5px;
-}
+/*  Scheduler UI    */
+#schedulercontainer { height: 100%; width: 100%; position: relative; }
 
-.edcontainer {
-    height: 100%;
-    width: 100%;
-    padding: 4px;
-    border: 1px solid transparent;
-    border-color: #a4bed4;
-    background-color: #e0e9f5;
-}
+/*  Tree    */
+.jqx-tree{ border:0px; background: transparent; }
+.jqx-tabs{ border-width:1px 0 0 0; box-sizing: border-box; }
+.jqx-tabs-content-element { background-image: url(../../../img/gemini1.png); background-repeat: no-repeat; background-position: bottom; }
+
+/*  Scheduler   */
+.jqx-scheduler{ border: 0px; }
+
+/*  Output panel    */
+#outputContainer p { margin: 0 0 6px; }
+.follow { line-height: 20px; text-decoration: none; color: black; }

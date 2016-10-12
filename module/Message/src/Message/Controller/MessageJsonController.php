@@ -21,7 +21,6 @@ class MessageJsonController extends AbstractRestfulController
     {
         $params = $this->getRequest()->getQuery();
         $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB($params);
-//        var_dump(new JsonModel($requestedMessages));
         return new JsonModel($requestedMessages);
 
     }
@@ -51,8 +50,23 @@ class MessageJsonController extends AbstractRestfulController
      * @return JsonModel
      */
     public function get($id){
-        $dtm = $this->getServiceLocator()->get("message_service")->getMessageFromDB($id);
-        return new JsonModel($dtm->toArray());
+        $msgBody = $this->getServiceLocator()->get("message_service")->getMessageFromDB($id);
+        return new JsonModel($msgBody);
+    }
+
+    /**
+     * @return JsonModel
+     */
+    public function newMessagesAction()
+    {
+        //$resources = $this->getRequest()->getQuery("resources", 0);
+        $resources = $this->getRequest()->getQuery();
+        //$resources =  explode(",",$params);
+
+        $unreadMessages = $this->getServiceLocator()->get("message_service")->getUnreadMessagesFromDB($resources);
+
+
+        return new JsonModel(Array('data' => $unreadMessages));
     }
 
     /**

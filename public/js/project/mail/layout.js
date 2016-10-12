@@ -1,3 +1,4 @@
+dataadapter = null;
 var theme = 'energyblue';
 $(document).ready(function () {
 
