@@ -8,7 +8,7 @@ CREATE TABLE `task` (
   `calendar` varchar(45) NOT NULL,
   `from` int(11) NOT NULL,
   `to` int(11) DEFAULT NULL,
-  `recurrenceRule` varchar(45) DEFAULT NULL,
+  `recurrenceRule` varchar(255) DEFAULT NULL,
   `recurrenceException` varchar(255) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `dateAdded` int(11) DEFAULT NULL,
