@@ -136,9 +136,6 @@ createMessageTaskObject = function(){
 }
 
 getUnreadEmailCount = function() {
-    setTimeout(function(){
-        //do what you need here
-    }, 2000);
     paginginformation = $('#MailTable').jqxGrid('getpaginginformation');
     $.ajax({
         url: "/message-json/newMessages?count=" + unreadMessages + "&box=inbox" +
