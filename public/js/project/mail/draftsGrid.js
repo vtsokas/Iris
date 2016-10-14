@@ -42,10 +42,10 @@ initDraftsGrid = function() {
                 return params.data;
             },
             columns: [
-                { text: 'Παραλήπτης', dataField: 'receiver', width: '15%' },
-                { text: 'Θέμα', editable: false, dataField: 'subject', width: '40%' },
-                { text: 'Τύπος', editable: false, dataField: 'type', width: 'auto',cellsAlign: 'center', align: 'center' },
-                { text: 'Ημερομηνία', dataField: 'dateAdded', width: '15%', cellsAlign: 'right', align: 'right' }
+                { text: 'Παραλήπτης', dataField: 'receiver', width: '20%' },
+                { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto%' },
+                { text: 'Τύπος', editable: false, dataField: 'type', width: '15%',cellsAlign: 'center', align: 'center' },
+                { text: 'Ημερομηνία', dataField: 'dateAdded', width: '20%', cellsAlign: 'right', align: 'right' }
             ]
         });
     $("#draftsGrid").css('visibility','visible');

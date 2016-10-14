@@ -5,8 +5,31 @@ paginginformation = null;
  * Possible values: InboxPanel/NewEmailPanel/ViewEmailPanel
  * @param text
  */
-showInterface = function(text){
-    $( "li:contains("+text+")" )[0].click();
+showInterface = function(text, mailGrid){
+    if (mailGrid){
+        switch(text){
+            case 'InboxPanel':
+                $('#MailTable').jqxGrid('clear');
+                $('#MailTable').jqxGrid('clearselection');                  //clear selected items
+                $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
+                break;
+            case 'OutboxPanel':
+                $('#outboxGrid').jqxGrid('clear');
+                $('#outboxGrid').jqxGrid('clearselection');                  //clear selected items
+                $('#outboxGrid').jqxGrid('updatebounddata');                 //refresh data
+                break;
+            case 'DraftsPanel':
+                $('#draftsGrid').jqxGrid('clear');
+                $('#draftsGrid').jqxGrid('clearselection');                  //clear selected items
+                $('#draftsGrid').jqxGrid('updatebounddata');                 //refresh data
+                break;
+        }
+        $( "li:contains("+text+")" )[0].click();
+
+    }
+    else{
+        $( "li:contains("+text+")" )[0].click();
+    }
 }
 
 /**
@@ -40,7 +63,7 @@ newEmail = function(flag){
             $('#inputSubject').val(data.subject);
     }
 
-    showInterface("NewEmailPanel");
+    showInterface("NewEmailPanel", false);
     $("#MailTable").jqxGrid('gotopage', 0);
 }
 
@@ -72,7 +95,7 @@ sendMessage = function(isSent){
         }).error(function(){
 
         }).always(function(){
-            ShowMailTableInterface();
+            showInterface('InboxPanel', true);
             args=["create"];
             ShowTopMenuItems(args);
         });
@@ -92,7 +115,7 @@ viewMessage = function(rowindex){
             $('#sender').text(data.sender);
             $('#subject').text(data.subject);
             $('#viewer').html(response[0].msgBody);
-            showInterface("ViewEmailPanel");
+            showInterface("ViewEmailPanel", false);
         }).error(function(){
 
         });
@@ -103,13 +126,13 @@ createMessageTaskObject = function(isSent){
     if ($('#inputMessageType').jqxDropDownList('getSelectedItem') != null){
         switch ($('#inputMessageType').jqxDropDownList('getSelectedItem').index){
             case 0:
-                type = "simple";
+                type = "Απλό μήνυμα";
                 break;
             case 1:
-                type = "announcement";
+                type = "Ανακοίνωση";
                 break;
             case 2:
-                type = "request";
+                type = "Αίτηση";
                 break;
         }
     }else{

@@ -44,6 +44,12 @@ class MessageRepository
      */
     public function getOutboxOrDraftMessages($userRole, $userName, $pagenum, $pagesize, $flag)
     {
+        if ($flag == 'true'){
+            $flag = true;
+        }
+        else{
+            $flag = false;
+        }
         $query = \DB::table(self::TABLE_NAME)
             ->select('message.msg_id','type','subject','dateAdded')
             ->select(\DB::raw('message_correlation.msg_id, GROUP_CONCAT(DISTINCT office) AS receiver'))
@@ -77,6 +83,12 @@ class MessageRepository
 
     public function getTotalOutboxOrDrafts($userRole, $userName, $flag)
     {
+        if ($flag == 'true'){
+            $flag = true;
+        }
+        else{
+            $flag = false;
+        }
         $query = \DB::table(self::TABLE_NAME)
             ->where('sender_office', $userRole)
             ->where('sender_user',$userName)
@@ -101,7 +113,7 @@ class MessageRepository
 
     public function insert($message, $qb)
     {
-        $message->setDateAdded(date("Y-m-d H:i:s"));
+        $message->setDateAdded(gmdate("Y-m-d H:i:s"));
         $data = $message->toArray();
         unset($data['id']);
         $message->setId($qb->table('message')->insert($data));

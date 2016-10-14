@@ -56,7 +56,7 @@ initTopMenu = function () {
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
-                showInterface('MailsPanel');
+                showInterface('MailsPanel', true);
                 args=["create"];
                 break;
             case "send":
@@ -66,7 +66,7 @@ initTopMenu = function () {
                 sendMessage(0);
                 break;
             case "cancel":
-                ShowMailTableInterface();
+                showInterface('MailsPanel', true);
                 args=["create"];
                 break;
             default:
@@ -91,22 +91,18 @@ initLeftMenu = function () {
         var args = new Array(["create"]);
         switch(element.selectedItem) {
             case 0:
-                showInterface('InboxPanel');
-                $('#MailTable').jqxGrid('updatebounddata');
+                showInterface('InboxPanel', true);
+                //$('#MailTable').jqxGrid('updatebounddata');
                 break;
             case 1:
-                showInterface('OutboxPanel');
-                $('#outboxGrid').jqxGrid('updatebounddata');
+                showInterface('OutboxPanel', true);
+                //$('#outboxGrid').jqxGrid('updatebounddata');
                 break;
             case 2:
-                showInterface('DraftsPanel');
-                $('#draftsGrid').jqxGrid('updatebounddata');
+                showInterface('DraftsPanel', true);
+                //$('#draftsGrid').jqxGrid('updatebounddata');
                 break;
         }
         ShowTopMenuItems(args);
-
-
-        //ShowMailTableInterface();
-
     });
 };
