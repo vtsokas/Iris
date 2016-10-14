@@ -8,7 +8,7 @@ use Zend\Db\Sql\Ddl\Column\Varbinary;
 class DTMessage extends AbstractObject
 {
     protected $msg;
-    protected $offices;
+    protected $offices = "";
     protected $regarding;
     protected $isRead;
     protected $isDeleted;

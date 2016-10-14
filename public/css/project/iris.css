@@ -56,3 +56,37 @@ img.searchimg{ position: absolute; top: 50%; right: 0; width: 30px; height: 30px
 /*  Output panel    */
 #outputContainer p { margin: 0 0 6px; }
 .follow { line-height: 20px; text-decoration: none; color: black; }
+
+iframe { display: block; }
+
+#jqxLayout,
+#showWindowButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#showWindowButton {
+    z-index: 9999991;
+}
+
+.MailButton{
+    cursor:pointer;
+    border:none;
+    width:100px;
+    height:100px;
+}
+
+.MailButton:focus{
+    outline:none;
+}
+
+/*hide window title*/
+#jqxwindow .jqx-window-header {
+    display:none;
+}
+
+/*style window content after hidding title*/
+#jqxwindow .jqx-window-content{
+    padding: 0px;
+    display: inline;
+}
