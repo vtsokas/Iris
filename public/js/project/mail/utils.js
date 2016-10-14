@@ -114,6 +114,8 @@ viewMessage = function(rowindex){
         }).success(function(response){
             $('#sender').text(data.sender);
             $('#subject').text(data.subject);
+            $('#type').text(data.type);
+
             $('#viewer').html(response[0].msgBody);
             showInterface("ViewEmailPanel", false);
         }).error(function(){
