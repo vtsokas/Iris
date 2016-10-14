@@ -56,7 +56,7 @@ initTopMenu = function () {
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
-                showInterface('MailsPanel', true);
+                showInterface('InboxPanel', true);
                 args=["create"];
                 break;
             case "send":
@@ -66,7 +66,7 @@ initTopMenu = function () {
                 sendMessage(0);
                 break;
             case "cancel":
-                showInterface('MailsPanel', true);
+                showInterface('InboxPanel', true);
                 args=["create"];
                 break;
             default:

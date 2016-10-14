@@ -43,7 +43,7 @@ initDraftsGrid = function() {
             },
             columns: [
                 { text: 'Παραλήπτης', dataField: 'receiver', width: '20%' },
-                { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto%' },
+                { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto' },
                 { text: 'Τύπος', editable: false, dataField: 'type', width: '15%',cellsAlign: 'center', align: 'center' },
                 { text: 'Ημερομηνία', dataField: 'dateAdded', width: '20%', cellsAlign: 'right', align: 'right' }
             ]
