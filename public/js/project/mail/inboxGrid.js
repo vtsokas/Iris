@@ -92,10 +92,10 @@ initInboxGrid = function() {
                 return params.data;
             },
             columns: [
-                { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
-                { text: 'Θέμα', editable: false, dataField: 'subject', width: '40%' , cellsrenderer: rendrow },
-                { text: 'Τύπος', editable: false, dataField: 'type', width: 'auto',cellsAlign: 'center', align: 'center' , cellsrenderer: rendrow },
-                { text: 'Ημερομηνία', dataField: 'dateAdded', width: '15%', cellsAlign: 'right', align: 'right', cellsrenderer: rendrow }
+                { text: 'Αποστολέας', dataField: 'sender', width: '20%' , cellsrenderer: rendrow },
+                { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto' , cellsrenderer: rendrow },
+                { text: 'Τύπος', editable: false, dataField: 'type', width: '15%',cellsAlign: 'center', align: 'center' , cellsrenderer: rendrow },
+                { text: 'Ημερομηνία', dataField: 'dateAdded', width: '20%', cellsAlign: 'right', align: 'right', cellsrenderer: rendrow }
             ]
         });
     $("#MailTable").css('visibility','visible');
@@ -132,8 +132,6 @@ initInboxGrid = function() {
             ShowTopMenuItems(args);
         }
     }
-
-
 
     // create context menu
     var contextMenu = $("#gridMenu").jqxMenu({ width: 200, height: 58, autoOpenPopup: false, mode: 'popup'});

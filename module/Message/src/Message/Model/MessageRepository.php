@@ -101,7 +101,7 @@ class MessageRepository
 
     public function insert($message, $qb)
     {
-        $message->setDateAdded(time());
+        $message->setDateAdded(date("Y-m-d H:i:s"));
         $data = $message->toArray();
         unset($data['id']);
         $message->setId($qb->table('message')->insert($data));
