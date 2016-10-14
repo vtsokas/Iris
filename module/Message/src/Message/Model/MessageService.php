@@ -68,21 +68,25 @@ class MessageService
 
                 /* adding correlation to DB for every receiver */
                 $receiversArray = array();
-                foreach($DTMessage->getOffices() as $office){
-                    $messageCorrelation = new MessageCorrelation();
-                    $messageCorrelation->setMsgId($DTMessage->getMsg()->getId());
-                    $messageCorrelation->setOffice($office);
-                    $messageCorrelation->setRegarding($DTMessage->getRegarding());
-                    $messageCorrelation->setState("Inbox");
-                    $messageCorrelation->setIsSent($DTMessage->getMsg()->getIsSent());
-                    $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
-                    $messageCorrelation->setIsRead($DTMessage->isIsRead());
-                    $messageCorrelation = $messageCorrelation->toArray();
-                    unset($messageCorrelation['id']);
-                    array_push($receiversArray, $messageCorrelation);
+                //var_dump($DTMessage->getOffices());
+                if (is_array($DTMessage->getOffices())){
+                    foreach($DTMessage->getOffices() as $office){
+                        $messageCorrelation = new MessageCorrelation();
+                        $messageCorrelation->setMsgId($DTMessage->getMsg()->getId());
+                        $messageCorrelation->setOffice($office);
+                        $messageCorrelation->setRegarding($DTMessage->getRegarding());
+                        $messageCorrelation->setState("Inbox");
+                        $messageCorrelation->setIsSent($DTMessage->getMsg()->getIsSent());
+                        $messageCorrelation->setIsDeleted($DTMessage->isIsDeleted());
+                        $messageCorrelation->setIsRead($DTMessage->isIsRead());
+                        $messageCorrelation = $messageCorrelation->toArray();
+                        unset($messageCorrelation['id']);
+                        array_push($receiversArray, $messageCorrelation);
+                    }
+                    //var_dump($receiversArray);
+                    $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
                 }
-                //var_dump($receiversArray);
-                $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
+
                 $qb->commit();
             } catch (\PDOException $e) {
                 var_dump($e);
