@@ -58,6 +58,7 @@ class MessageService
      * @param $DTMessage
      */
     public function storeMessageToDB($DTMessage){
+        //var_dump($DTMessage);
         \DB::transaction(function ($qb) use ($DTMessage) {
             try {
                 /* adding message to DB */
@@ -80,7 +81,7 @@ class MessageService
                     unset($messageCorrelation['id']);
                     array_push($receiversArray, $messageCorrelation);
                 }
-                var_dump($receiversArray);
+                //var_dump($receiversArray);
                 $this->getMessageCorrelationRepository()->insert($receiversArray, $qb);
                 $qb->commit();
             } catch (\PDOException $e) {
@@ -91,19 +92,39 @@ class MessageService
 
     }
 
-    public function getUnreadMessagesFromDB($resources)
+    public function getMessagesInfoFromDB($resources)
     {
-        $messages = null;
-        $count = $this->getMessageCorrelationRepository()->getUnreadMessages($this->identity->getRole());
-        if ($resources['count'] != $count)
-        {
-            $messages = $this->getRequestedMessagesFromDB($resources);
-        }
-        $data[] = array(
-            'source' => $messages,
-            'count' => $count
+        $folderParameter = $resources['box'];
+        $data = array(
+            'TotalRows' => 0,
+            'Rows' => Array(),
+            'unreadMessages' => 0
         );
-        return $data;
+        switch($folderParameter){
+            case 'inbox':
+                // inbox
+                $data['unreadMessages'] = $this->getMessageCorrelationRepository()->getUnreadMessages($this->identity->getRole());
+
+                if ($resources['caller'] == 'interval') //call made by interval
+                {
+                    if (($resources['count'] != $data['unreadMessages']) && ($resources['caller'] == 'inbox')) //check if client unread messages are equal with server
+                    {
+                        $this->getInboxMessagesFromDB($resources, $data); //if not get messages
+                    }
+                }
+                else //call made by user
+                {
+                    $this->getInboxMessagesFromDB($resources, $data);
+                }
+                return $data;
+            default:
+                // outbox
+                $data['Rows'] = $this->getMessageRepository()->getOutboxOrDraftMessages($this->identity->getRole(),
+                    $this->identity->getUsername(), $resources['pagenum'], $resources['pagesize'], $resources['send']);
+                $data['TotalRows'] = $this->getMessageRepository()->getTotalOutboxOrDrafts($this->identity->getRole(),
+                    $this->identity->getUsername(), $resources['send']);
+                return $data;
+        }
     }
 
     /**
@@ -125,38 +146,19 @@ class MessageService
      * @param $resources
      * @return mixed
      */
-    public function getRequestedMessagesFromDB($resources){
-        $folderParameter = $resources['box'];
-        switch($folderParameter){
-            case 'inbox':
-                // inbox
-                $messageIds = $this->getMessageCorrelationRepository()
-                    ->findMessageIds($this->identity->getRole());
-                $ids = array();
+    public function getInboxMessagesFromDB($resources, &$data){
 
-                foreach ($messageIds as $messageId) {
-                    array_push($ids,$messageId->msg_id);
-                }
+        $messageIds = $this->getMessageCorrelationRepository()
+            ->findMessageIds($this->identity->getRole());
+        $ids = array();
 
-                $messagesList = $this->getMessageRepository()->findInboxMessages($ids, $this->identity->getRole(), $resources['pagenum'], $resources['pagesize']);
+        foreach ($messageIds as $messageId) {
+            array_push($ids,$messageId->msg_id);
+        }
 
-                $total_rows = $this->getMessageCorrelationRepository()->getTotalInbox($this->identity->getRole());
-
-                $data[] = array(
-                    'TotalRows' => $total_rows,
-                    'Rows' => $messagesList
-                );
-                return $data;
-            case 'outbox':
-                // outbox
-                return $this->getMessageRepository()->findOutboxMessages($this->identity->getRole());
-            case 'draft':
-                // draft
-                return $this->getMessageRepository()->findDraftMessages($this->identity->getRole());
-                break;
-            default:
-
+        if (!empty($ids)){
+            $data['Rows'] = $this->getMessageRepository()->getInboxMessages($ids, $this->identity->getRole(), $resources['pagenum'], $resources['pagesize']);
+            $data['TotalRows'] = $this->getMessageCorrelationRepository()->getTotalInbox($this->identity->getRole());
         }
     }
-
 }

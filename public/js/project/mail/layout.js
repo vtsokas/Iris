@@ -52,9 +52,19 @@ $(document).ready(function () {
                 height: '90%',
                 items: [{
                     type: 'documentPanel',
-                    title: 'MailsPanel',
-                    contentContainer: 'MailsPanel',
-                    initContent: initDataGrid
+                    title: 'InboxPanel',
+                    contentContainer: 'InboxPanel',
+                    initContent: initInboxGrid
+                },{
+                    type: 'documentPanel',
+                    title: 'OutboxPanel',
+                    contentContainer: 'OutboxPanel',
+                    initContent: initOutboxGrid
+                },{
+                    type: 'documentPanel',
+                    title: 'DraftsPanel',
+                    contentContainer: 'DraftsPanel',
+                    initContent: initDraftsGrid
                 }, {
                     type: 'documentPanel',
                     title: 'NewEmailPanel',

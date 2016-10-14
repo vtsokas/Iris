@@ -19,17 +19,19 @@ class MessageRepository
      * @param $messageIds
      * @return mixed
      */
-    public function findInboxMessages($messageIds, $userRole, $pagenum, $pagesize)
+    public function getInboxMessages($messageIds, $userRole, $pagenum, $pagesize)
     {
+
+
         $query = \DB::table(self::TABLE_NAME)
             ->select('message.msg_id', 'subject', 'type', 'isRead', 'dateAdded')
             ->select(\DB::raw('CONCAT_WS(" - ", message.sender_office, message.sender_user) AS sender'))
             ->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
             ->where('message_correlation.office', '=', $userRole)
             ->whereIn(self::TABLE_NAME.'.msg_id', $messageIds)
+            ->orderBy('dateAdded', 'DESC')
             ->offset($pagenum * $pagesize)
-            ->limit($pagesize)
-            ->orderBy('dateAdded', 'DESC');
+            ->limit($pagesize);
         $result = $query->get();
         return $result;
     }
@@ -40,27 +42,49 @@ class MessageRepository
      * @param $userRole
      * @return mixed
      */
-    public function findOutboxMessages($userRole)
+    public function getOutboxOrDraftMessages($userRole, $userName, $pagenum, $pagesize, $flag)
     {
         $query = \DB::table(self::TABLE_NAME)
-            ->select('message_correlation.office', 'message_correlation.regarding',self::TABLE_NAME.'.subject',self::TABLE_NAME.'.type'
-                ,self::TABLE_NAME.'.dateAdded')
+            ->select('message.msg_id','type','subject','dateAdded')
+            ->select(\DB::raw('message_correlation.msg_id, GROUP_CONCAT(DISTINCT office) AS receiver'))
             ->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
             ->where('sender_office',$userRole)
+            ->where('sender_user',$userName)
             ->where(self::TABLE_NAME.'.isDeleted', false)
-            ->where(self::TABLE_NAME.'.isSent', true);
+            ->where(self::TABLE_NAME.'.isSent', $flag)
+            ->groupBy('message_correlation.msg_id')
+            ->orderBy('dateAdded', 'DESC')
+            ->offset($pagenum * $pagesize)
+            ->limit($pagesize);
         $result = $query->get();
-
         return $result;
     }
 
-    public function findDraftMessages($userRole)
+    public function getDraftMessages($userRole, $userName, $pagenum, $pagesize)
     {
-        return \DB::table(self::TABLE_NAME)
+        $query = \DB::table(self::TABLE_NAME)
             ->select('subject','type','date')
             ->where('sender_office',$userRole)
+            ->where('sender_user',$userName)
             ->where('isDeleted', false)
-            ->where('isSent', false);
+            ->where('isSent', false)
+            ->orderBy('dateAdded', 'DESC')
+            ->offset($pagenum * $pagesize)
+            ->limit($pagesize);
+        $result = $query->get();
+        return $result;
+    }
+
+    public function getTotalOutboxOrDrafts($userRole, $userName, $flag)
+    {
+        $query = \DB::table(self::TABLE_NAME)
+            ->where('sender_office', $userRole)
+            ->where('sender_user',$userName)
+            ->where('isDeleted', false)
+            ->where('isSent', $flag);
+        $result = $query->count();
+
+        return $result;
     }
 
     /**
@@ -80,7 +104,6 @@ class MessageRepository
         $message->setDateAdded(time());
         $data = $message->toArray();
         unset($data['id']);
-        var_dump($data);
         $message->setId($qb->table('message')->insert($data));
         return $message;
     }

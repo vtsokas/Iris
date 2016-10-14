@@ -1,9 +1,8 @@
-refreshInterval = 15;
-unreadMessages = 0;
+refreshInterval = 4410;
 paginginformation = null;
 /**
  * Update Content Interface dependent on param value.
- * Possible values: MailsPanel/NewEmailPanel/ViewEmailPanel
+ * Possible values: InboxPanel/NewEmailPanel/ViewEmailPanel
  * @param text
  */
 showInterface = function(text){
@@ -16,7 +15,7 @@ showInterface = function(text){
 ShowMailTableInterface = function () {
     $('#MailTable').jqxGrid('clearselection');                  //clear selected items
     $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
-    showInterface("MailsPanel");
+    showInterface("InboxPanel");
 };
 
 /**
@@ -60,8 +59,8 @@ clearNewEmailInterface = function(){
 /**
  * ajax call to save new/edited message to database
  */
-sendMessage = function(){
-    var message = createMessageTaskObject();
+sendMessage = function(isSent){
+    var message = createMessageTaskObject(isSent);
 
     if (message !== false){
         $.ajax({
@@ -72,6 +71,10 @@ sendMessage = function(){
 
         }).error(function(){
 
+        }).always(function(){
+            ShowMailTableInterface();
+            args=["create"];
+            ShowTopMenuItems(args);
         });
     }
 }
@@ -89,17 +92,13 @@ viewMessage = function(rowindex){
             $('#sender').text(data.sender);
             $('#subject').text(data.subject);
             $('#viewer').html(response[0].msgBody);
-
+            showInterface("ViewEmailPanel");
         }).error(function(){
-            $('#sender').text(data.sender);
-            $('#subject').text(data.subject);
+
         });
     }
-
-
-    showInterface("ViewEmailPanel");
 }
-createMessageTaskObject = function(){
+createMessageTaskObject = function(isSent){
     var type;
     if ($('#inputMessageType').jqxDropDownList('getSelectedItem') != null){
         switch ($('#inputMessageType').jqxDropDownList('getSelectedItem').index){
@@ -114,8 +113,7 @@ createMessageTaskObject = function(){
                 break;
         }
     }else{
-        alert("τεστ");
-        return false;
+        type = "";
     }
 
     var receiversArray = $('#inputReceiver1').val().match( /(?=\S)[^,]+?(?=\s*(,|$))/g );
@@ -125,54 +123,14 @@ createMessageTaskObject = function(){
             msgBody:    $('#text').val(),
             type:       type,
             isDeleted:  0,
-            isSent:     1
+            isSent:     isSent
         },
         offices: receiversArray,
         regarding: $('#inputReceiver2').val()
     };
 
-    //$('#inputReceiver2').val(null);
     return object;
 }
-
-getUnreadEmailCount = function() {
-    paginginformation = $('#MailTable').jqxGrid('getpaginginformation');
-    $.ajax({
-        url: "/message-json/newMessages?count=" + unreadMessages + "&box=inbox" +
-        "&pagenum=" + paginginformation.pagenum + "&pagesize=" + paginginformation.pagesize
-    }).success(function (response) {
-        unreadMessages = response.data[0].count;
-        //alert(response);
-        if (paginginformation.pagenum == 0)
-        if (response.data[0].source)
-        {
-            var source =
-            {
-                datatype: "json",
-                datafields: [
-                    { name: 'msg_id' , type: 'string' },
-                    { name: 'sender', type: 'string' },
-                    { name: 'subject', type: 'string' },
-                    { name: 'type', type: 'string' },
-                    { name: 'dateAdded', type: 'string' },
-                    { name: 'isRead', type: 'boolean' }
-                ],
-                id: 'msg_id',
-                localdata: response.data[0].source,
-                root: 'Rows',
-                beforeprocessing: function (data) {
-                    source.totalrecords = data[0].TotalRows;
-                }
-            };
-            //var dataAdapter = new $.jqx.dataAdapter(source);
-            dataadapter = new $.jqx.dataAdapter(source);
-            $('#MailTable').jqxGrid('updatebounddata');
-        }
-        $("#LeftMenu ul li span").first().text("");
-        $("#LeftMenu ul li span").first().text("Εισερχόμενα" + " (" + unreadMessages + ")");
-    }).error(function(data){
-    });
-};
 
 /**
  * @TODO get dictionary from db
@@ -181,6 +139,23 @@ getOfficeDictionary = function(){
 
 }
 
+getVisibleGrid = function(){
+    switch ($("#LeftMenu").jqxNavBar('getSelectedIndex')){
+        case 0:
+
+            type = "simple";
+            break;
+        case 1:
+            type = "announcement";
+            break;
+        case 2:
+            type = "request";
+            break;
+    }
+}
+
 setInterval(function(){
-    getUnreadEmailCount();
+    caller = 'interval';
+    $('#MailTable').jqxGrid('updatebounddata');
 }, refreshInterval * 1000);
+

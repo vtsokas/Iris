@@ -1,6 +1,8 @@
-
-
-initDataGrid = function() {
+tmpdata = null;
+unreadMessages = 0;
+caller = 'grid';
+box = 'inbox';
+initInboxGrid = function() {
 
     /**
      * New/unread mails are styled bold and italic. It applies on every cell of each row.
@@ -22,7 +24,7 @@ initDataGrid = function() {
         }
     }
 
-    var source =
+    var inboxSource =
     {
         datatype: "json",
         datafields: [
@@ -34,21 +36,48 @@ initDataGrid = function() {
             { name: 'isRead', type: 'boolean' }
         ],
         id: 'msg_id',
-        //cache: false,
-        //url: 'message-json?box=inbox',
-        root: 'Rows',
-        beforeprocessing: function (data) {
-            source.totalrecords = data[0].TotalRows;
-        },
+        cache: false,
+        url: 'message-json',
+        root: 'Rows'
     };
 
-    dataadapter = new $.jqx.dataAdapter(source);
+    var inboxDataAdapter = new $.jqx.dataAdapter(inboxSource,
+        {
+            loadServerData: function (serverdata, source, callback) {
+                $.ajax({
+                    dataType: source.datatype,
+                    url: 'message-json?count=' + unreadMessages + '&box=inbox&caller=' + caller,
+                    data: serverdata,
+                    success: function (data, status, xhr) {
+                        unreadMessages = data.unreadMessages;
+                        if (serverdata.pagenum == 0)
+                        {
+                            if (data.Rows.length > 0)
+                            {
+                                tmpdata = data;   //keep current data
+                            }
+                            else{
+                                if (tmpdata != null)
+                                    data = tmpdata;
+                                else
+                                    data = Array();
+                            }
+                        }
+                        $("#LeftMenu ul li span").first().text("");
+                        $("#LeftMenu ul li span").first().text("Εισερχόμενα" + " (" + unreadMessages + ")");
+
+                        caller = 'grid'; //refresh caller to default value
+                        callback({ records: data.Rows, totalrecords: data.TotalRows });
+                    }
+                });
+            }
+        });
 
     $("#MailTable").jqxGrid(
         {
             width:'100%',
             height:'100%',
-            source: dataadapter,
+            source: inboxDataAdapter,
             theme: theme,
             pageable: true,
             pagermode: 'default',
@@ -58,40 +87,9 @@ initDataGrid = function() {
             enablehover: false,
             selectionmode: 'checkbox',
             localization: greekLanguage,
-            showtoolbar: true,
             virtualmode: true,
             rendergridrows: function (params) {
                 return params.data;
-            },
-            rendertoolbar: function (toolbar) {
-                var me = this;
-                var container = $("<div style='margin: 5px;'></div>");
-                var span = $("<span style='float: left; margin-top: 5px; margin-right: 4px;'>Αναζήτηση μηνύματος: </span>");
-                var input = $("<input class='jqx-input jqx-widget-content jqx-rc-all' id='searchField' type='text' style='height: 23px; float: left; width: 223px;' />");
-                toolbar.append(container);
-                container.append(span);
-                container.append(input);
-                if (theme != "") {
-                    input.addClass('jqx-widget-content-' + theme);
-                    input.addClass('jqx-rc-all-' + theme);
-                }
-                var oldVal = "";
-                input.on('keydown', function (event) {
-                    if (input.val().length >= 2) {
-                        if (me.timer) {
-                            clearTimeout(me.timer);
-                        }
-                        if (oldVal != input.val()) {
-                            me.timer = setTimeout(function () {
-                                $("#MailTable").jqxGrid('updatebounddata');
-                            }, 1000);
-                            oldVal = input.val();
-                        }
-                    }
-                     else {
-                        $("#MailTable").jqxGrid('updatebounddata');
-                    }
-                })
             },
             columns: [
                 { text: 'Αποστολέας', dataField: 'sender', width: '15%' , cellsrenderer: rendrow },
@@ -114,17 +112,6 @@ initDataGrid = function() {
      */
     $('#MailTable').on('rowunselect', function (event){
         GetTopButtonsOnGridSelectionChange();
-    });
-
-    $("#MailTable").on("pagesizechanged", function (event)
-    {
-        // event arguments.
-        var args = event.args;
-        // page number.
-        var pagenum = args.pagenum;
-        // page size.
-        var pagesize = args.pagesize;
-        getUnreadEmailCount();
     });
 
     /**
@@ -181,45 +168,4 @@ initDataGrid = function() {
             ShowTopMenuItems(args);
         }
     });
-
-    function datagridtoolbar(toolbar) {
-        var me = this;
-        var container = $("<div style='margin: 5px;'></div>");
-        var span = $("<span style='float: left; margin-top: 5px; margin-right: 4px;'>Αναζήτηση μηνύματος: </span>");
-        var input = $("<input class='jqx-input jqx-widget-content jqx-rc-all' id='searchField' type='text' style='height: 23px; float: left; width: 223px;' />");
-        toolbar.append(container);
-        container.append(span);
-        container.append(input);
-        if (theme != "") {
-            input.addClass('jqx-widget-content-' + theme);
-            input.addClass('jqx-rc-all-' + theme);
-        }
-        var oldVal = "";
-        input.on('keydown', function (event) {
-            var x = SampleData.source;
-            me.timer = setTimeout(function () {
-                $("#MailTable").jqxGrid('updatebounddata');
-            }, 1000);
-            /*if (input.val().length >= 2) {
-                if (me.timer) {
-                    clearTimeout(me.timer);
-                }
-                if (oldVal != input.val()) {
-                    me.timer = setTimeout(function () {
-                        $("#MailTable").jqxGrid('updatebounddata');
-                    }, 1000);
-                    oldVal = input.val();
-                }
-            }
-            else {
-                $("#MailTable").jqxGrid('updatebounddata');
-            }*/
-        });
-    }
 }
-
-
-
-    //SampleData.dataBind();
-
-

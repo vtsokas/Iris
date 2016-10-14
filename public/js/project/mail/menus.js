@@ -60,16 +60,10 @@ initTopMenu = function () {
                 args=["create"];
                 break;
             case "send":
-                /**
-                 * @TODO implement
-                 */
-                sendMessage();
-                ShowMailTableInterface();
-                args=["create"];
+                sendMessage(1);
                 break;
             case "save":
-                ShowMailTableInterface();
-                args=["create"];
+                sendMessage(0);
                 break;
             case "cancel":
                 ShowMailTableInterface();
@@ -94,35 +88,25 @@ initLeftMenu = function () {
     $('#LeftMenu').on('change', function (event) {
         // get the clicked LI elements
         var element = event.args;
-        var args = new Array();
+        var args = new Array(["create"]);
         switch(element.selectedItem) {
             case 0:
-                args=["create"];
-                var filtereddata = data.filter(function (e) {                //test filter
-                    return e.state=="inbox";
-                });
+                showInterface('InboxPanel');
+                $('#MailTable').jqxGrid('updatebounddata');
                 break;
             case 1:
-                args=["create"];
-                var filtereddata = data.filter(function (e) {                //test filter
-                    return e.state=="outbox";
-                });
+                showInterface('OutboxPanel');
+                $('#outboxGrid').jqxGrid('updatebounddata');
                 break;
             case 2:
-                args=["create"];
-                /*var filtereddata = data.filter(function (e) {                //test filter
-                    return e.state=="draft";
-                });*/
-                $('#MailTable').jqxGrid('refreshdata');
+                showInterface('DraftsPanel');
+                $('#draftsGrid').jqxGrid('updatebounddata');
                 break;
-            default:
-            //default code block
         }
         ShowTopMenuItems(args);
 
-        datatablesampledata.localdata=filtereddata;
 
-        ShowMailTableInterface();
+        //ShowMailTableInterface();
 
     });
 };

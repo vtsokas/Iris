@@ -5,7 +5,9 @@ $this->inlineScript()
     ->appendFile($this->basePath('js/project/mail/emailUI.js'))
     ->appendFile($this->basePath('js/project/mail/utils.js'))
     ->appendFile($this->basePath('js/project/mail/menus.js'))
-    ->appendFile($this->basePath('js/project/mail/dataGrid.js'))
+    ->appendFile($this->basePath('js/project/mail/inboxGrid.js'))
+    ->appendFile($this->basePath('js/project/mail/outboxGrid.js'))
+    ->appendFile($this->basePath('js/project/mail/draftsGrid.js'))
     ->appendFile($this->basePath('js/project/mail/layout.js'))
 
 
@@ -77,9 +79,9 @@ $this->inlineScript()
         </div>
 
         <!--
-        area for mail interface
+        area for inbox interface
         -->
-        <div data-container="MailsPanel">
+        <div data-container="InboxPanel">
             <div id='MailTable' style="visibility: hidden;">
             </div>
             <div id="gridMenu" style="visibility: hidden;">
@@ -89,8 +91,34 @@ $this->inlineScript()
                 </ul>
             </div>
         </div>
-        <!-- grid context menu -->
 
+        <!--
+        area for inbox interface
+        -->
+        <div data-container="OutboxPanel">
+            <div id='outboxGrid' style="visibility: hidden;">
+            </div>
+            <div id="outboxGridMenu" style="visibility: hidden;">
+                <ul>
+                    <li>Διαγραφή</li>
+                    <li>Άκυρο</li>
+                </ul>
+            </div>
+        </div>
+
+        <!--
+        area for inbox interface
+        -->
+        <div data-container="DraftsPanel">
+            <div id='draftsGrid' style="visibility: hidden;">
+            </div>
+            <div id="draftsGridMenu" style="visibility: hidden;">
+                <ul>
+                    <li>Διαγραφή</li>
+                    <li>Άκυρο</li>
+                </ul>
+            </div>
+        </div>
 
         <!--
         area for new email interface

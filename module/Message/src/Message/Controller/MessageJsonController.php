@@ -19,9 +19,11 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function getList()
     {
-        $params = $this->getRequest()->getQuery();
-        $requestedMessages = $this->getServiceLocator()->get("message_service")->getRequestedMessagesFromDB($params);
-        return new JsonModel($requestedMessages);
+        $resources = $this->getRequest()->getQuery();
+
+        $MessagesInfo = $this->getServiceLocator()->get("message_service")->getMessagesInfoFromDB($resources);
+
+        return new JsonModel($MessagesInfo);
 
     }
 
@@ -57,17 +59,14 @@ class MessageJsonController extends AbstractRestfulController
     /**
      * @return JsonModel
      */
-    public function newMessagesAction()
+    /*public function newMessagesAction()
     {
-        //$resources = $this->getRequest()->getQuery("resources", 0);
         $resources = $this->getRequest()->getQuery();
-        //$resources =  explode(",",$params);
 
-        $unreadMessages = $this->getServiceLocator()->get("message_service")->getUnreadMessagesFromDB($resources);
+        $MessagesInfo = $this->getServiceLocator()->get("message_service")->getMessagesInfoFromDB($resources);
 
-
-        return new JsonModel(Array('data' => $unreadMessages));
-    }
+        return new JsonModel($MessagesInfo);
+    }*/
 
     /**
      * Update an existing resource
