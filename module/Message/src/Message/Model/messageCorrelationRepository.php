@@ -35,10 +35,14 @@ class MessageCorrelationRepository
 
     public function getTotalInbox($userRole)
     {
+
         $query = \DB::table(self::TABLE_NAME)
-            ->where('office', $userRole)
+            //->where('office', $userRole)
             ->where('isDeleted', false)
             ->where('isSent', true);
+
+        $query->where('office', $userRole);
+
         $result = $query->count();
 
         return $result;

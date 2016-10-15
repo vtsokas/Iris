@@ -1,5 +1,6 @@
 refreshInterval = 4410;
 paginginformation = null;
+lastSelectedBox = 'InboxPanel';
 /**
  * Update Content Interface dependent on param value.
  * Possible values: InboxPanel/NewEmailPanel/ViewEmailPanel
@@ -9,27 +10,26 @@ showInterface = function(text, mailGrid){
     if (mailGrid){
         switch(text){
             case 'InboxPanel':
-                $('#MailTable').jqxGrid('clear');
-                $('#MailTable').jqxGrid('clearselection');                  //clear selected items
                 $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
+                $('#MailTable').jqxGrid('clearselection');                  //clear selected items
+
                 break;
             case 'OutboxPanel':
-                $('#outboxGrid').jqxGrid('clear');
                 $('#outboxGrid').jqxGrid('clearselection');                  //clear selected items
                 $('#outboxGrid').jqxGrid('updatebounddata');                 //refresh data
                 break;
             case 'DraftsPanel':
-                $('#draftsGrid').jqxGrid('clear');
                 $('#draftsGrid').jqxGrid('clearselection');                  //clear selected items
                 $('#draftsGrid').jqxGrid('updatebounddata');                 //refresh data
                 break;
         }
         $( "li:contains("+text+")" )[0].click();
-
     }
     else{
         $( "li:contains("+text+")" )[0].click();
     }
+
+    return text;
 }
 
 /**
@@ -40,6 +40,25 @@ ShowMailTableInterface = function () {
     $('#MailTable').jqxGrid('updatebounddata');                 //refresh data
     showInterface("InboxPanel");
 };
+
+/**
+ * Function determines which buttons should appear on top menu, according to email selection
+ */
+GetTopButtonsOnGridSelectionChange = function(elementID){
+    var selectedrowindexes = $('#'+elementID).jqxGrid('selectedrowindexes');
+    if (selectedrowindexes.length==1){
+        var args=["create", "reply", "view", "delete"];
+        ShowTopMenuItems(args);;
+    }
+    else if (selectedrowindexes.length==0){
+        var args=["create"];
+        ShowTopMenuItems(args);
+    }
+    else{
+        var args=["create", "delete"];
+        ShowTopMenuItems(args);
+    }
+}
 
 /**
  * Open new email form. If flag is true it is a new email.
@@ -95,7 +114,7 @@ sendMessage = function(isSent){
         }).error(function(){
 
         }).always(function(){
-            showInterface('InboxPanel', true);
+            showInterface(lastSelectedBox, true);
             args=["create"];
             ShowTopMenuItems(args);
         });

@@ -51,12 +51,12 @@ initTopMenu = function () {
                 args=["send", "save", "delete", "cancel"];
                 break;
             case "view":
-                var rowindex = $('#MailTable').jqxGrid('getselectedrowindex');
+                var rowindex = $('#'+lastSelectedBox).jqxGrid('getselectedrowindex');
                 viewMessage(rowindex);
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
-                showInterface('InboxPanel', true);
+                showInterface(lastSelectedBox, true);
                 args=["create"];
                 break;
             case "send":
@@ -66,7 +66,7 @@ initTopMenu = function () {
                 sendMessage(0);
                 break;
             case "cancel":
-                showInterface('InboxPanel', true);
+                showInterface(lastSelectedBox, true);
                 args=["create"];
                 break;
             default:
@@ -91,16 +91,13 @@ initLeftMenu = function () {
         var args = new Array(["create"]);
         switch(element.selectedItem) {
             case 0:
-                showInterface('InboxPanel', true);
-                //$('#MailTable').jqxGrid('updatebounddata');
+                lastSelectedBox = showInterface('InboxPanel', true);
                 break;
             case 1:
-                showInterface('OutboxPanel', true);
-                //$('#outboxGrid').jqxGrid('updatebounddata');
+                lastSelectedBox = showInterface('OutboxPanel', true);
                 break;
             case 2:
-                showInterface('DraftsPanel', true);
-                //$('#draftsGrid').jqxGrid('updatebounddata');
+                lastSelectedBox = showInterface('DraftsPanel', true);
                 break;
         }
         ShowTopMenuItems(args);

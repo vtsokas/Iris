@@ -54,36 +54,15 @@ initOutboxGrid = function() {
      * Changes on interface on row selected
      */
     $("#outboxGrid").on('rowselect', function (event){
-        GetTopButtonsOnGridSelectionChange();
+        GetTopButtonsOnGridSelectionChange(event.currentTarget.id);
     });
 
     /**
      * Changes on interface on row unselected
      */
     $('#outboxGrid').on('rowunselect', function (event){
-        GetTopButtonsOnGridSelectionChange();
+        GetTopButtonsOnGridSelectionChange(event.currentTarget.id);
     });
-
-    /**
-     * Function determines which buttons should appear on top menu, according to email selection
-     */
-    GetTopButtonsOnGridSelectionChange = function(){
-        var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');
-        if (selectedrowindexes.length==1){
-            var args=["create", "reply", "view", "delete"];
-            ShowTopMenuItems(args);;
-        }
-        else if (selectedrowindexes.length==0){
-            var args=["create"];
-            ShowTopMenuItems(args);
-        }
-        else{
-            var args=["create", "delete"];
-            ShowTopMenuItems(args);
-        }
-    }
-
-
 
     // create context menu
     var contextMenu = $("#outboxGridMenu").jqxMenu({ width: 200, height: 58, autoOpenPopup: false, mode: 'popup'});

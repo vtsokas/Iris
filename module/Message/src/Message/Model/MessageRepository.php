@@ -19,19 +19,23 @@ class MessageRepository
      * @param $messageIds
      * @return mixed
      */
-    public function getInboxMessages($messageIds, $userRole, $pagenum, $pagesize)
+    public function getInboxMessages($messageIds, $userRole, $params)
     {
 
-
         $query = \DB::table(self::TABLE_NAME)
-            ->select('message.msg_id', 'subject', 'type', 'isRead', 'dateAdded')
-            ->select(\DB::raw('CONCAT_WS(" - ", message.sender_office, message.sender_user) AS sender'))
-            ->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
+            ->select('message.msg_id', 'subject', 'type', 'isRead', 'dateAdded', 'sender_office', 'sender_user');
+            //->select(\DB::raw('CONCAT_WS(" - ", message.sender_office, message.sender_user) AS sender'));
+
+        $this->addFilterStatement($query, $params);
+
+        $query->join('message_correlation', 'message_correlation.msg_id', '=', self::TABLE_NAME.'.msg_id')
             ->where('message_correlation.office', '=', $userRole)
             ->whereIn(self::TABLE_NAME.'.msg_id', $messageIds)
             ->orderBy('dateAdded', 'DESC')
-            ->offset($pagenum * $pagesize)
-            ->limit($pagesize);
+            ->offset($params['pagenum'] * $params['pagesize'])
+            ->limit($params['pagesize']);
+
+
         $result = $query->get();
         return $result;
     }
@@ -59,21 +63,6 @@ class MessageRepository
             ->where(self::TABLE_NAME.'.isDeleted', false)
             ->where(self::TABLE_NAME.'.isSent', $flag)
             ->groupBy('message_correlation.msg_id')
-            ->orderBy('dateAdded', 'DESC')
-            ->offset($pagenum * $pagesize)
-            ->limit($pagesize);
-        $result = $query->get();
-        return $result;
-    }
-
-    public function getDraftMessages($userRole, $userName, $pagenum, $pagesize)
-    {
-        $query = \DB::table(self::TABLE_NAME)
-            ->select('subject','type','date')
-            ->where('sender_office',$userRole)
-            ->where('sender_user',$userName)
-            ->where('isDeleted', false)
-            ->where('isSent', false)
             ->orderBy('dateAdded', 'DESC')
             ->offset($pagenum * $pagesize)
             ->limit($pagesize);
@@ -123,5 +112,149 @@ class MessageRepository
     public function update(Message $message)
     {
 
+    }
+
+    /**
+     * @TODO add Sorting Statements to query if requested
+     * @param $query
+     */
+    private function addSortingStatement(&$query, $params)
+    {
+
+    }
+
+    /**
+     * @TODO add Filter Statements to query if requested
+     * @param $query
+     */
+    private function addFilterStatement(&$query, $params)
+    {
+        if (isset($params['filterscount']))
+        {
+            if ($params['filterscount'] > 0)
+            {
+                $GroupStatements = array();
+                $firstfilter = true;
+                $count = 0;
+
+                $tmpdatafield = "";
+
+                for ($i = 0; $i < $params['filterscount']; $i++)
+                {
+                    if ($firstfilter) //if this is the first filter just create it
+                    {
+                        array_push($GroupStatements, $this->filterConditionBuilder($params["filterdatafield" . $i],
+                            $params["filtercondition" . $i], $params["filtervalue" . $i], $params["filteroperator" . $i]));
+                        $firstfilter = false;
+                    }
+                    else
+                    {
+                        if ($tmpdatafield == $params["filterdatafield" . $i]) //if datafield is the same as previous, just create the filter
+                        {
+                            array_push($GroupStatements, $this->filterConditionBuilder($params["filterdatafield" . $i],
+                                $params["filtercondition" . $i], $params["filtervalue" . $i], $params["filteroperator" . $i]));
+                        }
+                        else //if datafield changed, create 'where clause', empty the array with statements and create the new one
+                        {
+                            $this->whereClauseBuilder($query, $GroupStatements);
+
+                            $GroupStatements = array(); //empty array for the next group
+
+                            array_push($GroupStatements, $this->filterConditionBuilder($params["filterdatafield" . $i],
+                                $params["filtercondition" . $i], $params["filtervalue" . $i], $params["filteroperator" . $i]));
+                        }
+                    }
+                    if ($i == $params['filterscount'] - 1) //if this is the last
+                    {
+                        $this->whereClauseBuilder($query, $GroupStatements);
+                    }
+                    $tmpdatafield = $params["filterdatafield" . $i];
+                }
+            }
+        }
+    }
+
+    private function whereClauseBuilder(&$query, $GroupStatements)
+    {
+        $query->where(function($q) use ($GroupStatements)
+        {
+            foreach ($GroupStatements as $statement)
+            {
+                //var_dump($statement);
+                if ($statement['operator'] == 0)
+                {
+                    $q->where($statement['fieldname'], $statement['condition'], $statement['value']);
+                }
+                else
+                {
+                    $q->orWhere($statement['fieldname'], $statement['condition'], $statement['value']);
+                }
+            }
+        });
+    }
+
+    private function filterConditionBuilder($datafield, $filtercondition, $value, $filteroperator)
+    {
+        $tmpStatementValues = array(
+            'fieldname' => "",
+            'condition' => "",
+            'value' => "",
+            'operator' => ""
+        );
+        switch ($filtercondition)
+        {
+            case "CONTAINS":
+                $tmpStatementValues['condition'] = " LIKE ";
+                $tmpStatementValues['value'] = "%{$value}%";
+                break;
+            case "DOES_NOT_CONTAIN":
+                $tmpStatementValues['condition'] = " NOT LIKE ";
+                $tmpStatementValues['value'] = "%{$value}%";
+                break;
+            case "EQUAL":
+                $tmpStatementValues['condition'] = " = ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "NOT_EQUAL":
+                $tmpStatementValues['condition'] = " <> ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "GREATER_THAN":
+                $tmpStatementValues['condition'] = " > ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "LESS_THAN":
+                $tmpStatementValues['condition'] = " < ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "GREATER_THAN_OR_EQUAL":
+                $tmpStatementValues['condition'] = " >= ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "LESS_THAN_OR_EQUAL":
+                $tmpStatementValues['condition'] = " <= ";
+                $tmpStatementValues['value'] = $value;
+                break;
+            case "STARTS_WITH":
+                $tmpStatementValues['condition'] = " LIKE ";
+                $tmpStatementValues['value'] = "{$value}%";
+                break;
+            case "ENDS_WITH":
+                $tmpStatementValues['condition'] = " LIKE ";
+                $tmpStatementValues['value'] = "%{$value}";
+                break;
+            case "NULL":
+                $tmpStatementValues['condition'] = " IS NULL ";
+                $tmpStatementValues['value'] = "%{$value}%";
+                break;
+            case "NOT_NULL":
+                $tmpStatementValues['condition'] = " IS NOT NULL ";
+                $tmpStatementValues['value'] = "%{$value}%";
+                break;
+        }
+        $tmpStatementValues['fieldname'] = $datafield;
+        $tmpStatementValues['operator'] = $filteroperator;
+
+        return $tmpStatementValues;
     }
 }

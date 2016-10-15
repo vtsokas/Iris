@@ -160,8 +160,8 @@ class MessageService
             array_push($ids,$messageId->msg_id);
         }
 
-        if (!empty($ids)){
-            $data['Rows'] = $this->getMessageRepository()->getInboxMessages($ids, $this->identity->getRole(), $resources['pagenum'], $resources['pagesize']);
+        if (!empty($ids)){  //if there is inbox
+            $data['Rows'] = $this->getMessageRepository()->getInboxMessages($ids, $this->identity->getRole(), $resources);
             $data['TotalRows'] = $this->getMessageCorrelationRepository()->getTotalInbox($this->identity->getRole());
         }
     }

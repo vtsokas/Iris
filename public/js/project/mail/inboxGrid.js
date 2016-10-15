@@ -29,16 +29,25 @@ initInboxGrid = function() {
         datatype: "json",
         datafields: [
             { name: 'msg_id' , type: 'string' },
-            { name: 'sender', type: 'string' },
+            { name: 'sender_office', type: 'string' },
+            { name: 'sender_user', type: 'string' },
             { name: 'subject', type: 'string' },
             { name: 'type', type: 'string' },
-            { name: 'dateAdded', type: 'string' },
+            { name: 'dateAdded', type: 'date' },
             { name: 'isRead', type: 'boolean' }
         ],
         id: 'msg_id',
         cache: false,
         url: 'message-json',
-        root: 'Rows'
+        root: 'Rows',
+        sort: function () {
+            // update the grid and send a request to the server.
+            $("#MailTable").jqxGrid('updatebounddata', 'sort');
+        },
+        filter: function () {
+            // update the grid and send a request to the server.
+            $("#MailTable").jqxGrid('updatebounddata', 'filter');
+        }
     };
 
     var inboxDataAdapter = new $.jqx.dataAdapter(inboxSource,
@@ -66,6 +75,10 @@ initInboxGrid = function() {
                         $("#LeftMenu ul li span").first().text("");
                         $("#LeftMenu ul li span").first().text("Εισερχόμενα" + " (" + unreadMessages + ")");
 
+                            //your code to be executed after 1 second
+                        $("#MailTable .jqx-grid-load").parent().parent().css('width','100%');
+                        $("#MailTable .jqx-grid-load").parent().css('width','100%');
+
                         caller = 'grid'; //refresh caller to default value
                         callback({ records: data.Rows, totalrecords: data.TotalRows });
                     }
@@ -78,12 +91,17 @@ initInboxGrid = function() {
             width:'100%',
             height:'100%',
             source: inboxDataAdapter,
+            showdefaultloadelement: false,
             theme: theme,
             pageable: true,
             pagermode: 'default',
             pagesizeoptions: ['1', '20', '50', '100'],
             pagesize:20,
             sortable: true,
+            filterable: true,
+            //showfilterrow: true,
+            filtermode: 'excel',
+            columnsresize: true,
             enablehover: false,
             selectionmode: 'checkbox',
             localization: greekLanguage,
@@ -92,7 +110,8 @@ initInboxGrid = function() {
                 return params.data;
             },
             columns: [
-                { text: 'Αποστολέας', dataField: 'sender', width: '20%' , cellsrenderer: rendrow },
+                { text: 'Γραφείο', dataField: 'sender_office', width: '10%' , cellsrenderer: rendrow },
+                { text: 'Χρήστης', dataField: 'sender_user', width: '10%' , cellsrenderer: rendrow },
                 { text: 'Θέμα', editable: false, dataField: 'subject', width: 'auto' , cellsrenderer: rendrow },
                 { text: 'Τύπος', editable: false, dataField: 'type', width: '15%',cellsAlign: 'center', align: 'center' , cellsrenderer: rendrow },
                 { text: 'Ημερομηνία', dataField: 'dateAdded', width: '20%', cellsAlign: 'right', align: 'right', cellsrenderer: rendrow }
@@ -104,34 +123,15 @@ initInboxGrid = function() {
      * Changes on interface on row selected
      */
     $("#MailTable").on('rowselect', function (event){
-        GetTopButtonsOnGridSelectionChange();
+        GetTopButtonsOnGridSelectionChange(event.currentTarget.id);
     });
 
     /**
      * Changes on interface on row unselected
      */
     $('#MailTable').on('rowunselect', function (event){
-        GetTopButtonsOnGridSelectionChange();
+        GetTopButtonsOnGridSelectionChange(event.currentTarget.id);
     });
-
-    /**
-     * Function determines which buttons should appear on top menu, according to email selection
-     */
-    GetTopButtonsOnGridSelectionChange = function(){
-        var selectedrowindexes = $('#MailTable').jqxGrid('selectedrowindexes');
-        if (selectedrowindexes.length==1){
-            var args=["create", "reply", "view", "delete"];
-            ShowTopMenuItems(args);;
-        }
-        else if (selectedrowindexes.length==0){
-            var args=["create"];
-            ShowTopMenuItems(args);
-        }
-        else{
-            var args=["create", "delete"];
-            ShowTopMenuItems(args);
-        }
-    }
 
     // create context menu
     var contextMenu = $("#gridMenu").jqxMenu({ width: 200, height: 58, autoOpenPopup: false, mode: 'popup'});
