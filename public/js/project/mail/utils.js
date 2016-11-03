@@ -124,8 +124,8 @@ sendMessage = function(isSent){
 /**
  * ajax call to get message info from db to display
  */
-viewMessage = function(rowindex){
-    var data = $('#MailTable').jqxGrid('getrowdata', rowindex);
+viewMessage = function(rowindex, grid){
+    var data = $('#'+grid).jqxGrid('getrowdata', rowindex);
 
     if (data.msg_id){
         $.ajax({
@@ -142,6 +142,25 @@ viewMessage = function(rowindex){
         });
     }
 }
+
+deleteMessage = function(rowindex,grid){
+    var data = $('#'+grid).jqxGrid('getrowdata', rowindex);
+    var deleteFlag = 0; // 0: isDelete=true || 1: delete from DB
+    $.ajax({
+        "url": "/message-json/" + data.msg_id + "?delete=" + deleteFlag,
+        "type": "DELETE"
+    }).success(function(response){
+
+    }).error(function(){
+
+    }).always(function(){
+        showInterface(lastSelectedBox, true);
+        args=["create"];
+        ShowTopMenuItems(args);
+    });
+
+}
+
 createMessageTaskObject = function(isSent){
     var type;
     if ($('#inputMessageType').jqxDropDownList('getSelectedItem') != null){
@@ -203,3 +222,23 @@ setInterval(function(){
     $('#MailTable').jqxGrid('updatebounddata');
 }, refreshInterval * 1000);
 
+/**
+ * Method to identify the grid to be used/accessed, based on interface shown
+ * @param shownInterface
+ * @returns String: Grid name (valid option) else String: given shownInterface
+ */
+getGridFromInterface = function(shownInterface){
+    var grid = shownInterface;
+    if(shownInterface.includes("Inbox") /*|| shownInterface.includes("MailTable")*/){
+        grid = 'MailTable';
+    }
+    else if(shownInterface.includes("Outbox")){
+        grid = 'outboxGrid';
+    }
+    else if(shownInterface.includes("Draft")){
+        grid = 'draftsGrid';
+    }
+
+    return grid;
+
+}

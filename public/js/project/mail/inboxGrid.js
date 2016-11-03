@@ -144,7 +144,7 @@ initInboxGrid = function() {
         var args = event.args;
         var rowindex = $("#MailTable").jqxGrid('getselectedrowindex');
         if ($.trim($(args).text()) == "Edit Selected Row") {
-
+            alert("EDIT");
         }
         else {
 
@@ -160,7 +160,7 @@ initInboxGrid = function() {
             return false;
         }
         else{
-            viewMessage(event.args.rowindex);
+            viewMessage(event.args.rowindex, 'MailTable');
 
             var args = ["reply","delete","cancel"];
             ShowTopMenuItems(args);

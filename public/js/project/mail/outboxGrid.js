@@ -91,7 +91,7 @@ initOutboxGrid = function() {
             return false;
         }
         else{
-            viewMessage(event.args.rowindex);
+            viewMessage(event.args.rowindex,'outboxGrid');
 
             var args = ["reply","delete","cancel"];
             ShowTopMenuItems(args);

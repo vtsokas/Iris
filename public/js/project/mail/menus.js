@@ -51,11 +51,13 @@ initTopMenu = function () {
                 args=["send", "save", "delete", "cancel"];
                 break;
             case "view":
-                var rowindex = $('#'+lastSelectedBox).jqxGrid('getselectedrowindex');
-                viewMessage(rowindex);
+                var rowindex = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getselectedrowindex');
+                viewMessage(rowindex,getGridFromInterface(lastSelectedBox));
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
+                var rowindex = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getselectedrowindex');
+                deleteMessage(rowindex,getGridFromInterface(lastSelectedBox));
                 showInterface(lastSelectedBox, true);
                 args=["create"];
                 break;
