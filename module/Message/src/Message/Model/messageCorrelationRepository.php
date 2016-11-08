@@ -78,4 +78,14 @@ class MessageCorrelationRepository
             ->where('office',$userRole)
             ->update($data);
     }
+
+    public function updateMessageIsDeletedState($userRole, $id){
+        $data = array(
+            'isDeleted' => true
+        );
+        \DB::table(self::TABLE_NAME)
+            ->where('msg_id', $id)
+            ->where('office',$userRole)
+            ->update($data);
+    }
 }

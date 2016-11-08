@@ -100,6 +100,15 @@ class MessageRepository
         return $result;
     }
 
+    public function updateMessageIsDeletedState( $id){
+        $data = array(
+            'isDeleted' => true
+        );
+        \DB::table(self::TABLE_NAME)
+            ->where('msg_id', $id)
+            ->update($data);
+    }
+
     public function insert($message, $qb)
     {
         $message->setDateAdded(gmdate("Y-m-d H:i:s"));

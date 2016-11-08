@@ -165,4 +165,20 @@ class MessageService
             $data['TotalRows'] = $this->getMessageCorrelationRepository()->getTotalInbox($this->identity->getRole());
         }
     }
+
+    /**
+     * Deleting a message from a user's view. Message remains in DB
+     * @param $messageId
+     * @param $box
+     */
+    public function deleteMessageForUser($messageId, $box){
+        // created by user: message repository
+        if($box == 'outboxGrid' || $box == 'draftsGrid'){
+            $this->getMessageRepository()->updateMessageIsDeletedState($this->identity->getRole(),$messageId);
+        }
+        // sent to user: message_correlation repository
+        else{
+            $this->getMessageCorrelationRepository()->updateMessageIsDeletedState($this->identity->getRole(),$messageId);
+        }
+    }
 }

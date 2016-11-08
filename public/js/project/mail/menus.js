@@ -56,8 +56,12 @@ initTopMenu = function () {
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
-                var rowindex = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getselectedrowindex');
-                deleteMessage(rowindex,getGridFromInterface(lastSelectedBox));
+                // if Delete was pressed with a message selected from the grid, get the message's id
+                if(!ViewEmailFlag){
+                    messsage = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getrowdata', rowindex);
+                }
+                // else messageId has the message's id stored from Viewing it
+                deleteMessage(messsage.msg_id);
                 showInterface(lastSelectedBox, true);
                 args=["create"];
                 break;

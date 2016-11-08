@@ -105,15 +105,19 @@ class MessageJsonController extends AbstractRestfulController
      */
     public function delete($id)
     {
+        $resources = $this->getRequest()->getQuery();
+        $deletion = $resources['delete'];
+        $box = $resources['box'];
+
+        if($deletion == "false"){
+            //change isDeleted
+            $this->getServiceLocator()->get("message_service")->deleteMessageForUser($id,$box);
+        }
+        else{
+            //delete from DB
+
+        }
         return new JsonModel();
-
-
-
-        $this->response->setStatusCode(405);
-
-        return array(
-            'content' => 'Method Not Allowed'
-        );
     }
 
     public function getRepository(){

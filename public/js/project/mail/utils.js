@@ -1,6 +1,8 @@
 refreshInterval = 4410;
 paginginformation = null;
 lastSelectedBox = 'InboxPanel';
+ViewEmailFlag = false;
+messsage = null;
 /**
  * Update Content Interface dependent on param value.
  * Possible values: InboxPanel/NewEmailPanel/ViewEmailPanel
@@ -26,7 +28,14 @@ showInterface = function(text, mailGrid){
         $( "li:contains("+text+")" )[0].click();
     }
     else{
-        $( "li:contains("+text+")" )[0].click();
+        if (text == "ViewEmailPanel"){
+            $( "li:contains("+text+")" )[0].click();
+            ViewEmailFlag = true;
+        }
+        else{
+            $( "li:contains("+text+")" )[0].click();
+            ViewEmailFlag = false;
+        }
     }
 
     return text;
@@ -128,6 +137,7 @@ viewMessage = function(rowindex, grid){
     var data = $('#'+grid).jqxGrid('getrowdata', rowindex);
 
     if (data.msg_id){
+        messsage=data;
         $.ajax({
             "url": "/message-json/" + data.msg_id,
         }).success(function(response){
@@ -143,16 +153,15 @@ viewMessage = function(rowindex, grid){
     }
 }
 
-deleteMessage = function(rowindex,grid){
-    var data = $('#'+grid).jqxGrid('getrowdata', rowindex);
-    var deleteFlag = 0; // 0: isDelete=true || 1: delete from DB
+deleteMessage = function(id){
+    var deleteFlag = false; // false: change isDeleted || true: delete from DB
     $.ajax({
-        "url": "/message-json/" + data.msg_id + "?delete=" + deleteFlag,
+        "url": "/message-json/" + id + "?delete=" + deleteFlag + "&box=" + getGridFromInterface(lastSelectedBox),
         "type": "DELETE"
     }).success(function(response){
-
+        console.log("DELETE DONE");
     }).error(function(){
-
+        console.log("DELETE FAILED");
     }).always(function(){
         showInterface(lastSelectedBox, true);
         args=["create"];
