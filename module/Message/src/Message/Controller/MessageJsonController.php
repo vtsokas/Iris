@@ -103,19 +103,22 @@ class MessageJsonController extends AbstractRestfulController
      * @param  mixed $id
      * @return mixed
      */
-    public function delete($id)
+    public function deleteAction()
     {
         $resources = $this->getRequest()->getQuery();
+        $ids = explode(",", $resources['ids']);
+//        var_dump($ids);
         $deletion = $resources['delete'];
         $box = $resources['box'];
 
-        if($deletion == "false"){
-            //change isDeleted
-            $this->getServiceLocator()->get("message_service")->deleteMessageForUser($id,$box);
-        }
-        else{
-            //delete from DB
+        foreach ($ids as $id) {
+            if ($deletion == "false") {
+                //change isDeleted
+                $this->getServiceLocator()->get("message_service")->deleteMessageForUser($id, $box);
+            } else {
+                //delete from DB
 
+            }
         }
         return new JsonModel();
     }

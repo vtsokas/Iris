@@ -2,7 +2,7 @@ refreshInterval = 4410;
 paginginformation = null;
 lastSelectedBox = 'InboxPanel';
 ViewEmailFlag = false;
-messsage = null;
+messageData = null;
 /**
  * Update Content Interface dependent on param value.
  * Possible values: InboxPanel/NewEmailPanel/ViewEmailPanel
@@ -111,13 +111,13 @@ clearNewEmailInterface = function(){
  * ajax call to save new/edited message to database
  */
 sendMessage = function(isSent){
-    var message = createMessageTaskObject(isSent);
+    var messagee = createMessageTaskObject(isSent);
 
-    if (message !== false){
+    if (messagee !== false){
         $.ajax({
             "url":  "/message-json",
             "type": "POST",
-            "data": message
+            "data": messagee
         }).success(function(response){
 
         }).error(function(){
@@ -137,11 +137,11 @@ viewMessage = function(rowindex, grid){
     var data = $('#'+grid).jqxGrid('getrowdata', rowindex);
 
     if (data.msg_id){
-        messsage=data;
+        messageData=data;
         $.ajax({
             "url": "/message-json/" + data.msg_id,
         }).success(function(response){
-            $('#sender').text(data.sender);
+            $('#sender').text(data.sender_user);
             $('#subject').text(data.subject);
             $('#type').text(data.type);
 
@@ -153,11 +153,16 @@ viewMessage = function(rowindex, grid){
     }
 }
 
-deleteMessage = function(id){
+deleteMessage = function(ids){
     var deleteFlag = false; // false: change isDeleted || true: delete from DB
+    var msgIds = new Array();
+    for(msgId in ids){
+        msgIds.push($('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getrowdata', msgId).msg_id);
+    }
+
     $.ajax({
-        "url": "/message-json/" + id + "?delete=" + deleteFlag + "&box=" + getGridFromInterface(lastSelectedBox),
-        "type": "DELETE"
+        "url": "/message-json/delete?ids=" + msgIds + "&delete=" + deleteFlag + "&box=" + getGridFromInterface(lastSelectedBox),
+        // "type": "DELETE"
     }).success(function(response){
         console.log("DELETE DONE");
     }).error(function(){
@@ -225,7 +230,6 @@ getVisibleGrid = function(){
             break;
     }
 }
-
 setInterval(function(){
     caller = 'interval';
     $('#MailTable').jqxGrid('updatebounddata');

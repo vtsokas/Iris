@@ -1,3 +1,5 @@
+
+
 var TopMenuItems = [
     { id: "create", html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Δημιουργία</span>" },
     { id: "reply", html: "<img src='../../../img/sendmail.png' style='height:16px;'/><span style='position: relative; left: 3px;'>Απάντηση</span>" },
@@ -56,14 +58,20 @@ initTopMenu = function () {
                 args=["reply","delete","cancel"];
                 break;
             case "delete":
-                // if Delete was pressed with a message selected from the grid, get the message's id
-                if(!ViewEmailFlag){
-                    messsage = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getrowdata', rowindex);
-                }
-                // else messageId has the message's id stored from Viewing it
-                deleteMessage(messsage.msg_id);
-                showInterface(lastSelectedBox, true);
-                args=["create"];
+                messageIds = new Array();
+                // alert(message);
+                    // if Delete was pressed with a message selected from the grid, get the message's id
+                    if (!ViewEmailFlag) {
+                        messageIds = $('#'+getGridFromInterface(lastSelectedBox)).jqxGrid('getselectedrowindexes');
+                    }
+                    else{
+                        messageIds.push(messageData.msg_id);
+                    }
+                    // else messageId has the message's id stored from Viewing it
+                    deleteMessage(messageIds);
+                    showInterface(lastSelectedBox, true);
+                    args = ["create"];
+
                 break;
             case "send":
                 sendMessage(1);
